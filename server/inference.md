@@ -45,6 +45,8 @@ server = Server(
 )
 ```
 
+Configurations are stored as dictionaries. You can access a server's configuration as a Dictionary object using the `server.config.as_dict()` method. 
+
 ## YAML configuration 
 
 Refer to the [YAML configuration page](../yaml-configurations.md#serving). 

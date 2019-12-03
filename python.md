@@ -19,7 +19,7 @@ A `PythonConfig` takes on the following parameters:
 * `python_path`: Optional. The search path for Python modules, as defined by [`sys.path`](https://docs.python.org/3/library/sys.html#sys.path). See the [Python modules](python.md#pythonpath) section for details. 
 * `python_code_path`: Optional. Specify the location of your Python script.
 * `python_code`: Optional. A string that contains Python commands.
-* `python_inputs`: A dictionary with input names as keys and corresponding value types as values. Value types should be specified as one of the following strings: `"INT"`, `"STR"`, `"FLOAT"`, `"BOOL"`, `"NDARRAY"`, `"LIST"`.
+* `python_inputs`: A dictionary with input names as keys and corresponding value types as values. Value types should be specified as [one of the following strings](https://github.com/KonduitAI/konduit-serving/blob/71260366719840bcc2fd58698cebe471267de4bb/python/konduit/inference.py#L156-L162): `"INT"`, `"STR"`, `"FLOAT"`, `"BOOL"`, `"NDARRAY"`.
 * `python_outputs`: A dictionary with output names as keys and correpsonding value types as vluaes. Values types should be specified as per `python_inputs`. 
 {% endtab %}
 

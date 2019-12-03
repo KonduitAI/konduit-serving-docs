@@ -6,6 +6,8 @@ description: >-
 
 # BERT
 
+
+
 ```python
 import numpy as np
 import os
@@ -221,21 +223,12 @@ client = client_from_file(konduit_yaml_path)
 
 ## Configure the client
 
-To configure the client, create a Client object with the following arguments:
-
-* `input_data_format`: data format passed to the server for inference
-* `output_data_format`: data format returned by the server endpoint 
-* `return_output_data_format`: data format to be returned to the client. Note that this argument can be used to convert the output returned from the server to the client into a different format, e.g. NUMPY to JSON.
+To configure the client, create a Client object specifying the port number:
 
 {% tabs %}
 {% tab title="Python" %}
 ```python
-client = Client(
-    input_data_format='NUMPY',
-    output_data_format='NUMPY',
-    return_output_data_format="NUMPY",
-    port=port
-)
+client = Client(port=port)
 ```
 {% endtab %}
 
@@ -243,9 +236,6 @@ client = Client(
 ```yaml
 client:
     port: 1337
-    input_data_format: NUMPY
-    output_data_format: NUMPY
-    return_output_data_format: NUMPY
 ```
 {% endtab %}
 {% endtabs %}
