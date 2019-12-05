@@ -65,6 +65,12 @@ where `<your-platform>` is picked from `windows-x86_64`,`linux-x86_64`,`linux-x8
 
 To rebuild the Konduit Serving JAR without re-downloading sources, run `konduit build` instead with the appropriate flags. 
 
+{% hint style="info" %}
+### Known issues
+
+* `konduit init` fails for  `linux-86_64-gpu` \([\#115](https://github.com/KonduitAI/konduit-serving/issues/115)\)
+{% endhint %}
+
 ### Set environment variables manually
 
 You can set a default location for the Konduit Serving JAR using environment variables. 
@@ -130,9 +136,7 @@ Options:
   --help               Show this message and exit.
 ```
 
+## Common installation issues 
 
-
-
-
-
+1. Installing`jnius` returns `WARNING: Not able to assign machine() = AMD64 to a cpu value! Using cpu = 'i386' instead!` Fix: Ensure your JAVA environment variables point to a 64-bit version of Java if you're using a 64-bit version of Python. 
 

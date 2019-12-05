@@ -433,20 +433,6 @@ We compare the predicted probabilities and the corresponding labels:
 pd.DataFrame(predicted).round(3)
 ```
 
-  
-    .dataframe tbody tr th:only-of-type {  
-        vertical-align: middle;  
-    }  
-  
-    .dataframe tbody tr th {  
-        vertical-align: top;  
-    }  
-  
-    .dataframe thead th {  
-        text-align: right;  
-    }  
-
-
 |  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | 0 | 0.0 | 0.000 | 0.001 | 0.001 | 0.0 | 0.0 | 0.0 | 0.998 | 0.000 | 0.0 |
