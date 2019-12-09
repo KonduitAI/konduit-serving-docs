@@ -20,6 +20,10 @@
 
 * [Python client configuration](client/python-client.md)
 
+## Model monitoring
+
+* [Quickstart](model-monitoring/monitoring_quickstart.md)
+
 ## Examples
 
 * [TensorFlow](examples/tensorflow-model-serving/README.md)
