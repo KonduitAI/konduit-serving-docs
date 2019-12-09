@@ -47,6 +47,14 @@ server = Server(
 
 Configurations are stored as dictionaries. You can access a server's configuration as a Dictionary object using the `server.config.as_dict()` method. 
 
+## `server.start()`
+
+The `start` method initializes a Konduit Serving instance, and ends any previously started server that is still running. Set the `kill_existing_server` argument to `False` to change this behaviour. 
+
+## `server.stop()`
+
+The `stop` method ends the Konduit Serving process defined by the `Server` object.
+
 ## YAML configuration 
 
 Refer to the [YAML configuration page](../yaml-configurations.md#serving). 
