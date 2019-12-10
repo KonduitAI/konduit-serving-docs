@@ -6,7 +6,23 @@ description: >-
 
 # Quickstart
 
-## Prometheus
+### Concepts
+
+#### Konduit Serving `metrics` endpoint
+
+For monitoring, the REST API of a Konduit Serving instance exposes a `/metrics` endpoint that returns metrics in the Prometheus format.
+
+By default, metrics returned by the `metrics` endpoint include
+
+* average CPU load;
+* memory use;
+* I/O wait time;
+* GPU bandwidth device to device, bandwidth device to host, current load for device, current available memory for each GPU; and
+* CPU current load for device, current available memory.
+
+The metrics above are implemented by the [NativeMetrics class](https://github.com/KonduitAI/konduit-serving/blob/master/konduit-serving-core/src/main/java/ai/konduit/serving/metrics/NativeMetrics.java). The `metrics` endpoint also returns Micrometer JVM and system metrics via the `ClassLoaderMetrics`, `JvmMemoryMetrics`, `JvmGcMetrics`, `ProcessorMetrics` and `JvmThreadMetrics` binders. See the [Micrometer documentation](https://micrometer.io/docs/ref/jvm) for descriptions of these classes. Error, warning, info, debug and trace counts are monitored using Micrometer's [`LogbackMetrics` binder](https://github.com/micrometer-metrics/micrometer/blob/master/micrometer-core/src/main/java/io/micrometer/core/instrument/binder/logging/LogbackMetrics.java#L36).
+
+#### Prometheus
 
 Prometheus is a widely used time series database for tracking system metrics used for debugging production systems. This includes common metrics used to troubleshoot problems with production applications such as:
 
@@ -20,7 +36,7 @@ For machine learning, we may include other metrics to help debug things such as:
 
 Prometheus works by pulling data from the specified sources. A Prometheus instance is configured by a YAML file such as:
 
-```yaml
+```text
 # Global configurations
 global:
   scrape_interval:     5s # Set the scrape interval to every 5 seconds.
@@ -35,19 +51,21 @@ This YAML file contains a global configuration and a [`scrap_config`](https://pr
 
 The main component to configure is `targets`. `targets` is where you specify the source to pull data from. A Konduit Serving instance exposes metrics to be picked up by Prometheus from `http://<hostname>:<port>/metrics`.
 
-## Grafana
+#### Grafana
 
 [Grafana](https://grafana.com) is a dashboard system for pulling data from different sources and displaying it in real time. It can be used to visualize output from Prometheus.
 
 Grafana allows you to declare a dashboard as a JSON file. An imported Grafana dashboard will show some pre-configured metrics. You can always extend/add more metrics in the Grafana GUI and re-export the configuration.
 
-## Installation
+### Installation
 
 * **Konduit Serving**: Follow the installation steps available at [https://serving.oss.konduit.ai/installation](https://serving.oss.konduit.ai/installation) to build a Konduit Serving JAR file and install the `konduit` Python module.
-* **Prometheus**: Download a [precompiled Prometheus binary](https://prometheus.io/download) for your OS architecture and unzip to a location on your local drive. 
-* **Grafana**: Install Grafana from Grafana's [Downloads](https://grafana.com/grafana/download) page. See the [Grafana installation documentation](https://grafana.com/docs/grafana/latest/installation/) for platform-specific instructions. 
+* **Prometheus**: Download a [precompiled Prometheus binary](https://prometheus.io/download) for your OS architecture and unzip to a location on your local drive.
+* **Grafana**: Install Grafana from Grafana's [Downloads](https://grafana.com/grafana/download) page. See the [Grafana installation documentation](https://grafana.com/docs/grafana/latest/installation/) for platform-specific instructions.
 
-## Usage
+### Usage
+
+The following instructions assume that you're in the [monitoring/quickstart directory](https://github.com/KonduitAI/konduit-serving-examples/tree/master/monitoring/quickstart) of the [KonduitAI/konduit-serving-examples](https://github.com/KonduitAI/konduit-serving-examples/) repository.
 
 ### Start Konduit server
 
@@ -77,7 +95,7 @@ By default, Prometheus runs on port 9090.
 
 In this example, we use Grafana, which provides a dashboard to visualize data from the Prometheus instance.
 
-See the relevant Grafana installation instructions for your platform for instructions to start a Grafana service or, optionally, have Grafana initialize on startup. If you use the Windows installer to install Grafana, [NSSM](https://nssm.cc/) will run Grafana automatically at startup, and there is no need to initialize the Grafana server instance.
+See the Grafana installation instructions for your platform  \([Windows](https://grafana.com/docs/grafana/latest/installation/windows/), [macOS](https://grafana.com/docs/grafana/latest/installation/mac/), [Ubuntu / Debian](https://grafana.com/docs/grafana/latest/installation/debian/), [Centos / Redhat](https://grafana.com/docs/grafana/latest/installation/rpm/)\) for instructions to start a Grafana service or, optionally, have Grafana initialize on startup. If you use the Windows installer to install Grafana, [NSSM](https://nssm.cc/) will run Grafana automatically at startup, and there is no need to initialize the Grafana server instance.
 
 In your browser, open`localhost:3000`. Login with the username `admin` and password `admin`.
 
