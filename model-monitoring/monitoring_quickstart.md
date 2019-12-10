@@ -95,7 +95,7 @@ By default, Prometheus runs on port 9090.
 
 In this example, we use Grafana, which provides a dashboard to visualize data from the Prometheus instance.
 
-See the Grafana installation instructions for your platform  \([Windows](https://grafana.com/docs/grafana/latest/installation/windows/), [macOS](https://grafana.com/docs/grafana/latest/installation/mac/), [Ubuntu / Debian](https://grafana.com/docs/grafana/latest/installation/debian/), [Centos / Redhat](https://grafana.com/docs/grafana/latest/installation/rpm/)\) for instructions to start a Grafana service or, optionally, have Grafana initialize on startup. If you use the Windows installer to install Grafana, [NSSM](https://nssm.cc/) will run Grafana automatically at startup, and there is no need to initialize the Grafana server instance.
+See the Grafana installation instructions for your platform \([Windows](https://grafana.com/docs/grafana/latest/installation/windows/), [macOS](https://grafana.com/docs/grafana/latest/installation/mac/), [Ubuntu / Debian](https://grafana.com/docs/grafana/latest/installation/debian/), [Centos / Redhat](https://grafana.com/docs/grafana/latest/installation/rpm/)\) for instructions to start a Grafana service or, optionally, have Grafana initialize on startup. If you use the Windows installer to install Grafana, [NSSM](https://nssm.cc/) will run Grafana automatically at startup, and there is no need to initialize the Grafana server instance.
 
 In your browser, open`localhost:3000`. Login with the username `admin` and password `admin`.
 
