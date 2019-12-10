@@ -36,7 +36,7 @@ For machine learning, we may include other metrics to help debug things such as:
 
 Prometheus works by pulling data from the specified sources. A Prometheus instance is configured by a YAML file such as:
 
-```text
+```yaml
 # Global configurations
 global:
   scrape_interval:     5s # Set the scrape interval to every 5 seconds.
