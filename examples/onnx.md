@@ -106,7 +106,7 @@ import os
 
 dl_path = os.path.abspath("../data/facedetector/facedetector.onnx")
 
-image = Image.fromarray(image.astype('uint8')[0], 'RGB')
+image = Image.fromarray(image.astype('uint8'), 'RGB')
 resize = transforms.Resize([240, 320])
 img_y = resize(image)
 to_tensor = transforms.ToTensor()
