@@ -138,5 +138,12 @@ Options:
 
 ## Common installation issues 
 
-1. Installing`jnius` returns `WARNING: Not able to assign machine() = AMD64 to a cpu value! Using cpu = 'i386' instead!` Fix: Ensure your JAVA environment variables point to a 64-bit version of Java if you're using a 64-bit version of Python. 
+1. Installing`jnius` returns `WARNING: Not able to assign machine() = AMD64 to a cpu value! Using cpu = 'i386' instead!` Fix: Ensure your JAVA environment variables point to a 64-bit version of Java if you're using a 64-bit version of Python.  
+2. When running Konduit commands on Windows, the following error message is returned: 
+
+   ```text
+   ImportError: DLL load failed: The specified module could not be found.
+   ```
+
+   Fix: On Windows, `Pyjnius` requires an additional PATH variable to locate `jvm.dll`. Refer to the pyjnius documentation: [https://pyjnius.readthedocs.io/en/stable/installation.html\#installation-for-windows](https://pyjnius.readthedocs.io/en/stable/installation.html#installation-for-windows) for details. 
 
