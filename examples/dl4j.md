@@ -268,6 +268,10 @@ client:
 
 We generate a \(3, 224, 224\) array of random numbers between 0 and 255 as input to the model for prediction.
 
+{% hint style="warning" %}
+NDARRAY inputs to ModelSteps must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `np.expand_dims()` to add an additional dimension to your array. 
+{% endhint %}
+
 Before requesting for a prediction, we normalize the image to be between 0 and 1:
 
 ```python

@@ -385,6 +385,10 @@ client:
 
 ## Inference 
 
+{% hint style="warning" %}
+NDARRAY inputs to ModelSteps must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `np.expand_dims()` to add an additional dimension to your array. 
+{% endhint %}
+
 We obtain test images from the test set defined by `keras.datasets`.
 
 ```python

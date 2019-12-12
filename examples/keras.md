@@ -181,6 +181,10 @@ client = client_from_file(konduit_yaml_path)
 
 ## Inference 
 
+{% hint style="warning" %}
+NDARRAY inputs to ModelSteps must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `np.expand_dims()` to add an additional dimension to your array. 
+{% endhint %}
+
 ```python
 input_array = np.random.uniform(size = [10])
 
