@@ -246,9 +246,9 @@ Load some sample data from NumPy files. Note that these are NumPy arrays, each w
 
 ```python
 data_input = {
-    'IteratorGetNext:0': np.load('../data/bert/input-0.npy'),
-    'IteratorGetNext:1': np.load('../data/bert/input-1.npy'),
-    'IteratorGetNext:4': np.load('../data/bert/input-4.npy')
+    'IteratorGetNext:0': np.expand_dims(np.load('../data/bert/input-0.npy'), axis=0),
+    'IteratorGetNext:1': np.expand_dims(np.load('../data/bert/input-1.npy'), axis=0),
+    'IteratorGetNext:4': np.expand_dims(np.load('../data/bert/input-4.npy'), axis=0)
 }
 ```
 

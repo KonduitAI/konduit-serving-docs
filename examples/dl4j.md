@@ -271,7 +271,7 @@ We generate a \(3, 224, 224\) array of random numbers between 0 and 255 as input
 Before requesting for a prediction, we normalize the image to be between 0 and 1:
 
 ```python
-rand_image = np.random.randint(255, size=(3, 224, 224)) / 255
+rand_image = np.random.randint(255, size=(1, 3, 224, 224)) / 255
 ```
 
 ```python

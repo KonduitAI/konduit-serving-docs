@@ -391,7 +391,7 @@ We obtain test images from the test set defined by `keras.datasets`.
 for img in x_test[0:3]: 
     plt.imshow(img)
     predicted = client.predict(
-        data_input={'input_layer': img.reshape(28, 28)}
+        data_input={'input_layer': np.expand_dims(img.reshape(28, 28), axis=0)}
     )
     plt.show()
     print(dict(zip(np.arange(10), predicted[0].round(3))))
@@ -421,7 +421,7 @@ To predict in batches, the `data_input` dictionary has to be specified different
 
 ```python
 predicted = client.predict(
-    data_input={'input_layer': x_test[0:3].reshape(3, 1, 28, 28)}
+    data_input={'input_layer': x_test[0:3].reshape(3, 28, 28)}
 )
 
 server.stop()

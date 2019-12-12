@@ -184,7 +184,7 @@ client = client_from_file(konduit_yaml_path)
 ```python
 input_array = np.random.uniform(size = [10])
 
-prediction = client.predict({"input": input_array})
+prediction = client.predict({"input": np.expand_dims(input_array, axis=0)})
 
 server.stop()
 ```
