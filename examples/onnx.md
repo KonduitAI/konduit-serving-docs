@@ -119,7 +119,7 @@ def to_numpy(tensor):
 ort_session = onnxruntime.InferenceSession(dl_path)
 ort_inputs = {ort_session.get_inputs()[0].name: to_numpy(img_y)}
 ort_outs = ort_session.run(None, ort_inputs)
-img_out_y = ort_outs[0]
+_, boxes = ort_outs
 
 """
 ```
@@ -139,7 +139,7 @@ work_dir = os.path.abspath('.')
 python_config = PythonConfig(
     python_code=python_code,
     python_inputs={"image": "NDARRAY"}, 
-    python_outputs={"img_out_y": "NDARRAY"}, 
+    python_outputs={"boxes": "NDARRAY"}, 
     python_path=default_python_path(work_dir)
 )
 ```
@@ -169,7 +169,7 @@ steps:
 
       dl_path = os.path.abspath("../data/facedetector/facedetector.onnx")
 
-      image = Image.fromarray(image.astype('uint8')[0], 'RGB')
+      image = Image.fromarray(image.astype('uint8'), 'RGB')
       resize = transforms.Resize([240, 320])
       img_y = resize(image)
       to_tensor = transforms.ToTensor()
@@ -182,12 +182,12 @@ steps:
       ort_session = onnxruntime.InferenceSession(dl_path)
       ort_inputs = {ort_session.get_inputs()[0].name: to_numpy(img_y)}
       ort_outs = ort_session.run(None, ort_inputs)
-      img_out_y = ort_outs[0]
+      _, boxes = ort_outs
       
     python_inputs:
       image: NDARRAY
     python_outputs:
-      img_out_y: NDARRAY
+      boxes: NDARRAY
 ```
 
 We define a single `python_step` of type PYTHON. 
@@ -312,13 +312,13 @@ print(output)
 ```
 
 ```text
-[[[0.9309567  0.06904326]
-  [0.9341099  0.06589006]
-  [0.935605   0.06439508]
+[[[ 0.00601701  0.00688479  0.02177745  0.03408115]
+  [-0.0018133  -0.00657785  0.03698186  0.05206966]
+  [-0.01035942 -0.01786287  0.04902049  0.06799769]
   ...
-  [0.93740726 0.06259278]
-  [0.94315267 0.05684736]
-  [0.95290583 0.04709423]]]
+  [ 0.7294515   0.6165271   1.0584102   1.1059598 ]
+  [ 0.65046376  0.48442802  1.141786    1.2248938 ]
+  [ 0.5633501   0.37209463  1.2047783   1.2747201 ]]]
 ```
 
 
