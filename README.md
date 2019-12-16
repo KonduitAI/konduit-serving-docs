@@ -6,7 +6,7 @@ description: >-
 
 # Introduction
 
-### Overview
+## Overview
 
 Konduit Serving \(like [Seldon](http://seldon.io/) and [MLflow](http://mlflow.org/)\) provides building blocks for developers to write their own production machine learning pipelines from pre-processing to model serving, exposable as a simple REST API. 
 
@@ -32,7 +32,7 @@ To perform inference on a \(mix of\) TensorFlow, Keras, DL4J or PMML models, use
 
 {% page-ref page="examples/keras.md" %}
 
-### Why Konduit Serving?
+## Why Konduit Serving?
 
 Konduit Serving was built with the goal of providing proper low level interoperability with native math libraries such as TensorFlow and Deeplearning4j's core math library libnd4j. At the core of Konduit Serving are the [JavaCPP Presets](https://github.com/bytedeco/javacpp-presets), [vertx](http://vertx.io) and [Deeplearning4j](http://deeplearning4j.org) for running Keras models in Java.
 
