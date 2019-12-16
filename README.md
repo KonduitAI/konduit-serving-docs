@@ -63,21 +63,21 @@ konduit serve --config simple.yaml
 
 ## Why Konduit Serving?
 
-Konduit Serving was built with the goal of providing proper low level interoperability with native math libraries such as TensorFlow and Deeplearning4j's core math library libnd4j. At the core of Konduit Serving are the [JavaCPP Presets](https://github.com/bytedeco/javacpp-presets), [vertx](http://vertx.io) and [Deeplearning4j](http://deeplearning4j.org) for running Keras models in Java.
+Konduit Serving was built with the goal of providing proper low-level interoperability with native math libraries such as TensorFlow and Deeplearning4j's core math library libnd4j. At the core of Konduit Serving are the [JavaCPP Presets](https://github.com/bytedeco/javacpp-presets), [Vert.x](http://vertx.io) and [Deeplearning4j](http://deeplearning4j.org) for running Keras models in Java.
 
-#### Better performance, more secure
+#### Performance and security
 
-Combining JavaCPP's low-level access to C-like apis from Java, with Java's robust server side application development \(vertx on top of [netty](http://netty.io/)\) allows for better access to faster math code in production while minimizing the surface area where native code = more security flaws \(mainly in server side networked applications\). This allows us to do things like in zero-copy memory access of NumPy arrays or Arrow records for consumption straight from the server without copy or serialization overhead. Extending that to Python SDK, we know when to return a raw Arrow record and return it as a pandas DataFrame. 
+Combining JavaCPP's low-level access to C-like apis from Java, with Java's robust server side application development \(Vert.x on top of [netty](http://netty.io/)\) allows for better access to faster math code in production while minimizing the surface area where native code = more security flaws \(mainly in server side networked applications\). This allows us to do things like in zero-copy memory access of NumPy arrays or Arrow records for consumption straight from the server without copy or serialization overhead. Extending that to Python SDK, we know when to return a raw Arrow record and return it as a pandas DataFrame. 
 
 When dealing with deep learning, we can handle proper inference on the GPU \(batching large workloads\).
 
 #### Python-first
 
-We strive to provide a Python-first SDK that makes it easy to integrate pipelines into a Python-first workflow. 
+We strive to provide a Python-first SDK that makes it easy to integrate Konduit Serving into a Python-first workflow. 
 
 #### Java microservices
 
-A vertx-based model server and pipeline development framework allows a thin abstraction that can be embedded in a Java microservice.
+A Vert.x-based model server and pipeline development framework allows a thin abstraction that can be embedded in a Java microservice.
 
 #### Modern visualization standards 
 
