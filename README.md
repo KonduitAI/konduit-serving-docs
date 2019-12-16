@@ -16,9 +16,13 @@ The core abstraction is an idea called a **pipeline step**. A pipeline step perf
 2. One or more machine learning models
 3. Transforming the output in a way that can be understood by humans, such as labels in a classification example.
 
-For instance, if you want to run arbitrary Python code for pre-processing purposes, you can use a`PythonStep`. Konduit Serving also contains functionality for other pre-processing tasks, such as DataVec transform processes and image transforms. 
+For instance, if you want to run arbitrary Python code for pre-processing purposes, you can use a`PythonStep`. 
 
 {% page-ref page="examples/onnx.md" %}
+
+Konduit Serving also contains functionality for other pre-processing tasks, such as DataVec transform processes and image transforms. 
+
+{% page-ref page="examples/datavec.md" %}
 
 To perform inference on a \(mix of\) TensorFlow, Keras, DL4J or PMML models, use `ModelStep`. 
 
