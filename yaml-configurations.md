@@ -1,8 +1,8 @@
 ---
 description: >-
-  Konduit supports specifying server configurations as YAML files. This allows
-  you to serve simple server configurations using the Konduit Python CLI and the
-  konduit.load module.
+  Konduit Serving supports specifying server configurations as YAML files. This
+  allows you to serve simple server configurations using the Konduit Python CLI
+  and the konduit.load module.
 ---
 
 # YAML configurations

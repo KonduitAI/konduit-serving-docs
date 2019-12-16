@@ -1,6 +1,6 @@
 ---
 description: >-
-  Konduit is a serving system and framework focused on deploying machine
+  Konduit Serving is a serving system and framework focused on deploying machine
   learning pipelines to production.
 ---
 
@@ -18,11 +18,19 @@ The core abstraction is an idea called a **pipeline step**. A pipeline step perf
 
 For instance, if you want to run arbitrary Python code for pre-processing purposes, you can use a`PythonStep`. Konduit Serving also contains functionality for other pre-processing tasks, such as DataVec transform processes and image transforms. 
 
+{% page-ref page="examples/onnx.md" %}
+
 To perform inference on a \(mix of\) TensorFlow, Keras, DL4J or PMML models, use `ModelStep`. 
 
-### Why Konduit?
+{% page-ref page="examples/tensorflow-model-serving/" %}
 
-Konduit was built with the goal of providing proper low level interoperability with native math libraries such as TensorFlow and Deeplearning4j's core math library libnd4j. At the core of Konduit are the [JavaCPP Presets](https://github.com/bytedeco/javacpp-presets), [vertx](http://vertx.io) and [Deeplearning4j](http://deeplearning4j.org) for running Keras models in Java.
+{% page-ref page="examples/dl4j.md" %}
+
+{% page-ref page="examples/keras.md" %}
+
+### Why Konduit Serving?
+
+Konduit Serving was built with the goal of providing proper low level interoperability with native math libraries such as TensorFlow and Deeplearning4j's core math library libnd4j. At the core of Konduit Serving are the [JavaCPP Presets](https://github.com/bytedeco/javacpp-presets), [vertx](http://vertx.io) and [Deeplearning4j](http://deeplearning4j.org) for running Keras models in Java.
 
 #### Better performance, more secure
 
@@ -40,7 +48,7 @@ A vertx-based model server and pipeline development framework allows a thin abst
 
 #### Modern visualization standards 
 
-We want to expose [modern standards](http://prometheus.io/) for monitoring everything from your GPU to your inference time. Konduit supports visualization applications such as [Grafana](http://grafana.com) that support the [Prometheus](https://prometheus.io/) standard for visualizing data.
+We want to expose [modern standards](http://prometheus.io/) for monitoring everything from your GPU to your inference time. Konduit Serving supports visualization applications such as [Grafana](http://grafana.com) that support the [Prometheus](https://prometheus.io/) standard for visualizing data.
 
 #### Enterprise integration
 

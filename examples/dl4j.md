@@ -12,7 +12,7 @@ import numpy as np
 import os
 ```
 
-This page documents two ways to create Konduit configurations with the Python SDK:
+This page documents two ways to create Konduit Serving configurations with the Python SDK:
 
 1. Using Python to create a configuration, and 
 2. Writing the configuration as a YAML file, then serving it using the Python SDK. 
