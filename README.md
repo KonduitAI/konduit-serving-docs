@@ -32,6 +32,35 @@ To perform inference on a \(mix of\) TensorFlow, Keras, DL4J or PMML models, use
 
 {% page-ref page="examples/keras.md" %}
 
+## Usage
+
+A Konduit Serving instance [can be configured using a YAML file](yaml-configurations.md). The following YAML configuration file configures a Konduit Serving instance to run a short Python script as specified in the `python_code` argument:  
+
+```yaml
+serving:
+  http_port: 1337
+  input_data_format: NUMPY
+  output_data_format: NUMPY
+steps:
+  python_step:
+    type: PYTHON
+    python_code: |
+      first += 2
+      second = first
+    python_inputs:
+      first: NDARRAY
+    python_outputs:
+      second: NDARRAY
+client:
+    port: 1337
+```
+
+[Installing the Konduit Serving Python SDK](installation.md) exposes the `konduit` command line tool. Assuming the YAML file above is saved in the current directory as `simple.yaml`, a Konduit Serving instance can be started by running the following code in the command line:
+
+```bash
+konduit serve --config simple.yaml
+```
+
 ## Why Konduit Serving?
 
 Konduit Serving was built with the goal of providing proper low level interoperability with native math libraries such as TensorFlow and Deeplearning4j's core math library libnd4j. At the core of Konduit Serving are the [JavaCPP Presets](https://github.com/bytedeco/javacpp-presets), [vertx](http://vertx.io) and [Deeplearning4j](http://deeplearning4j.org) for running Keras models in Java.
