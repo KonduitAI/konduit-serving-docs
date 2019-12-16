@@ -201,7 +201,7 @@ Models loaded from a YAML configuration do not currently support input and outpu
 {% endhint %}
 
 {% hint style="info" %}
-The default Python path includes NumPy and a basic set of modules. However, for this example, we require a Python path that contains PyTorch and ONNX Runtime. See the [Python pipeline steps page](../python.md#python-modules-and-the-pythonpath-argument) for additional documentation on Python paths, and refer to the [PyTorch quickstart](https://pytorch.org/) for recommended installation steps.
+The default Python path includes NumPy and a basic set of modules. However, for this example, we require a Python path that contains PyTorch and ONNX Runtime. See the [Python pipeline steps page](../steps/python.md#python-modules-and-the-pythonpath-argument) for additional documentation on Python paths, and refer to the [PyTorch quickstart](https://pytorch.org/) for recommended installation steps.
 
 To locate your Python path, run the following:
 

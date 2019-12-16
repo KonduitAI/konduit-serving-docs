@@ -6,11 +6,11 @@
 
 ## Steps
 
-* [Data transformation pipeline steps](data-transformation-pipeline-steps.md)
-* [Image loading pipeline steps](image-loading-pipeline-steps.md)
-* [Python pipeline steps](python.md)
-* [Java pipeline steps](java-pipeline-steps.md)
-* [Model pipeline steps](model.md)
+* [Data transformation pipeline steps](steps/data-transformation-pipeline-steps.md)
+* [Image loading pipeline steps](steps/image-loading-pipeline-steps.md)
+* [Python pipeline steps](steps/python.md)
+* [Java pipeline steps](steps/java-pipeline-steps.md)
+* [Model pipeline steps](steps/model.md)
 
 ## Server
 
