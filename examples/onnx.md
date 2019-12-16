@@ -259,9 +259,8 @@ Server has started successfully.
 {% tab title="YAML" %}
 ```python
 konduit_yaml_path = "../yaml/pytorch.yaml"
-
 server = server_from_file(konduit_yaml_path)
-client = client_from_file(konduit_yaml_path)
+server.start()
 ```
 {% endtab %}
 {% endtabs %}
@@ -285,12 +284,21 @@ client = Client(
 {% endtab %}
 
 {% tab title="YAML" %}
+Add the following to your YAML configuration file: 
+
 ```yaml
 client:
     input_data_format: NUMPY
     output_data_format: RAW
     return_output_data_format: NUMPY
     port: 1337
+```
+
+Use `client_from_file` to create a `Client` object: 
+
+```python
+konduit_yaml_path = "../yaml/pytorch.yaml"
+client = client_from_file(konduit_yaml_path)
 ```
 {% endtab %}
 {% endtabs %}

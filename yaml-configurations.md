@@ -64,33 +64,40 @@ Detailed instructions on configuring steps are available in the [Examples](https
 
 ### Python
 
-A Konduit Serving instance can be started using
+A Konduit Serving instance can be created by: 
+
+1. creating a Python object of the `Server` class using the `server_from_file` function from the `konduit.load` module; and 
+2. starting the server using the `.start()` method of the `Server` object created in step 1. 
+
+Assuming the path of your YAML configuration is specified in `konduit_yaml_path`, you can initialize a Konduit Serving instance with the following code: 
 
 ```python
 server = server_from_file(konduit_yaml_path)
+server.start()
 ```
 
-assuming the path of your YAML configuration is specified in `konduit_yaml_path`.
-
-Note that the file also contains Client configuration. To create a Client object, run the following code:
+Note that the file also contains Client configuration. To create a `Client` object, use the `client_from_file` function from the `konduit.load` module:
 
 ```python
 client = client_from_file(konduit_yaml_path)
 ```
 
-Now your data can be passed to `client` for prediction using:
+The `Client` class provides a `.predict()` method that sends data to the Serving instance. Assuming your data is declared in the `data_input` object, data can be passed to `client` for prediction using:
 
 ```python
 client.predict(data_input)
 ```
 
-where `data_input` is a dictionary.
-
-If the input name is `default`, a NumPy array can be directly passed to the `.predict()` method.
+`data_input` is typically a dictionary. If the input name is `default`, a NumPy array can be directly passed to the `.predict()` method.
 
 ### CLI
 
-The CLI provides a handy command `predict-numpy` that returns predictions from a model server, if the input name is `default` and a **NumPy array** is supplied as input. To initialize the server, run the following command in the root folder of [konduit-serving-examples](https://github.com/KonduitAI/konduit-serving-examples/):
+The CLI provides a handy command `predict-numpy` that returns predictions from a model server. To use the `predict-numpy` command, 
+
+1. the input name must be `default`, and 
+2. a [**NumPy array**](https://docs.scipy.org/doc/numpy/reference/arrays.html) stored in the [NPY format](https://numpy.org/devdocs/reference/generated/numpy.lib.format.html) is supplied as input. 
+
+To initialize the server, run the following command in the root folder of [konduit-serving-examples](https://github.com/KonduitAI/konduit-serving-examples/):
 
 ```bash
 konduit serve --config yaml/simple.yaml
@@ -110,36 +117,64 @@ konduit stop-server --config yaml/simple.yaml
 
 ## Example 
 
-```python
-import numpy as np 
-import os
-from konduit.load import server_from_file, client_from_file
-```
+On the **server**, start a Konduit Serving instance by: 
+
+1. creating a Server object using `server_from_file`, 
+2. starting the server using the `.start()` method. 
 
 ```python
-input_arr = np.array(33)
+from konduit.load import server_from_file
 
 konduit_yaml_path = "../yaml/simple.yaml"
-server = server_from_file(konduit_yaml_path)
-client = client_from_file(konduit_yaml_path)
-print(client.predict(input_arr))
-server.stop()
 
-np.save("../data/simple/input_arr.npy", input_arr)
+server = server_from_file(konduit_yaml_path)
+server.start()
 ```
 
 ```text
 Starting server..
 
 Server has started successfully.
+```
+
+After the server has started, on the **client**:
+
+1. create a Client object using `client_from_file`;
+2. use the `.predict()` method to perform inference on a NumPy array \(note that the input name of this Server configuration is `default`, therefore we can pass a NumPy array directly to the `.predict()` method.\); and 
+3. stop the server with the `.stop()` method.
+
+```python
+import numpy as np 
+import os
+from konduit.load import client_from_file
+
+konduit_yaml_path = "../yaml/simple.yaml"
+input_arr = np.array(33)
+
+client = client_from_file(konduit_yaml_path)
+print(client.predict(input_arr))
+server.stop()
+```
+
+```text
 [35]
 ```
 
-This can also be run in the **command line**. In the root folder of [konduit-serving-examples](https://github.com/KonduitAI/konduit-serving-examples), run the following commands:
+This can also be run in the **command line**. In the root folder of [konduit-serving-examples](https://github.com/KonduitAI/konduit-serving-examples), initialize the Konduit Serving instance with 
 
 ```bash
 konduit serve --config yaml/simple.yaml
+```
+
+Send the NPY file to the server for inference with 
+
+```bash
 konduit predict-numpy --config yaml/simple.yaml --numpy_data data/simple/input_arr.npy
+```
+
+and finally, stop the server with 
+
+```bash
 konduit stop-server --config yaml/simple.yaml
 ```
 

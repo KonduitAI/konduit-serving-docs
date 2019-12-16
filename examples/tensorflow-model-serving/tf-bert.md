@@ -216,7 +216,7 @@ Server has started successfully.
 ```python
 konduit_yaml_path = "../yaml/tensorflow-bert.yaml"
 server = server_from_file(konduit_yaml_path)
-client = client_from_file(konduit_yaml_path)
+server.start()
 ```
 {% endtab %}
 {% endtabs %}
@@ -233,9 +233,18 @@ client = Client(port=port)
 {% endtab %}
 
 {% tab title="YAML" %}
+Add the following to your YAML configuration file: 
+
 ```yaml
 client:
     port: 1337
+```
+
+Create a Client object using the `client_from_file` function:
+
+```python
+konduit_yaml_path = "../yaml/tensorflow-bert.yaml"
+client = client_from_file(konduit_yaml_path)
 ```
 {% endtab %}
 {% endtabs %}

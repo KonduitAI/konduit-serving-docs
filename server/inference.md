@@ -9,14 +9,18 @@ description: >-
 After the Server object is configured, you can use the `.start()` and `.stop()` methods to initialize and stop the Serving instance.
 
 ```python
+from konduit.server import Server 
+
 server = Server(
     inference_config=None,
     serving_config=None,
     steps=None,
-    extra_start_args='-Xmx8g',
-    config_path='config.json',
-    jar_path='konduit.jar',
-)
+    extra_start_args="-Xmx8g",
+    config_path="config.json",
+    jar_path=None,
+    pid_file_path="konduit-serving.pid",
+    start_timeout=120,
+ );
 ```
 
 ## Configuring a Server object
@@ -46,6 +50,14 @@ server = Server(
 ```
 
 Configurations are stored as dictionaries. You can access a server's configuration as a Dictionary object using the `server.config.as_dict()` method. 
+
+## Additional arguments
+
+* `extra_start_args`: Java Virtual Machine \(JVM\) arguments. In this case, `-Xmx8g` specifies that the maximum memory allocation for the JVM is 8GB. 
+* `config_path`: path to write the config object to \(as json\)
+* `jar_path`: path to the konduit uberjar. If `None`, defaults to the `KONDUIT_JAR_PATH` environment variable, or `~/.konduit/konduit-serving` if `KONDUIT_JAR_PATH` is not available.
+* `pid_file_path`: path to write the process ID to, as a text file. 
+* `start_timeout`: time to wait for the server to timeout when starting the server instance. 
 
 ## `server.start()`
 

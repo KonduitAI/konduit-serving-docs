@@ -7,15 +7,17 @@ description: >-
 # Python client configuration
 
 ```python
+from konduit.client import Client 
+
 Client(
     timeout=60,
     input_data_format='NUMPY',
     output_data_format='NUMPY',
-    return_output_data_format=None,
     input_names=['default'],
     output_names=['default'],
     host='http://localhost',
-    port=None
+    port=None, 
+    prediction_type=None
 )
 ```
 
@@ -25,7 +27,13 @@ Data formats define how data is transported between the Client and the Konduit S
 
 * `input_data_format` defines the data format of inputs sent to the server via the `predict()` method.
 * `output_data_format`defines the data format returned by the API endpoint.
-* `return_output_data_format`defines the data format returned to the client. 
+
+If you want to convert the result of your endpoint to another data format on return, change the `convert_to_format` attribute of the `Client` object: 
+
+```python
+client = Client(port=3226)
+client.convert_to_format = "ARROW"
+```
 
 ### Input and output names
 
@@ -40,6 +48,7 @@ For `PythonStep`, input names are defined in the `step()` method to a `PythonSte
 * `timeout`: Integer. Defaults to 60 \(seconds\). 
 * `host`: String. If the model is hosted locally, the host should be specified as `http://localhost` \(the default argument\) 
 * `port`: Integer. 
+* `prediction_type`: Defaults to `"RAW"`. One of `"CLASSIFICATION"`, `"YOLO"`, `"SSD"`, `"RCNN",` `"RAW"`, `"REGRESSION"`.
 
 ### `.predict()`method
 
@@ -47,7 +56,11 @@ The `.predict()`method takes a dictionary with`input_names` as keys and the data
 
 ## Example
 
-Assume a Server object has been fully configured as `server`. 
+Assume a Server object has been fully configured as `server`. Start the server:
+
+```python
+server.start()
+```
 
 Define a Client:
 
@@ -62,10 +75,9 @@ client = Client(
 )
 ```
 
-Start the server, and request for a prediction: 
+Request for a prediction: 
 
 ```python
-server.start()
 client.predict({"input1": np.ones(5)})
 server.stop()
 ```

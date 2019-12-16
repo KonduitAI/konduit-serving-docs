@@ -350,7 +350,7 @@ Server has started successfully.
 ```python
 konduit_yaml_path = "../yaml/tensorflow-mnist.yaml"
 server = server_from_file(konduit_yaml_path)
-client = client_from_file(konduit_yaml_path)
+server.start()
 ```
 {% endtab %}
 {% endtabs %}
@@ -376,12 +376,23 @@ client = Client(
 {% endtab %}
 
 {% tab title="YAML" %}
+Add the following to your YAML configuration file: 
+
 ```yaml
 client:
     port: 1337
 ```
+
+In Python, use the `client_from_file` function to load the client configuration: 
+
+```python
+konduit_yaml_path = "../yaml/tensorflow-mnist.yaml"
+client = client_from_file(konduit_yaml_path)
+```
 {% endtab %}
 {% endtabs %}
+
+
 
 ## Inference 
 

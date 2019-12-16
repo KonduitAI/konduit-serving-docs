@@ -146,6 +146,7 @@ Server has started successfully.
 input_array = np.random.uniform(size = [10])
 konduit_yaml_path = "../yaml/keras.yaml"
 server = server_from_file(konduit_yaml_path)
+server.start()
 ```
 {% endtab %}
 {% endtabs %}
@@ -171,9 +172,10 @@ client:
     port: 1337
 ```
 
-Run the following in Python: 
+Use `client_from_file` to create a `Client` object in Python:
 
 ```python
+konduit_yaml_path = "../yaml/keras.yaml"
 client = client_from_file(konduit_yaml_path)
 ```
 {% endtab %}

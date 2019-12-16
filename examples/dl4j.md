@@ -223,10 +223,10 @@ Server has started successfully.
 {% endtab %}
 
 {% tab title="Python from YAML" %}
-```yaml
+```python
 konduit_yaml_path = "../yaml/deeplearning4j.yaml"
 server = server_from_file(konduit_yaml_path)
-client = client_from_file(konduit_yaml_path)
+server.start()
 ```
 {% endtab %}
 {% endtabs %}
@@ -253,6 +253,8 @@ client = Client(
 {% endtab %}
 
 {% tab title="YAML" %}
+Add the following to your YAML configuration file: 
+
 ```yaml
 client:
     input_data_format: NUMPY
@@ -260,6 +262,13 @@ client:
     return_output_data_format: NUMPY
     host: http://localhost
     port: 1337
+```
+
+Use `client_from_file` to create a `Client` object: 
+
+```python
+konduit_yaml_path = "../yaml/deeplearning4j.yaml"
+client = client_from_file(konduit_yaml_path)
 ```
 {% endtab %}
 {% endtabs %}
