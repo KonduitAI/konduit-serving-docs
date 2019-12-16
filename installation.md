@@ -53,7 +53,7 @@ The `init` command:
 2. builds the Java dependencies needed for`konduit`, then 
 3. exports the location of the Konduit Serving JAR as an environment variable. 
 
-It assumes that you have `git` installed on your system and that `python3` is available. 
+It assumes that you have `git` installed on your system and that `python` is available. 
 
 Run:
 
@@ -138,7 +138,7 @@ Options:
 
 ## Common installation issues 
 
-1. Installing`jnius` returns `WARNING: Not able to assign machine() = AMD64 to a cpu value! Using cpu = 'i386' instead!` Fix: Ensure your JAVA environment variables point to a 64-bit version of Java if you're using a 64-bit version of Python.  
+1. Installing`jnius` returns  `WARNING: Not able to assign machine() = AMD64 to a cpu value! Using cpu = 'i386' instead!` Fix: Ensure your JAVA environment variables point to a 64-bit version of Java if you're using a 64-bit version of Python.  
 2. When running `konduit` commands on Windows, the following error message is returned: 
 
    ```text
