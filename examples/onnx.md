@@ -5,7 +5,7 @@ description: >-
   learning models.
 ---
 
-# ONNX
+# Open Neural Network Exchange \(ONNX\)
 
 The Open Neural Network Exchange \(ONNX\) format is supported by a number of deep learning frameworks, including PyTorch, CNTK and MXNet.
 

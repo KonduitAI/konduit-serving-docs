@@ -1,11 +1,10 @@
 ---
 description: >-
   This page illustrates a simple client-server interaction to perform inference
-  on a Deeplearning4j image classification model using the Python SDK for
-  Konduit Serving.
+  on a DL4J image classification model using the Python SDK for Konduit Serving.
 ---
 
-# Deeplearning4j
+# Deeplearning4j \(DL4J\)
 
 ```python
 import numpy as np 
@@ -39,7 +38,7 @@ from konduit.load import server_from_file, client_from_file
 
 ## Saving models in Deeplearning4j
 
-The following is a short Java program that loads a simple CNN model from Deeplearning4j's model zoo, initializes weights, then saves the model to a new file, "SimpleCNN.zip".
+The following is a short Java program that loads a simple CNN model from DL4J's model zoo, initializes weights, then saves the model to a new file, "SimpleCNN.zip".
 
 ```java
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
@@ -68,7 +67,7 @@ public class SaveSimpleCNN {
 }
 ```
 
-A reference Java project using Deeplearning4j 1.0.0-beta5 is provided in this repository with a Maven `pom.xml` dependencies file. If using the IntelliJ IDEA IDE, open the `java` folder as a Maven project and run the `main` function of the `SaveSimpleCNN` class.
+A reference Java project using DL4J 1.0.0-beta6 is provided in this repository with a Maven `pom.xml` dependencies file. If using the IntelliJ IDEA IDE, open the `java` folder as a Maven project and run the `main` function of the `SaveSimpleCNN` class.
 
 ## Overview
 
@@ -86,10 +85,10 @@ Before running this notebook, run the `build_jar.py` script and copy the JAR \(`
 
 {% tabs %}
 {% tab title="Python" %}
-Define the Deeplearning4j configuration as a `ModelConfig` object.
+Define the DL4J configuration as a `ModelConfig` object.
 
 * `tensor_data_types_config`: The ModelConfig object requires a dictionary `input_data_types`. Its keys should represent column names, and the values should represent data types as strings, e.g. `"INT32"`. See [here](https://github.com/KonduitAI/konduit-serving/blob/master/konduit-serving-api/src/main/java/ai/konduit/serving/model/TensorDataType.java) for a list of supported data types. 
-* `model_config_type`: This argument requires a `ModelConfigType` object. In the Java program above, we recognised that SimpleCNN is configured as a MultiLayerNetwork, in contrast with the ComputationGraph class, which is used for more complex networks. Specify `model_type` as `MULTI_LAYER_NETWORK`, and `model_loading_path` to point to the location of Deeplearning4j weights saved in the ZIP file format.
+* `model_config_type`: This argument requires a `ModelConfigType` object. In the Java program above, we recognised that SimpleCNN is configured as a MultiLayerNetwork, in contrast with the ComputationGraph class, which is used for more complex networks. Specify `model_type` as `MULTI_LAYER_NETWORK`, and `model_loading_path` to point to the location of DL4J weights saved in the ZIP file format.
 
 ```python
 input_data_types = {"image_array": "FLOAT"}
@@ -151,7 +150,7 @@ steps:
 {% endtabs %}
 
 {% hint style="info" %}
-To find the names of input and output nodes in Deeplearning4j,
+To find the names of input and output nodes in DL4J,
 
 * for `input_names`, print the first element of `net.getLayerNames()`.
 * for `output_names`, check the last layer when printing `net.summary()`. 

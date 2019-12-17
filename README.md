@@ -24,7 +24,7 @@ Konduit Serving also contains functionality for other pre-processing tasks, such
 
 {% page-ref page="examples/datavec.md" %}
 
-To perform inference on a \(mix of\) TensorFlow, Keras, DL4J or PMML models, use `ModelStep`.
+To perform inference on a \(mix of\) TensorFlow, Keras, Deeplearning4j \(DL4J\) or Predictive Model Markup Language \(PMML\) models, use `ModelStep`.
 
 {% page-ref page="examples/tensorflow-model-serving/" %}
 
