@@ -215,7 +215,7 @@ Python steps can take any argument that can be passed to `PythonConfig`.The foll
 steps: 
   python_step: 
     type: PYTHON
-    python_code: simple.py
+    python_code_path: simple.py
 ```
 
 * `type`: specify this as PYTHON
@@ -243,29 +243,16 @@ where `cachePackages` is imported as a static variable:
 import static org.bytedeco.numpy.presets.numpy.cachePackages;
 ```
 
-If you require additional modules, you can set a custom`pythonPath` by running the following command in your Terminal and setting the output as your `pythonPath`:
+If you require additional modules, you can set a custom`pythonPath` by running the following command in your Python environment and setting the output as your `pythonPath`:
 
-{% tabs %}
-{% tab title="Windows" %}
 ```java
-:: note: if you use Python via Anaconda, 
-:: you may have to run this code in Anaconda Prompt
-python -c "import sys; print(';'.join([path.strip() for path in sys.path if path.strip()]))"
-```
-{% endtab %}
+from konduit.utils import default_python_path
 
-{% tab title="Linux, macOS" %}
-```bash
-python -c "import sys; print(':'.join([path.strip() for path in sys.path if path.strip()]))"
+work_dir = os.path.abspath('.')
+default_python_path(work_dir)
 ```
-{% endtab %}
-{% endtabs %}
 
 Custom `pythonPath` follows the format defined by `sys.path.`The first element is the location of the script used to invoke the Python interpreter, and the remaining elements specify where Python should search for modules. 
-
-{% hint style="info" %}
-On Windows, the semicolon \(;\) separator is used instead of the colon \(:\) separator used on Linux and macOS.
-{% endhint %}
 
 {% hint style="info" %}
 To list the modules that you can access, run `help("modules")` in your Python interpreter.
