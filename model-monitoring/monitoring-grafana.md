@@ -4,7 +4,7 @@ description: >-
   troubleshooting production systems.
 ---
 
-# Quickstart
+# Monitoring with Grafana
 
 ## Concepts
 

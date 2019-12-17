@@ -69,6 +69,10 @@ Finally, stop the Konduit Serving instance:
 konduit stop-server --config hello-world.yaml
 ```
 
+To get started with Konduit Serving, check out the Quickstart page.
+
+{% page-ref page="quickstart.md" %}
+
 ## Why Konduit Serving?
 
 Konduit Serving was built with the goal of providing proper low-level interoperability with native math libraries such as TensorFlow and Deeplearning4j's core math library libnd4j. At the core of Konduit Serving are the [JavaCPP Presets](https://github.com/bytedeco/javacpp-presets), [Vert.x](http://vertx.io) and [Deeplearning4j](http://deeplearning4j.org) for running Keras models in Java.
@@ -91,7 +95,7 @@ A Vert.x-based model server and pipeline development framework allows a thin abs
 
 We want to expose [modern standards](http://prometheus.io/) for monitoring everything from your GPU to your inference time. Konduit Serving supports visualization applications such as [Grafana](http://grafana.com) that support the [Prometheus](https://prometheus.io/) standard for visualizing data.
 
-{% page-ref page="model-monitoring/monitoring\_quickstart.md" %}
+{% page-ref page="model-monitoring/monitoring-grafana.md" %}
 
 ### Enterprise integration
 

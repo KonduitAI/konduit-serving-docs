@@ -60,62 +60,7 @@ Refer to the [Client](client/python-client.md) documentation for details.
 
 Detailed instructions on configuring steps are available in the [Examples](https://serving.oss.konduit.ai/examples). 
 
-## Running YAML configurations
-
-### Python
-
-A Konduit Serving instance can be created by: 
-
-1. creating a Python object of the `Server` class using the `server_from_file` function from the `konduit.load` module; and 
-2. starting the server using the `.start()` method of the `Server` object created in step 1. 
-
-Assuming the path of your YAML configuration is specified in `konduit_yaml_path`, you can initialize a Konduit Serving instance with the following code: 
-
-```python
-server = server_from_file(konduit_yaml_path)
-server.start()
-```
-
-Note that the file also contains Client configuration. To create a `Client` object, use the `client_from_file` function from the `konduit.load` module:
-
-```python
-client = client_from_file(konduit_yaml_path)
-```
-
-The `Client` class provides a `.predict()` method that sends data to the Serving instance. Assuming your data is declared in the `data_input` object, data can be passed to `client` for prediction using:
-
-```python
-client.predict(data_input)
-```
-
-`data_input` is typically a dictionary. If the input name is `default`, a NumPy array can be directly passed to the `.predict()` method.
-
-### CLI
-
-The CLI provides a handy command `predict-numpy` that returns predictions from a model server. To use the `predict-numpy` command, 
-
-1. the input name must be `default`, and 
-2. a [**NumPy array**](https://docs.scipy.org/doc/numpy/reference/arrays.html) stored in the [NPY format](https://numpy.org/devdocs/reference/generated/numpy.lib.format.html) is supplied as input. 
-
-To initialize the server, run the following command in the root folder of [konduit-serving-examples](https://github.com/KonduitAI/konduit-serving-examples/):
-
-```bash
-konduit serve --config yaml/simple.yaml
-```
-
-Once the server has started, run `predict-numpy` to obtain the predicted output given the location of the NumPy array saved as a [NumPy `.npy` file](https://docs.scipy.org/doc/numpy/reference/generated/numpy.lib.format.html):
-
-```bash
-konduit predict-numpy --config yaml/simple.yaml --numpy_data data/bert/input-0.npy
-```
-
-Finally, to stop the server, run the `stop-server` command:
-
-```bash
-konduit stop-server --config yaml/simple.yaml
-```
-
-## Example 
+## Usage
 
 On the **server**, start a Konduit Serving instance by: 
 

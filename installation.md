@@ -2,6 +2,24 @@
 
 [![PyPI version](https://badge.fury.io/py/konduit.svg)](https://badge.fury.io/py/konduit)
 
+## System requirements
+
+**Operating systems** Konduit Serving is supported on Linux, macOS and Windows.
+
+**Dependencies** Ensure that you have JDK 8.0 installed. To use the Python SDK, install Python 3.7 and above.
+
+**Hardware requirements** Binaries are provided for Intel/x86 architectures. 
+
+**GPU**: Hardware acceleration with CUDA version 10.1 is supported. 
+
+{% hint style="info" %}
+### Known issues
+
+* `konduit` GPU builds cannot compile \([\#115](https://github.com/KonduitAI/konduit-serving/issues/115), [\#122](https://github.com/KonduitAI/konduit-serving/pull/122)\)
+{% endhint %}
+
+## Installation
+
 Install `konduit` from PyPI with
 
 ```bash
@@ -20,60 +38,9 @@ pip install cython
 
 We recommend using Python 3.7+.
 
-## Building the Konduit Serving JAR
+## Set environment variables manually
 
-{% hint style="info" %}
-Building the Konduit Serving JAR requires Maven and JDK 8.
-{% endhint %}
-
-### Manual build
-
-First, clone the [konduit-serving repository](https://github.com/KonduitAI/konduit-serving):
-
-```text
-git clone https://github.com/KonduitAI/konduit-serving.git
-```
-
-Then, run the following commands in the root directory of konduit-serving:
-
-```text
-mvn -N io.takari:maven:0.7.6:wrapper
-python build_jar.py --os <your-platform>
-```
-
-where `<your-platform>` is picked from `windows-x86_64`,`linux-x86_64`,`linux-x86_64-gpu`, `macosx-x86_64`, `linux-armhf` and `windows-x86_64-gpu`, depending on your operating system and architecture.
-
-### Building with the command line interface
-
-Once the `konduit` package is installed, you have access to a command line interface \(CLI\) tool called `konduit`.
-
-The `init` command:
-
-1. gets the latest Konduit Serving code, 
-2. builds the Java dependencies needed for`konduit`, then 
-3. exports the location of the Konduit Serving JAR as an environment variable. 
-
-It assumes that you have `git` installed on your system and that `python` is available.
-
-Run:
-
-```bash
-konduit init --os <your-platform>
-```
-
-where `<your-platform>` is picked from `windows-x86_64`, `linux-x86_64`, `linux-x86_64-gpu`,  `macosx-x86_64`, `linux-armhf` and `windows-x86_64-gpu`, depending on your operating system and architecture.
-
-To rebuild the Konduit Serving JAR without adding the `KONDUIT_JAR_PATH` environment variable, run `konduit build` instead with the appropriate flags.
-
-{% hint style="info" %}
-### Known issues
-
-* `konduit init` fails for  `linux-86_64-gpu` \([\#115](https://github.com/KonduitAI/konduit-serving/issues/115)\)
-{% endhint %}
-
-### Set environment variables manually
-
-You can set a default location for the Konduit Serving JAR using environment variables.
+In the absence of the `KONDUIT_JAR_PATH` environment variable, the Python SDK looks for the Konduit Serving JAR file in `~/.konduit/konduit-serving`. To overwrite this default, you can set a default location for the Konduit Serving JAR using environment variables.
 
 {% tabs %}
 {% tab title="Windows" %}
@@ -90,51 +57,6 @@ export KONDUIT_JAR_PATH="~/konduit-serving/konduit.jar"
 ```
 {% endtab %}
 {% endtabs %}
-
-## Command line interface
-
-You can test the `konduit` command line tool by typing the following into your command line:
-
-```text
-konduit --help
-```
-
-which should prompt all currently available commands:
-
-```text
-Usage: konduit [OPTIONS] COMMAND [ARGS]...
-
-Options:
-  --help  Show this message and exit.
-
-Commands:
-  build          Build the underlying konduit.jar (again).
-  init           Initialize the konduit-python CLI.
-  predict-numpy  Get predictions for your pipeline from numpy input.
-  serve          Serve a pipeline from a konduit.yaml
-  stop-server    Stop the Konduit server associated with a given config...
-```
-
-For more help on individual commands you can run
-
-```text
-konduit serve --help
-```
-
-to get help for the `serve` command \(and all others in a similar way\)
-
-```text
-Usage: konduit serve [OPTIONS]
-
-  Serve a pipeline from a konduit.yaml
-
-Options:
-  --config TEXT          Relative or absolute path to your konduit serving YAML
-                       file.
-  --start_server TEXT  Whether to start the server instance after 
-                       initialization.
-  --help               Show this message and exit.
-```
 
 ## Common installation issues
 

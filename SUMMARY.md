@@ -1,7 +1,9 @@
 # Table of contents
 
 * [Introduction](README.md)
+* [Quickstart](quickstart.md)
 * [Installation](installation.md)
+* [Building from source](building-from-source.md)
 * [YAML configurations](yaml-configurations.md)
 
 ## Steps
@@ -22,7 +24,7 @@
 
 ## Model monitoring
 
-* [Quickstart](model-monitoring/monitoring_quickstart.md)
+* [Monitoring with Grafana](model-monitoring/monitoring-grafana.md)
 
 ## Examples
 
