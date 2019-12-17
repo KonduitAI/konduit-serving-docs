@@ -2,50 +2,50 @@
 
 [![PyPI version](https://badge.fury.io/py/konduit.svg)](https://badge.fury.io/py/konduit)
 
-Install `konduit` from PyPI with 
+Install `konduit` from PyPI with
 
 ```bash
 pip install konduit
 ```
 
 {% hint style="warning" %}
-A version of Konduit Serving with the command line interface \(CLI\) is not currently available on PyPI. To obtain the CLI, clone the [konduit-serving](https://github.com/KonduitAI/konduit-serving) repository, and in the `python` folder run `python setup.py install`. 
+A version of Konduit Serving with the command line interface \(CLI\) is not currently available on PyPI. To obtain the CLI, clone the [konduit-serving](https://github.com/KonduitAI/konduit-serving) repository, and in the `python` folder run `python setup.py install`.
 {% endhint %}
 
-You may need to install Cython before installing `konduit` with 
+You may need to install Cython before installing `konduit` with
 
 ```text
-pip install cython 
+pip install cython
 ```
 
 We recommend using Python 3.7+.
 
-## Building the Konduit Serving JAR 
+## Building the Konduit Serving JAR
 
 {% hint style="info" %}
-Building the Konduit Serving JAR requires Maven and JDK 8. 
+Building the Konduit Serving JAR requires Maven and JDK 8.
 {% endhint %}
 
-### Manual build 
+### Manual build
 
-First, clone the [konduit-serving repository](https://github.com/KonduitAI/konduit-serving): 
+First, clone the [konduit-serving repository](https://github.com/KonduitAI/konduit-serving):
 
 ```text
 git clone https://github.com/KonduitAI/konduit-serving.git
 ```
 
-Then, run the following commands in the root directory of konduit-serving: 
+Then, run the following commands in the root directory of konduit-serving:
 
 ```text
 mvn -N io.takari:maven:0.7.6:wrapper
 python build_jar.py --os <your-platform>
 ```
 
-where `<your-platform>` is picked from `windows-x86_64`,`linux-x86_64`,`linux-x86_64-gpu`, `macosx-x86_64`, `linux-armhf` and `windows-x86_64-gpu`, depending on your operating system and architecture. 
+where `<your-platform>` is picked from `windows-x86_64`,`linux-x86_64`,`linux-x86_64-gpu`, `macosx-x86_64`, `linux-armhf` and `windows-x86_64-gpu`, depending on your operating system and architecture.
 
 ### Building with the command line interface
 
-Once the `konduit` package is installed, you have access to a command line interface \(CLI\) tool called `konduit`. 
+Once the `konduit` package is installed, you have access to a command line interface \(CLI\) tool called `konduit`.
 
 The `init` command:
 
@@ -53,7 +53,7 @@ The `init` command:
 2. builds the Java dependencies needed for`konduit`, then 
 3. exports the location of the Konduit Serving JAR as an environment variable. 
 
-It assumes that you have `git` installed on your system and that `python` is available. 
+It assumes that you have `git` installed on your system and that `python` is available.
 
 Run:
 
@@ -61,9 +61,9 @@ Run:
 konduit init --os <your-platform>
 ```
 
-where `<your-platform>` is picked from `windows-x86_64`,`linux-x86_64`,`linux-x86_64-gpu`, `macosx-x86_64`, `linux-armhf` and `windows-x86_64-gpu`, depending on your operating system and architecture. 
+where `<your-platform>` is picked from `windows-x86_64`,`linux-x86_64`,`linux-x86_64-gpu`, `macosx-x86_64`, `linux-armhf` and `windows-x86_64-gpu`, depending on your operating system and architecture.
 
-To rebuild the Konduit Serving JAR without adding the `KONDUIT_JAR_PATH` environment variable, run `konduit build` instead with the appropriate flags. 
+To rebuild the Konduit Serving JAR without adding the `KONDUIT_JAR_PATH` environment variable, run `konduit build` instead with the appropriate flags.
 
 {% hint style="info" %}
 ### Known issues
@@ -73,11 +73,11 @@ To rebuild the Konduit Serving JAR without adding the `KONDUIT_JAR_PATH` environ
 
 ### Set environment variables manually
 
-You can set a default location for the Konduit Serving JAR using environment variables. 
+You can set a default location for the Konduit Serving JAR using environment variables.
 
 {% tabs %}
 {% tab title="Windows" %}
-Use [setx.exe](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx): 
+Use [setx.exe](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx):
 
 ```bash
 setx KONDUIT_JAR_PATH "C:\Users\User\konduit-serving\konduit.jar"
@@ -136,20 +136,21 @@ Options:
   --help               Show this message and exit.
 ```
 
-## Common installation issues 
+## Common installation issues
 
-1. Installing`jnius` returns  
+1. Installing`jnius` returns
 
    ```text
    WARNING: Not able to assign machine() = AMD64 to a cpu value! Using cpu = 'i386' instead!
-   ``` 
-   
+   ```
+
    Fix: Ensure your JAVA environment variables point to a 64-bit version of Java if you're using a 64-bit version of Python.  
-2. When running `konduit` commands on Windows, the following error message is returned: 
+
+2. When running `konduit` commands on Windows, the following error message is returned:
 
    ```text
    ImportError: DLL load failed: The specified module could not be found.
    ```
 
-   Fix: On Windows, `Pyjnius` requires an additional PATH variable to locate `jvm.dll`. Refer to the pyjnius documentation: [https://pyjnius.readthedocs.io/en/stable/installation.html\#installation-for-windows](https://pyjnius.readthedocs.io/en/stable/installation.html#installation-for-windows) for details. 
+   Fix: On Windows, `Pyjnius` requires an additional PATH variable to locate `jvm.dll`. Refer to the pyjnius documentation: [https://pyjnius.readthedocs.io/en/stable/installation.html\#installation-for-windows](https://pyjnius.readthedocs.io/en/stable/installation.html#installation-for-windows) for details.
 
