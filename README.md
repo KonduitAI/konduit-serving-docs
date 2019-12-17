@@ -55,10 +55,18 @@ client:
     port: 1337
 ```
 
-[Installing the Konduit Serving Python SDK](installation.md) exposes the `konduit` command line tool. Assuming the YAML file above is saved in the current directory as `simple.yaml`, a Konduit Serving instance can be started by running the following code in the command line:
+[Installing the Konduit Serving Python SDK](installation.md) exposes the `konduit` command line interface \(CLI\). Assuming the YAML file above is saved in the current directory as `hello-world.yaml`, start a Konduit Serving instance by running the following code in the command line:
 
 ```bash
-konduit serve --config simple.yaml
+konduit serve --config hello-world.yaml
+```
+
+This exposes a REST API for sending data to the server for inference. Inputs can be sent using the CLI, the Python SDK or any other application that supports sending HTTP requests such as [requests ](https://requests.readthedocs.io/en/master/)or [UiPath ](https://docs.uipath.com/activities/docs/http-client)\(for RPA-based workflows\). 
+
+Finally, stop the Konduit Serving instance: 
+
+```bash
+konduit stop-server --config hello-world.yaml
 ```
 
 ## Why Konduit Serving?
@@ -82,6 +90,8 @@ A Vert.x-based model server and pipeline development framework allows a thin abs
 ### Modern visualization standards
 
 We want to expose [modern standards](http://prometheus.io/) for monitoring everything from your GPU to your inference time. Konduit Serving supports visualization applications such as [Grafana](http://grafana.com) that support the [Prometheus](https://prometheus.io/) standard for visualizing data.
+
+{% page-ref page="model-monitoring/monitoring\_quickstart.md" %}
 
 ### Enterprise integration
 

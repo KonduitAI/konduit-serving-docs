@@ -139,9 +139,8 @@ Server has started successfully.
 
 After the server has started, on the **client**:
 
-1. create a Client object using `client_from_file`;
-2. use the `.predict()` method to perform inference on a NumPy array \(note that the input name of this Server configuration is `default`, therefore we can pass a NumPy array directly to the `.predict()` method.\); and 
-3. stop the server with the `.stop()` method.
+1. create a Client object using `client_from_file`; and
+2. use the `.predict()` method to perform inference on a NumPy array \(note that the input name of this Server configuration is `default`, therefore we can pass a NumPy array directly to the `.predict()` method.\).
 
 ```python
 import numpy as np 
@@ -153,11 +152,16 @@ input_arr = np.array(33)
 
 client = client_from_file(konduit_yaml_path)
 print(client.predict(input_arr))
-server.stop()
 ```
 
 ```text
 [35]
+```
+
+Finally, stop the server with the `.stop()` method: 
+
+```python
+server.stop()
 ```
 
 This can also be run in the **command line**. In the root folder of [konduit-serving-examples](https://github.com/KonduitAI/konduit-serving-examples), initialize the Konduit Serving instance with 
