@@ -7,27 +7,6 @@ A Konduit Serving instance can be created by:
    2. the `server_from_file` function from the `konduit.load` module; and 
 2. starting the server using the `.start()` method of the `Server` object created in step 1. 
 
-Save the configuration below as a text file named `hello-world.yml`
-
-```yaml
-serving:
-  http_port: 1337
-  input_data_format: NUMPY
-  output_data_format: NUMPY
-steps:
-  python_step:
-    type: PYTHON
-    python_code: |
-      first += 2
-      second = first
-    python_inputs:
-      first: NDARRAY
-    python_outputs:
-      second: NDARRAY
-client:
-    port: 1337
-```
-
 In Python, specify the path to your configuration in `konduit_yaml_path`: 
 
 ```python

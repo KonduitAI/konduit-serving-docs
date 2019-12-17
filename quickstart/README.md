@@ -6,7 +6,32 @@ Before running these commands, set up Konduit Serving according to the installat
 
 {% page-ref page="../installation.md" %}
 
+Save the configuration below as a text file named `hello-world.yml` in your current directory:
+
+```yaml
+serving:
+  http_port: 1337
+  input_data_format: NUMPY
+  output_data_format: NUMPY
+steps:
+  python_step:
+    type: PYTHON
+    python_code: |
+      first += 2
+      second = first
+    python_inputs:
+      first: NDARRAY
+    python_outputs:
+      second: NDARRAY
+client:
+    port: 1337
+```
+
 The pages in this section show you how to start and interact with a Konduit Serving instance. For these examples, the Konduit Serving instance and client are on the same machine. 
+
+{% page-ref page="quickstart-cli.md" %}
+
+{% page-ref page="quickstart-python.md" %}
 
 
 

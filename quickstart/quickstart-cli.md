@@ -51,18 +51,18 @@ The CLI provides a handy command `predict-numpy` that returns predictions from a
 To initialize the server, run the following command in the root folder of [konduit-serving-examples](https://github.com/KonduitAI/konduit-serving-examples/):
 
 ```bash
-konduit serve --config yaml/simple.yaml
+konduit serve --config hello-world.yaml
 ```
 
 Once the server has started, run `predict-numpy` to obtain the predicted output given the location of the NumPy array saved as a [NumPy `.npy` file](https://docs.scipy.org/doc/numpy/reference/generated/numpy.lib.format.html):
 
 ```bash
-konduit predict-numpy --config yaml/simple.yaml --numpy_data data/bert/input-0.npy
+konduit predict-numpy --config hello-world.yaml --numpy_data data/bert/input-0.npy
 ```
 
 Finally, to stop the server, run the `stop-server` command:
 
 ```bash
-konduit stop-server --config yaml/simple.yaml
+konduit stop-server --config hello-world.yaml
 ```
 
