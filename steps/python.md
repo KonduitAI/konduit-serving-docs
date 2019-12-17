@@ -6,9 +6,9 @@ description: >-
 
 # Python pipeline steps
 
-Konduit Serving uses [JavaCPP Presets](https://github.com/bytedeco/javacpp-presets/) to execute Python scripts using the [CPython API](https://github.com/bytedeco/javacpp-presets/tree/master/cpython).
+Konduit Serving uses [JavaCPP Presets](https://github.com/bytedeco/javacpp-presets/) to execute Python scripts using the [CPython API](https://github.com/bytedeco/javacpp-presets/tree/master/cpython). This allows you to build custom Konduit Serving pipeline steps by writing Python scripts to be run within a Konduit Serving Java process. 
 
-![](../.gitbook/assets/image.png)
+![](../.gitbook/assets/image%20%281%29.png)
 
 ## **`PythonConfig`**
 
