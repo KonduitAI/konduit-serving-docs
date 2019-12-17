@@ -8,6 +8,8 @@ description: >-
 
 Konduit Serving uses [JavaCPP Presets](https://github.com/bytedeco/javacpp-presets/) to execute Python scripts using the [CPython API](https://github.com/bytedeco/javacpp-presets/tree/master/cpython).
 
+![](../.gitbook/assets/image.png)
+
 ## **`PythonConfig`**
 
 Define the configuration for a `PythonStep`.
