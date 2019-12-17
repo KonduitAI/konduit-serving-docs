@@ -10,7 +10,7 @@ A Konduit Serving instance can be created by:
 In Python, specify the path to your configuration in `konduit_yaml_path`: 
 
 ```python
-konduit_yaml_path = "hello-world.yml"
+konduit_yaml_path = "hello-world.yaml"
 ```
 
 Initialize a Konduit Serving instance with the following code: 

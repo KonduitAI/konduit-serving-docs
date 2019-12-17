@@ -6,7 +6,7 @@ Before running these commands, set up Konduit Serving according to the installat
 
 {% page-ref page="../installation.md" %}
 
-Save the configuration below as a text file named `hello-world.yml` in your current directory:
+Save the configuration below as a text file named `hello-world.yaml` in your current directory:
 
 ```yaml
 serving:
