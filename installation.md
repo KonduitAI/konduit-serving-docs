@@ -138,7 +138,13 @@ Options:
 
 ## Common installation issues 
 
-1. Installing`jnius` returns  `WARNING: Not able to assign machine() = AMD64 to a cpu value! Using cpu = 'i386' instead!` Fix: Ensure your JAVA environment variables point to a 64-bit version of Java if you're using a 64-bit version of Python.  
+1. Installing`jnius` returns  
+
+   ```text
+   WARNING: Not able to assign machine() = AMD64 to a cpu value! Using cpu = 'i386' instead!
+   ``` 
+   
+   Fix: Ensure your JAVA environment variables point to a 64-bit version of Java if you're using a 64-bit version of Python.  
 2. When running `konduit` commands on Windows, the following error message is returned: 
 
    ```text
