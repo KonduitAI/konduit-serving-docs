@@ -61,7 +61,7 @@ client:
 konduit serve --config hello-world.yaml
 ```
 
-This exposes a REST API for sending data to the server for inference. Inputs can be sent using the CLI, the Python SDK or any other application that supports sending HTTP requests such as [requests ](https://requests.readthedocs.io/en/master/)or [UiPath ](https://docs.uipath.com/activities/docs/http-client)\(for RPA-based workflows\). 
+This exposes a REST API for sending data to the server for inference. Inputs can be sent using the CLI, the Python SDK or any other application that supports sending HTTP POST requests such as [requests ](https://requests.readthedocs.io/en/master/)or [UiPath ](https://docs.uipath.com/activities/docs/http-client)\(for RPA-based workflows\). 
 
 Finally, stop the Konduit Serving instance: 
 
