@@ -75,7 +75,7 @@ Konduit Serving was built with the goal of providing proper low-level interopera
 
 ### Performance and security
 
-Combining JavaCPP's low-level access to C-like apis from Java, with Java's robust server side application development \(Vert.x on top of [netty](http://netty.io/)\) allows for better access to faster math code in production while minimizing the surface area where native code = more security flaws \(mainly in server side networked applications\). This allows us to do things like in zero-copy memory access of NumPy arrays or Arrow records for consumption straight from the server without copy or serialization overhead. Extending that to Python SDK, we know when to return a raw Arrow record and return it as a pandas DataFrame.
+Combining JavaCPP's low-level access to C-like APIs from Java with Java's robust server side application development \(Vert.x on top of [netty](http://netty.io/)\) allows for better access to faster math code in production while minimizing the surface area where native code = more security flaws \(mainly in server side networked applications\). This allows us to do things like in zero-copy memory access of NumPy arrays or Arrow records for consumption straight from the server without copy or serialization overhead. Extending that to Python SDK, we know when to return a raw Arrow record and return it as a pandas DataFrame.
 
 When dealing with deep learning, we can handle proper inference on the GPU \(batching large workloads\).
 
