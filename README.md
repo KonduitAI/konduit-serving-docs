@@ -71,7 +71,7 @@ konduit stop-server --config hello-world.yaml
 
 To get started with Konduit Serving, check out the Quickstart page.
 
-{% page-ref page="quickstart.md" %}
+{% page-ref page="quickstart/" %}
 
 ## Why Konduit Serving?
 
