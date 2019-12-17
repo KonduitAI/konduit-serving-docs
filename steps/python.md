@@ -246,6 +246,7 @@ import static org.bytedeco.numpy.presets.numpy.cachePackages;
 If you require additional modules, you can set a custom`pythonPath` by running the following command in your Python environment and setting the output as your `pythonPath`:
 
 ```java
+import os 
 from konduit.utils import default_python_path
 
 work_dir = os.path.abspath('.')
