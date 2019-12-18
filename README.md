@@ -8,15 +8,15 @@ description: >-
 
 ## Overview
 
-Konduit Serving \(like [Seldon](http://seldon.io/) and [MLflow](http://mlflow.org/)\) provides building blocks for developers to write their own production machine learning pipelines from pre-processing to model serving, exposable as a simple REST API.
+Konduit Serving provides building blocks for developers to write their own production machine learning pipelines from pre-processing to model serving, exposable as a simple REST API.
 
 The core abstraction is an idea called a **pipeline step**. A pipeline step performs a task as part of using a machine learning model in a deployment. These steps generally include:
 
-1. Pre- or post-processing steps
+1. Pre-processing steps
 2. One or more machine learning models
-3. Transforming the output in a way that can be understood by humans, such as labels in a classification example.
+3. Post-processing steps: transforming the output in a way that can be understood by humans, such as labels in a classification example.
 
-For instance, if you want to run arbitrary Python code for pre-processing purposes, you can use a`PythonStep`.
+For instance, if you want to run arbitrary Python code, you can use a`PythonStep`.
 
 {% page-ref page="examples/onnx.md" %}
 
@@ -34,7 +34,7 @@ To perform inference on a \(mix of\) TensorFlow, Keras, Deeplearning4j \(DL4J\) 
 
 ## Usage
 
-A Konduit Serving instance [can be configured using a YAML file](yaml-configurations.md). The following YAML configuration file configures a Konduit Serving instance to run a short Python script as specified in the `python_code` argument:
+A Konduit Serving instance [can be configured using a YAML file](yaml-configurations.md). The following YAML file configures a Konduit Serving instance to run a short Python script as specified in the `python_code` argument:
 
 ```yaml
 serving:
