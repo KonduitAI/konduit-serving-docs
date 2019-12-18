@@ -7,6 +7,17 @@
 * [Installation](installation.md)
 * [Building from source](building-from-source.md)
 * [YAML configurations](yaml-configurations.md)
+* [GitHub](https://github.com/KonduitAI/konduit-serving)
+
+## Examples
+
+* [TensorFlow](examples/tensorflow-model-serving/README.md)
+  * [MNIST](examples/tensorflow-model-serving/tf-mnist.md)
+  * [BERT](examples/tensorflow-model-serving/tf-bert.md)
+* [Deeplearning4j \(DL4J\)](examples/dl4j.md)
+* [DataVec](examples/datavec.md)
+* [Open Neural Network Exchange \(ONNX\)](examples/onnx.md)
+* [Keras](examples/keras.md)
 
 ## Steps
 
@@ -27,15 +38,4 @@
 ## Model monitoring
 
 * [Monitoring with Grafana](model-monitoring/monitoring-grafana.md)
-
-## Examples
-
-* [TensorFlow](examples/tensorflow-model-serving/README.md)
-  * [MNIST](examples/tensorflow-model-serving/tf-mnist.md)
-  * [BERT](examples/tensorflow-model-serving/tf-bert.md)
-* [Deeplearning4j \(DL4J\)](examples/dl4j.md)
-* [DataVec](examples/datavec.md)
-* [Open Neural Network Exchange \(ONNX\)](examples/onnx.md)
-* [Keras](examples/keras.md)
-* [GitHub](https://github.com/KonduitAI/konduit-serving)
 
