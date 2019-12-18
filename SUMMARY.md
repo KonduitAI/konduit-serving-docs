@@ -19,6 +19,10 @@
 * [Open Neural Network Exchange \(ONNX\)](examples/onnx.md)
 * [Keras](examples/keras.md)
 
+## Model monitoring
+
+* [Monitoring with Grafana](model-monitoring/monitoring-grafana.md)
+
 ## Steps
 
 * [Data transformation pipeline steps](steps/data-transformation-pipeline-steps.md)
@@ -34,8 +38,4 @@
 ## Client
 
 * [Python client configuration](client/python-client.md)
-
-## Model monitoring
-
-* [Monitoring with Grafana](model-monitoring/monitoring-grafana.md)
 
