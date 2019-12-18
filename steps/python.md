@@ -221,8 +221,8 @@ steps:
 * `type`: specify this as PYTHON
 * `python_code`: if you want to specify your Python code directly in your YAML file. The following [documentation](http://blogs.perl.org/users/tinita/2018/03/strings-in-yaml---to-quote-or-not-to-quote.html) may be helpful for specifying multi-line Python code, specifically the section on literal block scalars.
 * `python_code_path`: specify the path of a Python `.py` script. 
-* `python_inputs`: name-value pairs specifying the data types for each of the inputs referenced in the script 
-* `python_outputs`: name-value pairs specifying the data types for each of the outputs referenced in the script
+* `python_inputs`: name-value pairs specifying the data types for each of the inputs referenced in the script. Data types should be one of the following: `"INT"`, `"STR"`, `"FLOAT"`, `"BOOL"`, `"NDARRAY"`.
+* `python_outputs`: name-value pairs specifying the data types for each of the outputs referenced in the script. Data types should be one of the following: `"INT"`, `"STR"`, `"FLOAT"`, `"BOOL"`, `"NDARRAY"`.
 * `python_path`: location of the Python modules. Generally, if your script only requires NumPy, setting a custom `python_path` is not necessary. Refer to the [Python modules](https://serving.oss.konduit.ai/python#python-modules-and-the-pythonpath-argument) documentation on setting a custom Python path with additional modules. 
 
 The names referenced in `python_inputs` and `python_outputs` correspond with `inputColumnNames` and `outputColumnNames`. Modifying `python_inputs` and `python_outputs` does not modify the input and output name of the step. `input_names` and `output_names` are arguments to `PythonStep` which cannot be accessed through the YAML configuration, and default to the name `default`.

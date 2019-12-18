@@ -58,7 +58,63 @@ Refer to the [Client](client/python-client.md) documentation for details.
 
 ### Steps
 
-Detailed instructions on configuring steps are available in the [Examples](https://serving.oss.konduit.ai/examples). 
+#### Python steps 
+
+Python steps run code specified in the `python_code` or `python_code_path` argument, whichever is specified. Python steps defined in the YAML configuration default to input name and output name `"default"`.  
+
+Importantly, the `python_inputs` argument maps each input and output variable to the respective data type. Accepted data types are`"INT"`, `"STR"`, `"FLOAT"`, `"BOOL"`, `"NDARRAY"`
+
+```yaml
+steps: 
+  python_step: 
+    type: PYTHON
+    python_code: |
+      first += 2
+      second = first
+    python_inputs:
+      first: NDARRAY
+    python_outputs:
+      second: NDARRAY
+```
+
+If no Python path is specified, NumPy will still be available in the environment where the Python step is run. 
+
+To further customize your Python steps, refer to the [Python pipeline steps](steps/python.md#yaml-configuration) guide. A more comprehensive example is available on the following page: 
+
+{% page-ref page="examples/onnx.md" %}
+
+#### Model steps 
+
+Use model steps when you want to use pre-packaged modules such as TensorFlow, DL4J and PMML for inference. 
+
+```yaml
+steps:
+  tensorflow_step:
+    type: TENSORFLOW
+    model_loading_path: ../data/mnist/mnist_2.0.0.pb
+    input_names:
+      - input_layer
+    output_names:
+      - output_layer/Softmax
+    input_data_types:
+      input_layer: FLOAT
+```
+
+The following parameters should be specified:
+
+* `type`: one of `"TENSORFLOW"`, `"KERAS"`, `"COMPUTATION_GRAPH"`, `"MULTI_LAYER_NETWORK"`, `"PMML"`, `"SAMEDIFF"`;
+* `model_loading_path`: location of your model file; 
+* `input_names`: list of the names of input nodes of your model file;
+* `output_names`: list of the names of output nodes of your model file;
+* `input_data_types`: map each of the input nodes to one of the following data types: `"INT"`, `"STR"`, `"FLOAT"`, `"BOOL"`, `"NDARRAY"`. 
+
+Refer to the model-specific example for details on configuring model steps. 
+
+{% page-ref page="examples/tensorflow-model-serving/" %}
+
+{% page-ref page="examples/keras.md" %}
+
+{% page-ref page="examples/dl4j.md" %}
 
 ## Usage
 
