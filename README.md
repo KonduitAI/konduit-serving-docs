@@ -10,7 +10,7 @@ description: >-
 
 Konduit Serving provides building blocks for developers to write their own production machine learning pipelines from pre-processing to model serving, exposable as a simple REST API.
 
-The core abstraction is an idea called a **pipeline step**. A pipeline step performs a task as part of using a machine learning model in a deployment. These steps generally include:
+The core abstraction is an idea called a **pipeline step**. A pipeline step performs a task as part of using a machine learning model in a deployment scenario. These steps generally include:
 
 1. Pre-processing steps
 2. One or more machine learning models
@@ -34,7 +34,7 @@ To perform inference on a \(mix of\) TensorFlow, Keras, Deeplearning4j \(DL4J\) 
 
 ## Usage
 
-A Konduit Serving instance [can be configured using a YAML file](yaml-configurations.md). The following YAML file configures a Konduit Serving instance to run a short Python script as specified in the `python_code` argument:
+One way to configure a Konduit Serving instance is by using [a YAML file](yaml-configurations.md). The following YAML file configures a Konduit Serving instance to run a short Python script as specified in the `python_code` argument:
 
 ```yaml
 serving:
@@ -87,7 +87,7 @@ We want to expose [modern standards](http://prometheus.io/) for monitoring every
 
 ### Performance and security
 
-Konduit Serving was built with the goal of providing proper low-level interoperability with native math libraries such as TensorFlow and Deeplearning4j's core math library libnd4j. At the core of Konduit Serving are the [JavaCPP Presets](https://github.com/bytedeco/javacpp-presets), [Vert.x](http://vertx.io) and [Deeplearning4j](http://deeplearning4j.org) for running Keras models in Java.
+Konduit Serving was built with the goal of providing proper low-level interoperability with native math libraries such as TensorFlow and DL4J's core math library libnd4j. At the core of Konduit Serving are the [JavaCPP Presets](https://github.com/bytedeco/javacpp-presets), [Vert.x](http://vertx.io) and DL4J for running Keras models in Java.
 
 Combining JavaCPP's low-level access to C-like APIs from Java with Java's robust server side application development \(Vert.x on top of [netty](http://netty.io/)\) allows for better access to faster math code in production while minimizing the surface area where native code = more security flaws \(mainly in server side networked applications\). This allows us to do things like in zero-copy memory access of NumPy arrays or Arrow records for consumption straight from the server without copy or serialization overhead. Extending that to Python SDK, we know when to return a raw Arrow record and return it as a pandas DataFrame.
 
