@@ -106,7 +106,7 @@ The following parameters should be specified:
 * `model_loading_path`: location of your model file; 
 * `input_names`: list of the names of input nodes of your model file;
 * `output_names`: list of the names of output nodes of your model file;
-* `input_data_types`: map each of the input nodes to one of the following data types: `"INT"`, `"STR"`, `"FLOAT"`, `"BOOL"`, `"NDARRAY"`. 
+* `input_data_types`: map each of the input nodes to one of the following data types using the input names as keys: `"INT"`, `"STR"`, `"FLOAT"`, `"BOOL"`, `"NDARRAY"`. 
 
 Refer to the model-specific example for details on configuring model steps. 
 
