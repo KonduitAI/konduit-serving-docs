@@ -19,7 +19,8 @@
   * [DataVec](examples/python/datavec.md)
   * [Open Neural Network Exchange \(ONNX\)](examples/python/onnx.md)
   * [Keras](examples/python/keras.md)
-* [Java](examples/java.md)
+* [Java](examples/java/README.md)
+  * [Untitled](examples/java/untitled.md)
 
 ## Model monitoring
 
