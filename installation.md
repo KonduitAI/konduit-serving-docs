@@ -23,7 +23,7 @@
 Install `konduit` from PyPI with
 
 ```bash
-pip install konduit
+pip install konduit 
 ```
 
 {% hint style="warning" %}

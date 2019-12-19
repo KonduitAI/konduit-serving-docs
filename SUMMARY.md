@@ -9,7 +9,7 @@
 * [YAML configurations](yaml-configurations.md)
 * [GitHub](https://github.com/KonduitAI/konduit-serving)
 
-## Examples
+## Python Examples <a id="examples"></a>
 
 * [TensorFlow](examples/tensorflow-model-serving/README.md)
   * [MNIST](examples/tensorflow-model-serving/tf-mnist.md)
@@ -18,6 +18,10 @@
 * [DataVec](examples/datavec.md)
 * [Open Neural Network Exchange \(ONNX\)](examples/onnx.md)
 * [Keras](examples/keras.md)
+
+## Java Examples
+
+* [Untitled](java-examples/untitled.md)
 
 ## Model monitoring
 
