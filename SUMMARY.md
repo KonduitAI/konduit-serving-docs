@@ -9,19 +9,17 @@
 * [YAML configurations](yaml-configurations.md)
 * [GitHub](https://github.com/KonduitAI/konduit-serving)
 
-## Python Examples <a id="examples"></a>
+## Examples
 
-* [TensorFlow](examples/tensorflow-model-serving/README.md)
-  * [MNIST](examples/tensorflow-model-serving/tf-mnist.md)
-  * [BERT](examples/tensorflow-model-serving/tf-bert.md)
-* [Deeplearning4j \(DL4J\)](examples/dl4j.md)
-* [DataVec](examples/datavec.md)
-* [Open Neural Network Exchange \(ONNX\)](examples/onnx.md)
-* [Keras](examples/keras.md)
-
-## Java Examples
-
-* [Untitled](java-examples/untitled.md)
+* [Python](examples/python/README.md)
+  * [TensorFlow](examples/python/tensorflow-model-serving/README.md)
+    * [MNIST](examples/python/tensorflow-model-serving/tf-mnist.md)
+    * [BERT](examples/python/tensorflow-model-serving/tf-bert.md)
+  * [Deeplearning4j \(DL4J\)](examples/python/dl4j.md)
+  * [DataVec](examples/python/datavec.md)
+  * [Open Neural Network Exchange \(ONNX\)](examples/python/onnx.md)
+  * [Keras](examples/python/keras.md)
+* [Java](examples/java.md)
 
 ## Model monitoring
 

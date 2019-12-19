@@ -412,19 +412,19 @@ for img in x_test[0:3]:
     print(dict(zip(np.arange(10), predicted[0].round(3))))
 ```
 
-![png](../../.gitbook/assets/output_28_0.png)
+![png](../../../.gitbook/assets/output_28_0.png)
 
 ```text
 {0: 0.0, 1: 0.0, 2: 0.001, 3: 0.001, 4: 0.0, 5: 0.0, 6: 0.0, 7: 0.998, 8: 0.0, 9: 0.0}
 ```
 
-![png](../../.gitbook/assets/output_28_2.png)
+![png](../../../.gitbook/assets/output_28_2.png)
 
 ```text
 {0: 0.0, 1: 0.0, 2: 0.998, 3: 0.002, 4: 0.0, 5: 0.0, 6: 0.0, 7: 0.0, 8: 0.0, 9: 0.0}
 ```
 
-![png](../../.gitbook/assets/output_28_4.png)
+![png](../../../.gitbook/assets/output_28_4.png)
 
 ```text
 {0: 0.0, 1: 0.986, 2: 0.005, 3: 0.0, 4: 0.0, 5: 0.0, 6: 0.0, 7: 0.005, 8: 0.003, 9: 0.0}

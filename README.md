@@ -18,19 +18,19 @@ The core abstraction is an idea called a **pipeline step**. A pipeline step perf
 
 For instance, if you want to run arbitrary Python code, you can use a`PythonStep`.
 
-{% page-ref page="examples/onnx.md" %}
+{% page-ref page="examples/python/onnx.md" %}
 
 Konduit Serving also contains functionality for other pre-processing tasks, such as DataVec transform processes and image transforms.
 
-{% page-ref page="examples/datavec.md" %}
+{% page-ref page="examples/python/datavec.md" %}
 
 To perform inference on a \(mix of\) TensorFlow, Keras, Deeplearning4j \(DL4J\) or Predictive Model Markup Language \(PMML\) models, use `ModelStep`.
 
-{% page-ref page="examples/tensorflow-model-serving/" %}
+{% page-ref page="examples/python/tensorflow-model-serving/" %}
 
-{% page-ref page="examples/dl4j.md" %}
+{% page-ref page="examples/python/dl4j.md" %}
 
-{% page-ref page="examples/keras.md" %}
+{% page-ref page="examples/python/keras.md" %}
 
 ## Usage
 

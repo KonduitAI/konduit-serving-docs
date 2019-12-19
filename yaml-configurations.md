@@ -81,7 +81,7 @@ If no Python path is specified, NumPy will still be available in the environment
 
 To further customize Python steps, refer to the [Python pipeline steps](steps/python.md#yaml-configuration) guide. A more comprehensive example is available on the following page: 
 
-{% page-ref page="examples/onnx.md" %}
+{% page-ref page="examples/python/onnx.md" %}
 
 #### Model steps 
 
@@ -110,11 +110,11 @@ The following parameters should be specified:
 
 Refer to the model-specific example for details on configuring model steps. 
 
-{% page-ref page="examples/tensorflow-model-serving/" %}
+{% page-ref page="examples/python/tensorflow-model-serving/" %}
 
-{% page-ref page="examples/keras.md" %}
+{% page-ref page="examples/python/keras.md" %}
 
-{% page-ref page="examples/dl4j.md" %}
+{% page-ref page="examples/python/dl4j.md" %}
 
 ## Usage
 
