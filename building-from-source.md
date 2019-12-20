@@ -1,5 +1,11 @@
 # Building from source
 
+Konduit Serving sources are hosted on GitHub. If you have `git` installed, clone the [konduit-serving repository](https://github.com/KonduitAI/konduit-serving) using the `git clone` command:
+
+```text
+git clone https://github.com/KonduitAI/konduit-serving.git
+```
+
 ## JAR
 
 A Java Archive \(JAR\) file is used to bundle a Java program. 
@@ -10,13 +16,7 @@ Building the Konduit Serving JAR requires Maven and JDK 8.
 
 ### Manual build
 
-First, clone the [konduit-serving repository](https://github.com/KonduitAI/konduit-serving):
-
-```text
-git clone https://github.com/KonduitAI/konduit-serving.git
-```
-
-Then, run the following commands in the root directory of konduit-serving:
+Run the following commands in the root directory of konduit-serving:
 
 ```text
 mvn -N io.takari:maven:0.7.6:wrapper
@@ -52,4 +52,78 @@ To rebuild the Konduit Serving JAR without adding the `KONDUIT_JAR_PATH` environ
 
 * `konduit init` fails for  `linux-86_64-gpu` \([\#115](https://github.com/KonduitAI/konduit-serving/issues/115)\)
 {% endhint %}
+
+## RPM
+
+Konduit Serving RPM files are generated using the RPM Maven Plugin.
+
+First install required packages with `yum`: 
+
+```text
+sudo yum install -y java-1.8.0-openjdk-devel which rpm-build redhat-rpm-config
+```
+
+This command installs the developer tools for developing Java programs using JDK 8, the `which` package to locate a program file's path, tools to build RPM files and Red Hat-specific RPM configuration files. 
+
+In the root folder of the `konduit-serving` project, run the following command to build RPM files using Maven Wrapper: 
+
+```text
+./mvnw clean install -DskipTests -P pmml,test,rpm,cpu,uberjar,native,python,converter,tar -Dchip=cpu -Djavacpp.platform=linux-x86_64
+```
+
+The Maven Wrapper `mvnw` script allows Maven to be used even if `mvn` is not available on the system PATH. This command runs the Maven goals `clean` and `install` with the following arguments: 
+
+* skipTests 
+* Profiles: pmml, test, rpm, cpu, uberjar, native, python, converter, tar
+* chip: CPU 
+* javacpp.platform: linux-x86\_64
+
+The `clean install` command first deletes previously compiled Java sources and resources; then compiles, tests and packages the Java project and copies it into the relevant folder. The path where the RPM file is saved depends on the `spin.version` \(default `custom`\) and the chip \(`cpu` or `gpu`\) . 
+
+Use the YUM command `yum localinstall`to install the RPM file. 
+
+```text
+cd konduit-serving-rpm/target/rpm/konduit-serving-custom-cpu/RPMS/x86_64/
+sudo yum localinstall -y *.rpm
+```
+
+Run the shell script `konduit-serving-env.sh`, which creates the necessary environment variables: 
+
+```text
+. /etc/profile.d/konduit-serving-env.sh
+```
+
+Use `chmod` to allow files in the `/opt/konduit/serving/bin/konduit-serving` directory to be executed: 
+
+```text
+chmod +x "${KONDUIT_SERVING_HOME}"/bin/konduit-serving
+```
+
+Finally, install a Conda distribution with `install-python.sh`. 
+
+```text
+sh "${KONDUIT_SERVING_HOME}"/install-python.sh
+```
+
+## Konduit Serving Conda distribution
+
+The following packages are included in this Conda distribution: 
+
+| Package | Version |
+| :--- | :--- |
+| NumPy | 1.16.4 |
+| Jupyter | 1.0.0 |
+| SciPy | 1.3.3 |
+| requests | 2.22.0 |
+| pandas | 0.24.2 |
+| TensorFlow | 1.15.0 |
+| Keras | 2.2.4 |
+| konduit | 0.1.2 |
+| scikit-learn | 0.22 |
+| matplotlib | 3.1.2 |
+| PyTorch | 1.3.1 |
+| torchvision | 0.4.2 |
+| CUDA Toolkit | 10.1 |
+
+Note that packages are sourced from the following Anaconda channels, in descending order of priority: [conda-forge](https://anaconda.org/conda-forge), [anaconda](https://anaconda.org/anaconda), [pytorch](https://anaconda.org/pytorch), [konduitai](https://anaconda.org/konduitai). 
 
