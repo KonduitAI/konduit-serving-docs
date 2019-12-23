@@ -6,6 +6,14 @@ Konduit Serving sources are hosted on GitHub. If you have `git` installed, clone
 git clone https://github.com/KonduitAI/konduit-serving.git
 ```
 
+## Python module
+
+To install the `konduit` Python module from source, in the `python` directory, run 
+
+```text
+pip install .
+```
+
 ## JAR
 
 A Java Archive \(JAR\) file is used to bundle a Java program. 
