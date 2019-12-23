@@ -95,24 +95,27 @@ Start server by calling KonduitServingMain.main with the configurations mentione
 
 ```java
 KonduitServingMain.main("--configPath", configFile.getAbsolutePath());" File configFile = new File("config.json");
-FileUtils.write(configFile, inferenceConfiguration.toJson(), Charset.defaultCharset());
-KonduitServingMain.main("--configPath", configFile.getAbsolutePath());
+  FileUtils.write(configFile, inferenceConfiguration.toJson(), Charset.defaultCharset());
+  KonduitServingMain.main("--configPath", configFile.getAbsolutePath());
 ```
 
 ```text
-ai.konduit.serving.configprovider.KonduitServingMain
+18:50:42.336 ai.konduit.serving.configprovider.KonduitServingMain
 
 INFO: Deployed verticle {}
 
-17:50:42.336 [vert.x-worker-thread-1] DEBUG a.k.s.v.inference.InferenceVerticle - Server started on port 3000
+18:50:42.336 [vert.x-worker-thread-1] DEBUG a.k.s.v.inference.InferenceVerticle - Server started on port 3000
 
 ```
 
-## Configure the client
+## Inference  
 
-To configure the client, create a Client object with the port argument.
+To configure the client, set the required URL to connect server and specify the port as 3000(whichever is set for the server).  
 
-Note that you should create the Client object after the Server has started, so that Client can inherit the Server's attributes.
+Note that you should create the Client object after the Server has started, so that Client can inherit the Server's attributes. 
+
+NDARRAY inputs to set ModelSteps must be specified with a shape size. 
+
 
 ```java
 INDArray arr = Nd4j.create(new float[]{1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f}, 1, 10);
@@ -127,22 +130,11 @@ INDArray arr = Nd4j.create(new float[]{1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
                 .field("input", file)
                 .asString().getBody();
 
+```
+
+## Confirm the output
+
         System.out.print(response);
-```
-
-
-## Inference 
-
-{% hint style="warning" %}
-NDARRAY inputs to ModelSteps must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `np.expand_dims()` to add an additional dimension to your array. 
-{% endhint %}
-
-```java
-        INDArray arr = Nd4j.create(new float[][] {{1, 0, 5, 10 }, {100,55, 555, 1000}});
-
-       Unirest.post("http://localhost:3000/classification/nd4j").field("input", arr);
-```
-
 
 ```text
 {
