@@ -53,11 +53,19 @@ To rebuild the Konduit Serving JAR without adding the `KONDUIT_JAR_PATH` environ
 * `konduit init` fails for  `linux-86_64-gpu` \([\#115](https://github.com/KonduitAI/konduit-serving/issues/115)\)
 {% endhint %}
 
-## RPM
+## Linux builds 
+
+Generally, the Linux builds of Konduit Serving perform the following tasks on installation: 
+
+1. Copy Konduit Serving JAR file to `/opt/konduit/serving/`;
+2. Create the necessary environment variables; and
+3. Install a Konduit Serving-specific Conda distribution with `install-python.sh`. 
+
+### RPM \(CentOS, Redhat, etc.\)
 
 Konduit Serving RPM files are generated using the RPM Maven Plugin.
 
-First install required packages with `yum`: 
+First, install required packages with `yum`: 
 
 ```text
 sudo yum install -y java-1.8.0-openjdk-devel which rpm-build redhat-rpm-config
@@ -74,7 +82,7 @@ In the root folder of the `konduit-serving` project, run the following command t
 The Maven Wrapper `mvnw` script allows Maven to be used even if `mvn` is not available on the system PATH. This command runs the Maven goals `clean` and `install` with the following arguments: 
 
 * skipTests 
-* Profiles: pmml, test, rpm, cpu, uberjar, native, python, converter, tar
+* Profiles: pmml, test, rpm, cpu, uberjar, native, python, converter, tar \(ensure this is specified without spaces in between\)
 * chip: CPU 
 * javacpp.platform: linux-x86\_64
 
@@ -87,22 +95,31 @@ cd konduit-serving-rpm/target/rpm/konduit-serving-custom-cpu/RPMS/x86_64/
 sudo yum localinstall -y *.rpm
 ```
 
-Run the shell script `konduit-serving-env.sh`, which creates the necessary environment variables: 
+### DEB \(for Ubuntu and other Debian-based systems\)
+
+Install JDK 8 using apt-get:
 
 ```text
-. /etc/profile.d/konduit-serving-env.sh
+sudo apt-get install openjdk-8-jdk
 ```
 
-Use `chmod` to allow files in the `/opt/konduit/serving/bin/konduit-serving` directory to be executed: 
+In the root directory of the Konduit Serving project, run the mvnw script with parameters: 
 
 ```text
-chmod +x "${KONDUIT_SERVING_HOME}"/bin/konduit-serving
+./mvnw -T 1C -Puberjar clean package -Dmaven.test.skip=true -Djavacpp.platform=linux-x86_64 -Dchip=cpu -Ppython -Ppmml,tar,deb -pl "ai.konduit.serving:konduit-serving-deb" -am
 ```
 
-Finally, install a Conda distribution with `install-python.sh`. 
+* The `-T 1C` flag enables [parallel builds in Maven](https://cwiki.apache.org/confluence/display/MAVEN/Parallel+builds+in+Maven+3) 
+* The profiles we use are: uberjar, python, pmml, tar, deb
+* chip: CPU 
+* javacpp.platform: linux-x86\_64
+* maven.test.skip=true
+* the `-pl` option specifies the specific project\(s\) that we want to build. in this case, we want to build the project with `groupId` `ai.konduit.serving` and `artifactId` `konduit-serving-deb`.
+
+Finally, use dpkg to install the built package: 
 
 ```text
-sh "${KONDUIT_SERVING_HOME}"/install-python.sh
+sudo dpkg -i konduit-serving-deb/target/konduit-serving-custom-cpu_0.1.0-SNAPSHOT.deb
 ```
 
 ## Konduit Serving Conda distribution
