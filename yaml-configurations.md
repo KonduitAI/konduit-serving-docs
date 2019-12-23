@@ -79,7 +79,11 @@ steps:
 
 If no Python path is specified, NumPy will still be available in the environment where the Python step is run. 
 
-To further customize Python steps, refer to the [Python pipeline steps](steps/python.md#yaml-configuration) guide. A more comprehensive example is available on the following page: 
+To further customize Python steps, refer to the YAML configuration section of the Python pipeline steps page. 
+
+{% page-ref page="steps/python.md" %}
+
+A more comprehensive example is available on the following page: 
 
 {% page-ref page="examples/python/onnx.md" %}
 

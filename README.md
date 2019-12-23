@@ -79,11 +79,11 @@ To get started with Konduit Serving, check out the Quickstart page.
 
 We strive to provide a Python-first SDK that makes it easy to integrate Konduit Serving into a Python-first workflow.
 
-{% page-ref page="model-monitoring/monitoring-grafana.md" %}
-
 ### Modern visualization standards
 
 We want to expose [modern standards](http://prometheus.io/) for monitoring everything from your GPU to your inference time. Konduit Serving supports visualization applications such as [Grafana](http://grafana.com) that support the [Prometheus](https://prometheus.io/) standard for visualizing data.
+
+{% page-ref page="model-monitoring/monitoring-grafana.md" %}
 
 ### Performance and security
 
