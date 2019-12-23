@@ -66,11 +66,3 @@ Finally, to stop the server, run the `stop-server` command:
 konduit stop-server --config hello-world.yaml
 ```
 
-## Next steps
-
-Check out the YAML configurations page to write configurations for use with the CLI. 
-
-{% page-ref page="../yaml-configurations.md" %}
-
-
-

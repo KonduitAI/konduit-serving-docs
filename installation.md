@@ -1,6 +1,6 @@
 # Installation
 
-[![PyPI version](https://badge.fury.io/py/konduit.svg)](https://badge.fury.io/py/konduit)
+[![PyPI](https://img.shields.io/pypi/v/konduit?style=for-the-badge)](https://pypi.org/project/konduit/0.1.2/)[![Conda \(channel only\)](https://img.shields.io/conda/vn/konduitai/konduit?color=%233EB049&style=for-the-badge)](https://anaconda.org/konduitai/konduit)
 
 ## System requirements
 
@@ -30,7 +30,19 @@ pip install konduit
 A version of Konduit Serving with the command line interface \(CLI\) is not currently available on PyPI. To obtain the CLI, clone the [konduit-serving](https://github.com/KonduitAI/konduit-serving) repository, and in the `python` folder run `python setup.py install`.
 {% endhint %}
 
-You may need to install Cython before installing `konduit` with
+If using the Anaconda distribution, you may choose to install `konduit`from the `konduitai`Anaconda channel. First add the `konduitai` channel: 
+
+```text
+conda config --add channels conda-forge
+```
+
+then install `konduit` with:
+
+```text
+conda install -c konduitai konduit
+```
+
+You may need to install Cython before installing `konduit` using
 
 ```text
 pip install cython
