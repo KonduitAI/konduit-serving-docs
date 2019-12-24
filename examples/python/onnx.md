@@ -269,17 +269,10 @@ server.start()
 
 Make sure to configure the client after starting the server, so that the Client object can inherit the Server's attributes. 
 
-Since the image is passed to the Server as a NumPy array, specify the input and output data format as `NUMPY`.
-
 {% tabs %}
 {% tab title="Python" %}
 ```python
-client = Client(
-    input_data_format='NUMPY',
-    return_output_data_format='NUMPY',
-    output_data_format="RAW",
-    port=port
-)
+client = Client(port=port)
 ```
 {% endtab %}
 
@@ -288,10 +281,7 @@ Add the following to your YAML configuration file:
 
 ```yaml
 client:
-    input_data_format: NUMPY
-    output_data_format: RAW
-    return_output_data_format: NUMPY
-    port: 1337
+  port: 1337
 ```
 
 Use `client_from_file` to create a `Client` object: 

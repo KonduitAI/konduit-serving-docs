@@ -171,6 +171,10 @@ In the root directory of the Konduit Serving project, run the mvnw script with p
 * maven.test.skip=true
 * the `-pl` option specifies the specific project\(s\) that we want to build. in this case, we want to build the project with `groupId` `ai.konduit.serving` and `artifactId` `konduit-serving-deb`.
 
+{% hint style="info" %}
+The error `java.io.IOException: This archives contains unclosed entries.` usually indicates insufficient disk space \(see [tcurdt/jdeb\#234](https://github.com/tcurdt/jdeb/issues/234)\).
+{% endhint %}
+
 Finally, use dpkg to install the built package: 
 
 ```text
