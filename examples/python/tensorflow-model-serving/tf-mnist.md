@@ -359,13 +359,20 @@ server.start()
 
 {% tabs %}
 {% tab title="Python" %}
-To configure the client, create a Client object by specifying the port number:
+To configure the client, create a Client object with the following arguments:
+
+* `input_data_format`: data format passed to the server for inference
+* `output_data_format`: data format returned by the server endpoint 
+* `return_output_data_format`: data format to be returned to the client. Note that this argument can be used to convert the output returned from the server to the client into a different format, e.g. NUMPY to JSON.
 
 ```python
-client = Client(port=port)
+client = Client(
+    input_data_format='NUMPY',
+    output_data_format='NUMPY',
+    return_output_data_format="NUMPY",
+    port=port
+)
 ```
-
-The `Client`'s attributes will be obtained from the Server. 
 {% endtab %}
 
 {% tab title="YAML" %}
@@ -384,6 +391,8 @@ client = client_from_file(konduit_yaml_path)
 ```
 {% endtab %}
 {% endtabs %}
+
+
 
 ## Inference 
 

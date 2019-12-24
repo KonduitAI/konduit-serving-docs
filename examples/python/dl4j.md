@@ -232,12 +232,22 @@ server.start()
 
 ## Configure the client
 
-To configure the client, create a Client object:
+To configure the client, create a Client object with the following arguments:
+
+* `input_data_format`: data format passed to the server for inference
+* `output_data_format`: data format returned by the server endpoint 
+* `return_output_data_format`: data format to be returned to the client. Note that this argument can be used to convert the output returned from the server to the client into a different format, e.g. NUMPY to JSON.
 
 {% tabs %}
 {% tab title="Python" %}
 ```python
-client = Client(port=port)
+client = Client(
+    input_data_format='NUMPY',
+    output_data_format='NUMPY',
+    return_output_data_format="NUMPY",
+    host='http://localhost', 
+    port=port
+)
 ```
 {% endtab %}
 
@@ -246,7 +256,11 @@ Add the following to your YAML configuration file:
 
 ```yaml
 client:
-  port: 1337
+    input_data_format: NUMPY
+    output_data_format: NUMPY
+    return_output_data_format: NUMPY
+    host: http://localhost
+    port: 1337
 ```
 
 Use `client_from_file` to create a `Client` object: 
