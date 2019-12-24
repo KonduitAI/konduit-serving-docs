@@ -32,13 +32,11 @@ Konduit Serving works by defining a series of **steps**. These include operation
 
 If deploying your model does not require pre- nor post-processing, only one step - a machine learning model - is required. This configuration is defined using a single `ModelStep`.
 
-Before running this notebook, run the `build_jar.py` script and copy the JAR \(`konduit.jar`\) to this folder. Refer to the [Python SDK README](https://github.com/KonduitAI/konduit-serving/blob/master/python/README.md) for details.
-
 ## Configure the step
 
 Define the Keras configuration as a `ModelConfig` object.
 
-* `modelConfigType`: This argument requires a `ModelConfigType` object. In the Java program above, we recognised that SimpleCNN is configured as a MultiLayerNetwork, in contrast with the ComputationGraph class, which is used for more complex networks. Specify `modelType` as `ModelConfig.ModelType.KERAS`, and `modelLoadingPath` to point to the location of Keras weights saved in the HDF5 file format. 
+* `modelConfigType`: This argument requires a `ModelConfigType` object. In the following Java program, we recognised that SimpleCNN is configured as a MultiLayerNetwork, in contrast with the ComputationGraph class, which is used for more complex networks. Specify `modelType` as `ModelConfig.ModelType.KERAS`, and `modelLoadingPath` to point to the location of Keras weights saved in the HDF5 file format. 
 
 
 For the `ModelStep` object, the following parameters are specified:
@@ -69,7 +67,7 @@ Input and output names can be obtained by visualizing the graph in [Netron](http
 
 ## Configure the server
 
-In the `ServingConfig`, specify a port number.
+In the `ServingConfig`, specify any port number that is not reserved.
 
 
 ```java
@@ -91,7 +89,7 @@ The `ServingConfig` has to be passed to `Server` in addition to the steps as a P
 
 ## Start the server
 
-Start server by calling KonduitServingMain.main with the configurations mentioned in the code block above. 
+Start server by calling KonduitServingMain.main with the configurations mentioned in the following code block. 
 
 ```java
 KonduitServingMain.main("--configPath", configFile.getAbsolutePath());" File configFile = new File("config.json");
@@ -110,11 +108,11 @@ INFO: Deployed verticle {}
 
 ## Inference  
 
-To configure the client, set the required URL to connect server and specify the port as 3000(whichever is set for the server).  
+To configure the client, set the required URL to connect server and specify any port number that is not reserved (as used in server configuration).  
 
 Note that you should create the Client object after the Server has started, so that Client can inherit the Server's attributes. 
 
-NDARRAY inputs to set ModelSteps must be specified with a shape size. 
+NDARRAY inputs to set ModelStep must be specified with a shape size. 
 
 
 ```java
