@@ -225,5 +225,5 @@ The following packages are included in this Conda distribution:
 | torchvision | 0.4.2 |
 | CUDA Toolkit | 10.1 |
 
-Note that packages are sourced from the following Anaconda channels, in descending order of priority: [conda-forge](https://anaconda.org/conda-forge), [anaconda](https://anaconda.org/anaconda), [pytorch](https://anaconda.org/pytorch), [konduitai](https://anaconda.org/konduitai). 
+Note that packages are sourced from the following Anaconda channels, in descending order of priority: [conda-forge](https://anaconda.org/conda-forge), [anaconda](https://anaconda.org/anaconda), [konduitai](https://anaconda.org/konduitai). 
 
