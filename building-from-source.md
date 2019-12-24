@@ -8,10 +8,58 @@ git clone https://github.com/KonduitAI/konduit-serving.git
 
 ## Python module
 
-To install the `konduit` Python module from source, in the `python` directory, run 
+To install the `konduit` Python module from source, in the `python` directory, after installing Cython, run 
 
 ```text
 pip install .
+```
+
+To install all extensions needed for development run
+
+```text
+pip install -e '.[tests,codegen,dev]'
+```
+
+The `dev` dependencies use `black` as a pre-commit hook to lint your code automatically. To activate this functionality, run `pre-commit install` on the command line first.
+
+### Running tests
+
+Install test dependencies using `pip install 'konduit[tests]'` if you want to run tests.
+
+On Windows, compiling the test dependencies requires Visual Studio Build Tools 14.0, which can be installed from [here](https://visualstudio.microsoft.com/downloads/). You may also need to install the Windows 8.1 / 10 SDK. See Python's [_WindowsCompilers_](https://wiki.python.org/moin/WindowsCompilers) page for details.
+
+The tests also require `bert_mrpc_frozen.pb` to be placed in the `python/tests` folder. Run the following code in `python/tests`:
+
+```text
+curl https://deeplearning4jblob.blob.core.windows.net/testresources/bert_mrpc_frozen_v1.zip --output bert.zip
+unzip bert.zip 
+```
+
+The resulting JAR will be generated at the base of the `konduit` project. To copy that JAR into the test folder and prepare the documentation \(in the `docs` folder\) to be tested within the testing framework, run:
+
+```text
+cd tests
+./prepare_doc_tests.sh
+```
+
+The tests are then run with `pytest`:
+
+```text
+cd python/tests
+python -m pytest .
+```
+
+To quickly run unit tests \(recommended before each commit\), or run the full set of integration tests, you can do:
+
+```text
+pytest -m unit
+pytest -m integration
+```
+
+To also run documentation tests with `doctest` for an individual file, simply run:
+
+```text
+ python -m doctest ../konduit/server.py -v
 ```
 
 ## JAR
@@ -27,7 +75,6 @@ Building the Konduit Serving JAR requires Maven and JDK 8.
 Run the following commands in the root directory of konduit-serving:
 
 ```text
-mvn -N io.takari:maven:0.7.6:wrapper
 python build_jar.py --os <your-platform>
 ```
 
@@ -35,7 +82,7 @@ where `<your-platform>` is picked from `windows-x86_64`,`linux-x86_64`,`linux-x8
 
 ### Building with the command line interface
 
-Once the `konduit` package is installed, you have access to a command line interface \(CLI\) tool called `konduit`.
+Once the `konduit` Python package is installed, you have access to a command line interface \(CLI\) tool called `konduit`.
 
 The `init` command:
 
@@ -108,7 +155,7 @@ sudo yum localinstall -y *.rpm
 Install JDK 8 using apt-get:
 
 ```text
-sudo apt-get install openjdk-8-jdk
+sudo apt-get install openjdk-8-jdk curl
 ```
 
 In the root directory of the Konduit Serving project, run the mvnw script with parameters: 
