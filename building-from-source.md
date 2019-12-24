@@ -179,6 +179,16 @@ Finally, use dpkg to install the built package:
 sudo dpkg -i konduit-serving-deb/target/konduit-serving-custom-cpu_0.1.0-SNAPSHOT.deb
 ```
 
+### Tarball
+
+Konduit Serving can also be built as a tarball: where all the files are packaged in a gzip-compressed tar file. To build a Konduit Serving tar file, run the following Maven Wrapper command in the root folder of the Konduit Serving project:
+
+```text
+./mvnw clean package -Ppython,pmml,uberjar,tar -Dmaven.test.skip=true -Djavacpp.platform=linux-x86_64 -Dchip=cpu
+```
+
+This generates two compressed files in the `target` directory of the `konduit-serving-tar`folder: a tar \(`.tar.gz`\) and a zip \(`.zip)` file. 
+
 ## Konduit Serving Conda distribution
 
 The following packages are included in this Conda distribution: 
