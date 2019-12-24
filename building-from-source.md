@@ -181,13 +181,29 @@ sudo dpkg -i konduit-serving-deb/target/konduit-serving-custom-cpu_0.1.0-SNAPSHO
 
 ### Tarball
 
-Konduit Serving can also be built as a tarball: where all the files are packaged in a gzip-compressed tar file. To build a Konduit Serving tar file, run the following Maven Wrapper command in the root folder of the Konduit Serving project:
+Konduit Serving can also be built as a tarball, where the JAR file and associated scripts are packaged in a gzip-compressed tar file. To build a Konduit Serving tar file, run the following Maven Wrapper command in the root folder of the Konduit Serving project:
 
 ```text
 ./mvnw clean package -Ppython,pmml,uberjar,tar -Dmaven.test.skip=true -Djavacpp.platform=linux-x86_64 -Dchip=cpu
 ```
 
-This generates two compressed files in the `target` directory of the `konduit-serving-tar`folder: a tar \(`.tar.gz`\) and a zip \(`.zip)` file. 
+This generates two compressed files in the `target` directory of the `konduit-serving-tar`folder: a tar \(`.tar.gz`\) and a zip \(`.zip)` file. In addition to the JAR file, the tar file contains a script to install a Conda distribution \(`ìnstall-python.sh`\) and a script to set environment variables \(`bin/konduit-serving`\). 
+
+After extracting the tar file, first run the `konduit-serving`shell script: 
+
+```text
+cd bin
+chmod u+x konduit-serving # allow user to execute script
+./konduit-serving
+```
+
+then the `ìnstall-python.sh` script: 
+
+```text
+cd .. 
+chmod u+x install-python.sh 
+./install-python.sh
+```
 
 ## Konduit Serving Conda distribution
 
