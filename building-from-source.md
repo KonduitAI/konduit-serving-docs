@@ -8,10 +8,58 @@ git clone https://github.com/KonduitAI/konduit-serving.git
 
 ## Python module
 
-To install the `konduit` Python module from source, in the `python` directory, run 
+To install the `konduit` Python module from source, in the `python` directory, after installing Cython, run 
 
 ```text
 pip install .
+```
+
+To install all extensions needed for development run
+
+```text
+pip install -e '.[tests,codegen,dev]'
+```
+
+The `dev` dependencies use `black` as a pre-commit hook to lint your code automatically. To activate this functionality, run `pre-commit install` on the command line first.
+
+### Running tests
+
+Install test dependencies using `pip install 'konduit[tests]'` if you want to run tests.
+
+On Windows, compiling the test dependencies requires Visual Studio Build Tools 14.0, which can be installed from [here](https://visualstudio.microsoft.com/downloads/). You may also need to install the Windows 8.1 / 10 SDK. See Python's [_WindowsCompilers_](https://wiki.python.org/moin/WindowsCompilers) page for details.
+
+The tests also require `bert_mrpc_frozen.pb` to be placed in the `python/tests` folder. Run the following code in `python/tests`:
+
+```text
+curl https://deeplearning4jblob.blob.core.windows.net/testresources/bert_mrpc_frozen_v1.zip --output bert.zip
+unzip bert.zip 
+```
+
+The resulting JAR will be generated at the base of the `konduit` project. To copy that JAR into the test folder and prepare the documentation \(in the `docs` folder\) to be tested within the testing framework, run:
+
+```text
+cd tests
+./prepare_doc_tests.sh
+```
+
+The tests are then run with `pytest`:
+
+```text
+cd python/tests
+python -m pytest .
+```
+
+To quickly run unit tests \(recommended before each commit\), or run the full set of integration tests, you can do:
+
+```text
+pytest -m unit
+pytest -m integration
+```
+
+To also run documentation tests with `doctest` for an individual file, simply run:
+
+```text
+ python -m doctest ../konduit/server.py -v
 ```
 
 ## JAR
@@ -27,7 +75,6 @@ Building the Konduit Serving JAR requires Maven and JDK 8.
 Run the following commands in the root directory of konduit-serving:
 
 ```text
-mvn -N io.takari:maven:0.7.6:wrapper
 python build_jar.py --os <your-platform>
 ```
 
@@ -35,7 +82,7 @@ where `<your-platform>` is picked from `windows-x86_64`,`linux-x86_64`,`linux-x8
 
 ### Building with the command line interface
 
-Once the `konduit` package is installed, you have access to a command line interface \(CLI\) tool called `konduit`.
+Once the `konduit` Python package is installed, you have access to a command line interface \(CLI\) tool called `konduit`.
 
 The `init` command:
 
@@ -84,13 +131,13 @@ This command installs the developer tools for developing Java programs using JDK
 In the root folder of the `konduit-serving` project, run the following command to build RPM files using Maven Wrapper: 
 
 ```text
-./mvnw clean install -DskipTests -P pmml,test,rpm,cpu,uberjar,native,python,converter,tar -Dchip=cpu -Djavacpp.platform=linux-x86_64
+./mvnw clean package -Ppython,pmml,uberjar,tar,rpm -Dmaven.test.skip=true -Djavacpp.platform=linux-x86_64 -Dchip=cpu
 ```
 
 The Maven Wrapper `mvnw` script allows Maven to be used even if `mvn` is not available on the system PATH. This command runs the Maven goals `clean` and `install` with the following arguments: 
 
-* skipTests 
-* Profiles: pmml, test, rpm, cpu, uberjar, native, python, converter, tar \(ensure this is specified without spaces in between\)
+* maven.test.skip=true
+* Profiles: python,pmml,uberjar,tar,rpm \(ensure this is specified without spaces in between\)
 * chip: CPU 
 * javacpp.platform: linux-x86\_64
 
@@ -108,21 +155,23 @@ sudo yum localinstall -y *.rpm
 Install JDK 8 using apt-get:
 
 ```text
-sudo apt-get install openjdk-8-jdk
+sudo apt-get install openjdk-8-jdk curl
 ```
 
 In the root directory of the Konduit Serving project, run the mvnw script with parameters: 
 
 ```text
-./mvnw -T 1C -Puberjar clean package -Dmaven.test.skip=true -Djavacpp.platform=linux-x86_64 -Dchip=cpu -Ppython -Ppmml,tar,deb -pl "ai.konduit.serving:konduit-serving-deb" -am
+./mvnw clean package -Ppython,pmml,uberjar,tar,deb -Dmaven.test.skip=true -Djavacpp.platform=linux-x86_64 -Dchip=cpu
 ```
 
-* The `-T 1C` flag enables [parallel builds in Maven](https://cwiki.apache.org/confluence/display/MAVEN/Parallel+builds+in+Maven+3) 
-* The profiles we use are: uberjar, python, pmml, tar, deb
+* The profiles we use are: uberjar, python, pmml, tar, deb \(ensure this is specified without spaces in between\)
 * chip: CPU 
 * javacpp.platform: linux-x86\_64
 * maven.test.skip=true
-* the `-pl` option specifies the specific project\(s\) that we want to build. in this case, we want to build the project with `groupId` `ai.konduit.serving` and `artifactId` `konduit-serving-deb`.
+
+{% hint style="info" %}
+The error `java.io.IOException: This archives contains unclosed entries.` usually indicates insufficient disk space \(see [tcurdt/jdeb\#234](https://github.com/tcurdt/jdeb/issues/234)\).
+{% endhint %}
 
 Finally, use dpkg to install the built package: 
 
