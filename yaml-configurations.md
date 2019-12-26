@@ -53,7 +53,7 @@ Refer to the [Server](server/inference.md) documentation for details.
 Refer to the [Client](client/python-client.md) documentation for details.
 
 * `input_names`, `output_names`: names of the first and final nodes of the Konduit Serving pipeline configuration defined in the Server. These arguments are typically inherited from the Server when initialized. 
-* `input_data_format`, `output_data_format`: One of the following: JSON, NUMPY, ARROW, IMAGE, ND4J. `input_data_format` and `output_data_format` refer to the format of the server's input and output.
+* `input_data_format`, `output_data_format`, `return_output_data_format`: One of the following: JSON, NUMPY, ARROW, IMAGE. `input_data_format` and `output_data_format` refer to the format of the server's input and output, whereas `return_output_data_format` specifies the data format returned to the client. 
 * `port`: specify the same HTTP port as the Server. 
 
 ### Steps
@@ -79,11 +79,7 @@ steps:
 
 If no Python path is specified, NumPy will still be available in the environment where the Python step is run. 
 
-To further customize Python steps, refer to the YAML configuration section of the Python pipeline steps page. 
-
-{% page-ref page="steps/python.md" %}
-
-A more comprehensive example is available on the following page: 
+To further customize Python steps, refer to the [Python pipeline steps](steps/python.md#yaml-configuration) guide. A more comprehensive example is available on the following page: 
 
 {% page-ref page="examples/python/onnx.md" %}
 
