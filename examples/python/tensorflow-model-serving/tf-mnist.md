@@ -62,7 +62,7 @@ print(tensorflow_version)
 In TensorFlow 1.x, "frozen" models can be exported in the TensorFlow Graph format. For deployment, we only need information on the graph and checkpoint variables. Freezing a model allows you to discard information that is not required for deploying your model.
 
 {% hint style="warning" %}
-TensorFlow 2.0 introduces the [SavedModel format](https://www.tensorflow.org/guide/saved_model) as the universal format for saving models. Even though the deployable protobuff \(PB\) files have the same file extension as frozen TensorFlow Graph files, SavedModel protobuff files are not currently supported in Konduit Serving. A workaround for TensorFlow 2.0 is to adapt the code from this tutorial for your use case to create TensorFlow Graph protobuffs.
+TensorFlow 2.0 introduces the [SavedModel format](https://www.tensorflow.org/guide/saved_model) as the universal format for saving models. Even though the deployable protobuff \(PB\) files have the same file extension as frozen TensorFlow Graph files, SavedModel protobuff files are not currently supported in Konduit Serving. A workaround for TensorFlow 2.0 is to adapt the code from this tutorial for your use case to create TensorFlow Graph protobuffs, or save your models as Keras HDF5 files and serve as Keras models \(refer to the Keras tutorial for details\).
 {% endhint %}
 
 The following code is adapted from `tf-import-examples` in the [`deeplearning4j-examples`](https://github.com/eclipse/deeplearning4j-examples/) repository.
@@ -359,20 +359,13 @@ server.start()
 
 {% tabs %}
 {% tab title="Python" %}
-To configure the client, create a Client object with the following arguments:
-
-* `input_data_format`: data format passed to the server for inference
-* `output_data_format`: data format returned by the server endpoint 
-* `return_output_data_format`: data format to be returned to the client. Note that this argument can be used to convert the output returned from the server to the client into a different format, e.g. NUMPY to JSON.
+To configure the client, create a Client object by specifying the port number:
 
 ```python
-client = Client(
-    input_data_format='NUMPY',
-    output_data_format='NUMPY',
-    return_output_data_format="NUMPY",
-    port=port
-)
+client = Client(port=port)
 ```
+
+The `Client`'s attributes will be obtained from the Server. 
 {% endtab %}
 
 {% tab title="YAML" %}
@@ -391,8 +384,6 @@ client = client_from_file(konduit_yaml_path)
 ```
 {% endtab %}
 {% endtabs %}
-
-
 
 ## Inference 
 
