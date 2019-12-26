@@ -48,7 +48,8 @@ For `PythonStep`, input names are defined in the `step()` method to a `PythonSte
 * `timeout`: Integer. Defaults to 60 \(seconds\). 
 * `host`: String. If the model is hosted locally, the host should be specified as `http://localhost` \(the default argument\) 
 * `port`: Integer. 
-* `prediction_type`: Defaults to `"RAW"`. One of `"CLASSIFICATION"`, `"YOLO"`, `"SSD"`, `"RCNN",` `"RAW"`, `"REGRESSION"`.
+
+The arguments `output_data_format`, `input_data_format` and `prediction_type` are obtained from the server when the Client object is initialized. Refer to the [Server](../server/inference.md) documentation for details. 
 
 ### `.predict()`method
 

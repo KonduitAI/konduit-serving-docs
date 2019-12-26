@@ -31,16 +31,16 @@ There are two options for configuring a Server object:
 
 ```python
 server = Server(
-    serving_config=ServingConfiguration(http_port=port), 
+    serving_config=ServingConfig(http_port=port), 
     steps=[preprocessing_step, onnx_step]
 )
 ```
 
-### Create an InferenceConfiguration object 
+### Create an InferenceConfig object 
 
 ```python
-inference_config = InferenceConfiguration(
-    serving_config=ServingConfiguration(http_port=port), 
+inference_config = InferenceConfig(
+    serving_config=ServingConfig(http_port=port), 
     steps=[preprocessing_step, onnx_step]
 )
 
@@ -58,6 +58,22 @@ Configurations are stored as dictionaries. You can access a server's configurati
 * `jar_path`: path to the konduit uberjar. If `None`, defaults to the `KONDUIT_JAR_PATH` environment variable, or `~/.konduit/konduit-serving` if `KONDUIT_JAR_PATH` is not available.
 * `pid_file_path`: path to write the process ID to, as a text file. 
 * `start_timeout`: time to wait for the server to timeout when starting the server instance. 
+
+## ServingConfig
+
+For most configurations, you will only have to set the following arguments:
+
+* `http_port`: HTTP port of the Konduit Serving instance
+* `input_data_format`: Input data format: one of  'NUMPY', 'JSON', 'ND4J', or 'ARROW'. Defaults to `NUMPY`. 
+* `output_data_format`: Output data format: one of  'NUMPY', 'JSON', 'ND4J', or 'ARROW'. Defaults to `NUMPY`. 
+
+The following arguments are optional: 
+
+* `listen_host`: host of the Konduit Serving instance. Defaults to `'localhost'`.
+* `prediction_type`: Prediction type. This argument determines which "output adapter" is used to transform the output. Choose one of `'CLASSIFICATION'`, `'YOLO'`, `'SSD'`, `'RCNN'`, `'RAW'`, `'REGRESSION'`. The default prediction type is `'RAW'`, that is, no adapter is applied to the output. 
+* `uploads_directory`: to which directory to store file uploads to. Defaults to `'file-uploads/'`.
+* `log_timings`: whether to log timings for this config, defaults to False
+* `metric_types`: the types of metrics logged for your ServingConfig can currently only be configured and extended from Java. don't modify this property.
 
 ## `server.start()`
 
