@@ -88,9 +88,8 @@ Once the `konduit` Python package is installed, you have access to a command lin
 
 The `init` command:
 
-1. gets the latest Konduit Serving code, 
-2. builds the Java dependencies needed for`konduit`, then 
-3. exports the location of the Konduit Serving JAR as an environment variable. 
+1. gets the latest Konduit Serving code, then
+2. builds the Java dependencies needed for`konduit`.
 
 It assumes that you have `git` installed on your system and that `python` is available.
 
