@@ -42,30 +42,19 @@ client:
 The server configuration takes the following arguments:
 
 * `http_port`: specify the port number 
-* `listen_host`: the host of the Konduit Serving instance. Defaults to `http://localhost`. 
 * `input_data_format` and `output_data_format`: specify one of the following: JSON, NUMPY, ARROW, IMAGE
-
-Additional arguments include: 
-
-* `prediction_type`: Determines which "output adapter" is used to transform the output. Choose one of `'CLASSIFICATION'`, `YOLO'`, `'SSD'`, `'RCNN'` or `'RAW'` \(default, no transformation\). 
-* `uploads_directory`: Directory to store file uploads. Defaults to `'file-uploads/'`.
-* `jar_path`: Path to the Konduit Serving uberjar.
-* `log_timings`: Whether to log timings for this config. Defaults to `False`.
+* `log_timings`: specify True to log timings 
 * `extra_start_args`: Java Virtual Machine \(JVM\) arguments. In this case, `-Xmx8g` specifies that the maximum memory allocation for the JVM is 8GB. 
 
-Refer to the [Server](server/inference.md) documentation for other arguments.
+Refer to the [Server](server/inference.md) documentation for details.
 
 ### Client
 
-The client configuration takes the following arguments:
+Refer to the [Client](client/python-client.md) documentation for details.
 
+* `input_names`, `output_names`: names of the first and final nodes of the Konduit Serving pipeline configuration defined in the Server. These arguments are typically inherited from the Server when initialized. 
+* `input_data_format`, `output_data_format`, `return_output_data_format`: One of the following: JSON, NUMPY, ARROW, IMAGE. `input_data_format` and `output_data_format` refer to the format of the server's input and output, whereas `return_output_data_format` specifies the data format returned to the client. 
 * `port`: specify the same HTTP port as the Server. 
-* `host`: defaults to `http://localhost`. Ignore this argument for local instances.
-
-Typically it is sufficient to specify the `port` and `host`as the remaining attributes are obtained from the Server. Refer to the [Client](client/python-client.md) documentation for details.
-
-* `input_names`, `output_names`: names of the first and final nodes of the Konduit Serving pipeline configuration defined in the Server. 
-* `input_data_format`, `output_data_format`: One of the following: JSON, NUMPY, ARROW, IMAGE, ND4J. `input_data_format` and `output_data_format` refer to the format of the server's input and output.
 
 ### Steps
 
@@ -90,11 +79,7 @@ steps:
 
 If no Python path is specified, NumPy will still be available in the environment where the Python step is run. 
 
-To further customize Python steps, refer to the YAML configuration section of the Python pipeline steps page. 
-
-{% page-ref page="steps/python.md" %}
-
-A more comprehensive example is available on the following page: 
+To further customize Python steps, refer to the [Python pipeline steps](steps/python.md#yaml-configuration) guide. A more comprehensive example is available on the following page: 
 
 {% page-ref page="examples/python/onnx.md" %}
 

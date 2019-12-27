@@ -65,12 +65,12 @@ For most configurations, the following arguments are sufficient:
 
 * `http_port`: HTTP port of the Konduit Serving instance.
 * `listen_host`: Host of the Konduit Serving instance. Defaults to `'localhost'`.
-* `input_data_format`: Input data format: one of  `'NUMPY'`, `'JSON'`, `'ND4J'`, or `'ARROW'`. Defaults to `NUMPY`. 
+* `input_data_format`: Input data format: one of  `'NUMPY'`, `'JSON'`, `'ND4J'`, `'IMAGE'`or `'ARROW'`. Defaults to `NUMPY`. 
 * `output_data_format`: Output data format: one of  `'NUMPY'`, `'JSON'`, `'ND4J'`, or `'ARROW'`. Defaults to `NUMPY`. 
 
 The following arguments are optional: 
 
-* `prediction_type`: Prediction type. This argument determines which "output adapter" is used to transform the output. Choose one of `'CLASSIFICATION'`, `'YOLO'`, `'SSD'`, `'RCNN'`, `'RAW'`, `'REGRESSION'`. The default prediction type is `'RAW'`, that is, no adapter is applied to the output. 
+* `prediction_type`: Prediction type. This argument determines which "output adapter" is used to transform the output. Choose one of `'CLASSIFICATION'`, `'YOLO'`, `'SSD'`, `'RCNN'`, `'RAW'`, `'REGRESSION'`. The default prediction type is `'RAW'`: that is, no adapter is applied to the output. 
 * `uploads_directory`: Directory to store file uploads. Defaults to `'file-uploads/'`.
 * `log_timings`: Whether to log timings for this config. Defaults to False
 * `metric_types`: The types of metrics logged for your `ServingConfig` can currently only be configured and extended from Java. Don't modify this property.
