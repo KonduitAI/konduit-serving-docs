@@ -80,6 +80,8 @@ python build_jar.py --os <your-platform>
 
 where `<your-platform>` is picked from `windows-x86_64`,`linux-x86_64`,`linux-x86_64-gpu`, `macosx-x86_64`, `linux-armhf` and `windows-x86_64-gpu`, depending on your operating system and architecture.
 
+An additional `--spin` argument provides the option to package Python \(`python`\), PMML \(`pmml`\), both \(`all`\) or neither \(`minimal`\). By default, both Python and PMML are packaged.  Python bundling is not encouraged on ARM platforms,  and PMML bundling is not encouraged if [AGPL licensing](https://www.gnu.org/licenses/agpl-3.0.en.html) is an issue.
+
 ### Building with the command line interface
 
 Once the `konduit` Python package is installed, you have access to a command line interface \(CLI\) tool called `konduit`.
@@ -100,7 +102,9 @@ konduit init --os <your-platform>
 
 where `<your-platform>` is picked from `windows-x86_64`, `linux-x86_64`, `linux-x86_64-gpu`,  `macosx-x86_64`, `linux-armhf` and `windows-x86_64-gpu`, depending on your operating system and architecture.
 
-To rebuild the Konduit Serving JAR without adding the `KONDUIT_JAR_PATH` environment variable, run `konduit build` instead with the appropriate flags.
+An additional `--spin` argument provides the option to package Python \(`python`\), PMML \(`pmml`\), both \(`all`\) or neither \(`minimal`\). By default, both Python and PMML are packaged.  Python bundling is not encouraged on ARM platforms,  and PMML bundling is not encouraged if [AGPL licensing](https://www.gnu.org/licenses/agpl-3.0.en.html) is an issue.
+
+To rebuild the Konduit Serving JAR without re-downloading sources, run `build` instead of `init` with the appropriate flags.
 
 {% hint style="info" %}
 ### Known issues
