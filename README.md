@@ -16,15 +16,7 @@ The core abstraction is an idea called a **pipeline step**. A pipeline step perf
 2. One or more machine learning models
 3. Post-processing steps: transforming the output in a way that can be understood by humans, such as labels in a classification example.
 
-For instance, to perform inference on a \(mix of\) TensorFlow, Keras, Deeplearning4j \(DL4J\) or Predictive Model Markup Language \(PMML\) models, use `ModelStep`.
-
-{% page-ref page="examples/python/tensorflow-model-serving/" %}
-
-{% page-ref page="examples/python/dl4j.md" %}
-
-{% page-ref page="examples/python/keras.md" %}
-
-A custom pipeline step can be built using a`PythonStep`. This allows you to embed pre- or post-processing steps into your machine learning pipeline, or to serve models built in frameworks that do not have built-in`ModelStep`s such as scikit-learn and PyTorch.
+For instance, if you want to run arbitrary Python code, you can use a`PythonStep`.
 
 {% page-ref page="examples/python/onnx.md" %}
 
@@ -32,9 +24,17 @@ Konduit Serving also contains functionality for other pre-processing tasks, such
 
 {% page-ref page="examples/python/datavec.md" %}
 
+To perform inference on a \(mix of\) TensorFlow, Keras, Deeplearning4j \(DL4J\) or Predictive Model Markup Language \(PMML\) models, use `ModelStep`.
+
+{% page-ref page="examples/python/tensorflow-model-serving/" %}
+
+{% page-ref page="examples/python/dl4j.md" %}
+
+{% page-ref page="examples/python/keras.md" %}
+
 ## Usage
 
-One way to configure a Konduit Serving instance is by using a [YAML file](yaml-configurations.md). The following YAML file configures a Konduit Serving instance to run a short Python script as specified in the `python_code` argument:
+One way to configure a Konduit Serving instance is by using [a YAML file](yaml-configurations.md). The following YAML file configures a Konduit Serving instance to run a short Python script as specified in the `python_code` argument:
 
 ```yaml
 serving:
@@ -61,7 +61,7 @@ client:
 konduit serve --config hello-world.yaml
 ```
 
-This exposes a REST API for sending data to the server for inference. Inputs can be sent using the CLI, the Python SDK or any other application that supports sending HTTP POST requests such as [requests ](https://requests.readthedocs.io/en/master/)or [UiPath](https://docs.uipath.com/activities/docs/http-client) \(for RPA-based workflows\). 
+This exposes a REST API for sending data to the server for inference. Inputs can be sent using the CLI, the Python SDK or any other application that supports sending HTTP POST requests such as [requests ](https://requests.readthedocs.io/en/master/)or [UiPath ](https://docs.uipath.com/activities/docs/http-client)\(for RPA-based workflows\). 
 
 Finally, stop the Konduit Serving instance: 
 
@@ -79,11 +79,11 @@ To get started with Konduit Serving, check out the Quickstart page.
 
 We strive to provide a Python-first SDK that makes it easy to integrate Konduit Serving into a Python-first workflow.
 
+{% page-ref page="model-monitoring/monitoring-grafana.md" %}
+
 ### Modern visualization standards
 
 We want to expose [modern standards](http://prometheus.io/) for monitoring everything from your GPU to your inference time. Konduit Serving supports visualization applications such as [Grafana](http://grafana.com) that support the [Prometheus](https://prometheus.io/) standard for visualizing data.
-
-{% page-ref page="model-monitoring/monitoring-grafana.md" %}
 
 ### Performance and security
 
