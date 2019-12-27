@@ -35,7 +35,7 @@ curl https://deeplearning4jblob.blob.core.windows.net/testresources/bert_mrpc_fr
 unzip bert.zip 
 ```
 
-The resulting JAR will be generated at the base of the `konduit` project. To copy that JAR into the `tests` folder and prepare the documentation \(in the `docs` folder\) to be tested within the testing framework, run:
+The resulting JAR will be generated at the base of the `konduit` project. To copy that JAR into the test folder and prepare the documentation \(in the `docs` folder\) to be tested within the testing framework, run:
 
 ```text
 cd tests
@@ -78,9 +78,7 @@ Run the following commands in the root directory of konduit-serving:
 python build_jar.py --os <your-platform>
 ```
 
-where `<your-platform>` is picked from `windows-x86_64`,`linux-x86_64`,`linux-x86_64-gpu`, `macosx-x86_64`, `linux-armhf` and `windows-x86_64-gpu`, depending on your operating system and architecture. Use the `--help` flag to view the full list of arguments. 
-
-An additional `--spin` argument provides the option to package Python \(`python`\), PMML \(`pmml`\), both \(`all`\) or neither \(`minimal`\). By default, both Python and PMML are packaged.  Python bundling is not encouraged on ARM platforms,  and PMML bundling is not encouraged if [AGPL licensing](https://www.gnu.org/licenses/agpl-3.0.en.html) is an issue.
+where `<your-platform>` is picked from `windows-x86_64`,`linux-x86_64`,`linux-x86_64-gpu`, `macosx-x86_64`, `linux-armhf` and `windows-x86_64-gpu`, depending on your operating system and architecture.
 
 ### Building with the command line interface
 
@@ -88,8 +86,9 @@ Once the `konduit` Python package is installed, you have access to a command lin
 
 The `init` command:
 
-1. gets the latest Konduit Serving code, then
-2. builds the Java dependencies needed for`konduit`.
+1. gets the latest Konduit Serving code, 
+2. builds the Java dependencies needed for`konduit`, then 
+3. exports the location of the Konduit Serving JAR as an environment variable. 
 
 It assumes that you have `git` installed on your system and that `python` is available.
 
@@ -101,9 +100,7 @@ konduit init --os <your-platform>
 
 where `<your-platform>` is picked from `windows-x86_64`, `linux-x86_64`, `linux-x86_64-gpu`,  `macosx-x86_64`, `linux-armhf` and `windows-x86_64-gpu`, depending on your operating system and architecture.
 
-An additional `--spin` argument provides the option to package Python \(`python`\), PMML \(`pmml`\), both \(`all`\) or neither \(`minimal`\). By default, both Python and PMML are packaged.  Python bundling is not encouraged on ARM platforms,  and PMML bundling is not encouraged if [AGPL licensing](https://www.gnu.org/licenses/agpl-3.0.en.html) is an issue.
-
-To rebuild the Konduit Serving JAR without re-downloading sources, run `build` instead of `init` with the appropriate flags.
+To rebuild the Konduit Serving JAR without adding the `KONDUIT_JAR_PATH` environment variable, run `konduit build` instead with the appropriate flags.
 
 {% hint style="info" %}
 ### Known issues
@@ -140,7 +137,7 @@ In the root folder of the `konduit-serving` project, run the following command t
 The Maven Wrapper `mvnw` script allows Maven to be used even if `mvn` is not available on the system PATH. This command runs the Maven goals `clean` and `install` with the following arguments: 
 
 * maven.test.skip=true
-* Profiles: uberjar,tar,rpm \(ensure this is specified without spaces in between\). `python` and `pmml` are optional. 
+* Profiles: python,pmml,uberjar,tar,rpm \(ensure this is specified without spaces in between\)
 * chip: CPU 
 * javacpp.platform: linux-x86\_64
 
@@ -149,8 +146,7 @@ The `clean install` command first deletes previously compiled Java sources and r
 Use the YUM command `yum localinstall`to install the RPM file. 
 
 ```text
-# replace <spin.version> with the spin version specified
-cd konduit-serving-rpm/target/rpm/konduit-serving-<spin.version>-cpu/RPMS/x86_64/
+cd konduit-serving-rpm/target/rpm/konduit-serving-custom-cpu/RPMS/x86_64/
 sudo yum localinstall -y *.rpm
 ```
 
@@ -168,7 +164,7 @@ In the root directory of the Konduit Serving project, run the mvnw script with p
 ./mvnw clean package -Ppython,pmml,uberjar,tar,deb -Dmaven.test.skip=true -Djavacpp.platform=linux-x86_64 -Dchip=cpu
 ```
 
-* The profiles we use are: uberjar, tar, deb \(ensure this is specified without spaces in between\). `python` and `pmml` are optional. 
+* The profiles we use are: uberjar, python, pmml, tar, deb \(ensure this is specified without spaces in between\)
 * chip: CPU 
 * javacpp.platform: linux-x86\_64
 * maven.test.skip=true
@@ -183,13 +179,13 @@ Finally, use dpkg to install the built package:
 sudo dpkg -i konduit-serving-deb/target/konduit-serving-custom-cpu_0.1.0-SNAPSHOT.deb
 ```
 
-If you run into missing dependencies, run 
+If you run into dependency issues, run 
 
 ```text
 sudo apt-get install -f
 ```
 
-to install dependencies. Alternately, use the `gdebi` package to install the local DEB package \(see this [StackExchange thread ](https://unix.stackexchange.com/questions/159094/how-to-install-a-deb-file-by-dpkg-i-or-by-apt)for details\). 
+to install missing dependencies. Alternately, use the `gdebi` package to install the local DEB package \(see this [StackExchange thread ](https://unix.stackexchange.com/questions/159094/how-to-install-a-deb-file-by-dpkg-i-or-by-apt)for details\). 
 
 ### Tarball
 
