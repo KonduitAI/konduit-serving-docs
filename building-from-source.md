@@ -179,6 +179,14 @@ Finally, use dpkg to install the built package:
 sudo dpkg -i konduit-serving-deb/target/konduit-serving-custom-cpu_0.1.0-SNAPSHOT.deb
 ```
 
+If you run into dependency issues, run 
+
+```text
+sudo apt-get install -f
+```
+
+to install missing dependencies. Alternately, use the `gdebi` package to install the local DEB package \(see this [StackExchange thread ](https://unix.stackexchange.com/questions/159094/how-to-install-a-deb-file-by-dpkg-i-or-by-apt)for details\). 
+
 ### Tarball
 
 Konduit Serving can also be built as a tarball, where the JAR file and associated scripts are packaged in a gzip-compressed tar file. To build a Konduit Serving tar file, run the following Maven Wrapper command in the root folder of the Konduit Serving project:
