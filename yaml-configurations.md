@@ -51,6 +51,7 @@ Refer to the [Server](server/inference.md) documentation for other arguments.
 ### Client
 
 * `port`: specify the same HTTP port as the Server. 
+* `host`: defaults to `http://localhost`. Ignore this argument for local instances.
 
 Typically it is sufficient to specify the `port` as the remaining attributes are obtained from the Server. Refer to the [Client](client/python-client.md) documentation for details.
 
