@@ -8,7 +8,7 @@
 
 **Dependencies** Ensure that you have JDK 8.0 installed. To use the Python SDK, install Python 3.7 and above.
 
-**Hardware requirements** Binaries are provided for Intel/x86 architectures. 
+**Hardware requirements** Binaries are provided for Intel/x86 architectures. For ARM support, see the [_Building from source_](building-from-source.md#manual-build) page. 
 
 **GPU**: Hardware acceleration with CUDA version 10.1 is supported. 
 
@@ -35,7 +35,7 @@ A version of Konduit Serving with the command line interface \(CLI\) is not curr
 If using the Anaconda distribution, you may choose to install `konduit`from the `konduitai`Anaconda channel. First add the `konduitai` channel: 
 
 ```text
-conda config --add channels conda-forge
+conda config --add channels konduitai
 ```
 
 then install `konduit` with:
@@ -51,6 +51,10 @@ pip install cython
 ```
 
 We recommend using Python 3.7+.
+
+{% hint style="warning" %}
+PyPI wheels and conda packages do not currently ship with Konduit Serving JARs. Refer to the [_Building from source_](building-from-source.md#manual-build) page for instructions on compiling a Konduit Serving JAR. 
+{% endhint %}
 
 ## Set environment variables manually
 
@@ -74,7 +78,7 @@ export KONDUIT_JAR_PATH="~/konduit-serving/konduit.jar"
 
 ## Common installation issues
 
-1. Installing`jnius` returns
+1. Installing`pyjnius` returns
 
    ```text
    WARNING: Not able to assign machine() = AMD64 to a cpu value! Using cpu = 'i386' instead!
@@ -88,5 +92,5 @@ export KONDUIT_JAR_PATH="~/konduit-serving/konduit.jar"
    ImportError: DLL load failed: The specified module could not be found.
    ```
 
-   Fix: On Windows, `Pyjnius` requires an additional PATH variable to locate `jvm.dll`. Refer to the pyjnius documentation: [https://pyjnius.readthedocs.io/en/stable/installation.html\#installation-for-windows](https://pyjnius.readthedocs.io/en/stable/installation.html#installation-for-windows) for details.
+   Fix: On Windows, `pyjnius` requires an additional PATH variable to locate `jvm.dll`. Refer to the [pyjnius documentation](https://pyjnius.readthedocs.io/en/stable/installation.html#installation-for-windows) for details.
 
