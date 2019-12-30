@@ -4,7 +4,7 @@ description: >-
   on a Keras LSTM model using the Python SDK for Konduit Serving.
 ---
 
-# Keras
+# Keras \(TensorFlow 2.0\)
 
 ```python
 from konduit import ModelConfig, ParallelInferenceConfig, ModelConfigType, \
@@ -34,7 +34,7 @@ Konduit Serving works by defining a series of **steps**. These include operation
 
 If deploying your model does not require pre- nor post-processing, only one step - a machine learning model - is required. This configuration is defined using a single `ModelStep`.
 
-Before running this notebook, run the `build_jar.py` script and copy the JAR \(`konduit.jar`\) to this folder. Refer to the [Python SDK README](https://github.com/KonduitAI/konduit-serving/blob/master/python/README.md) for details.
+Before running this notebook, run the `build_jar.py` script or the `konduit init` command. Refer to the [Building from source ](../../building-from-source.md#manual-build)page for details.
 
 ## Configure the step
 

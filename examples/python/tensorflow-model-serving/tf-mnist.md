@@ -59,7 +59,7 @@ print(tensorflow_version)
 
 ## Creating frozen models \(Tensorflow 1.x\)
 
-In TensorFlow 1.x, "frozen" models can be exported in the TensorFlow Graph format. For deployment, we only need information on the graph and checkpoint variables. Freezing a model allows you to discard information that is not required for deploying your model.
+In TensorFlow 1.x, "frozen" models can be exported in the TensorFlow Graph format. For deployment, we only need information about the graph and checkpoint variables. Freezing a model allows you to discard information that is not required for deploying your model.
 
 {% hint style="warning" %}
 TensorFlow 2.0 introduces the [SavedModel format](https://www.tensorflow.org/guide/saved_model) as the universal format for saving models. Even though the deployable protobuff \(PB\) files have the same file extension as frozen TensorFlow Graph files, SavedModel protobuff files are not currently supported in Konduit Serving. A workaround for TensorFlow 2.0 is to adapt the code from this tutorial for your use case to create TensorFlow Graph protobuffs, or save your models as Keras HDF5 files and serve as Keras models \(refer to the Keras tutorial for details\).
@@ -180,7 +180,7 @@ Konduit Serving works by defining a series of **steps**. These include operation
 
 If deploying your model does not require pre- nor post-processing, only one step - a machine learning model - is required. This configuration is defined using a single `ModelStep`.
 
-Before running this notebook, run the `build_jar.py` script and copy the JAR \(`konduit.jar`\) to this folder. Refer to the [Python SDK README](https://github.com/KonduitAI/konduit-serving/blob/master/python/README.md) for details.
+Before running this notebook, run the `build_jar.py` script or the `konduit init` command. Refer to the [Building from source ](../../../building-from-source.md#manual-build)page for details.
 
 ## Configure the step
 

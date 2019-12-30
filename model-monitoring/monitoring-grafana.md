@@ -59,7 +59,7 @@ Grafana allows you to declare a dashboard as a JSON file. An imported Grafana da
 
 ## Installation
 
-* **Konduit Serving**: Follow the installation steps available at [https://serving.oss.konduit.ai/installation](https://serving.oss.konduit.ai/installation) to build a Konduit Serving JAR file and install the `konduit` Python module.
+* **Konduit Serving**: Follow the [installation steps](../installation.md) to build a Konduit Serving JAR file and install the `konduit` Python module.
 * **Prometheus**: Download a [precompiled Prometheus binary](https://prometheus.io/download) for your OS architecture and unzip to a location on your local drive.
 * **Grafana**: Install Grafana from Grafana's [Downloads](https://grafana.com/grafana/download) page. See the [Grafana installation documentation](https://grafana.com/docs/grafana/latest/installation/) for platform-specific instructions.
 

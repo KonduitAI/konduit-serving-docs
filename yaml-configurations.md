@@ -9,7 +9,7 @@ description: >-
 
 ## YAML components
 
-A Konduit Serving YAML configuration file has three top-level entities:
+A Konduit Serving YAML configuration file has three top-level entities: 
 
 1. `serving`
 2. `steps`
@@ -45,13 +45,13 @@ The server configuration, `serving` takes the following arguments:
 * `listen_host`: the host of the Konduit Serving instance. Defaults to `http://localhost`. 
 * `input_data_format` and `output_data_format`: specify one of the following: `JSON`, `NUMPY`, `ARROW`, `IMAGE`.
 
-Additional arguments include:
+Additional arguments include: 
 
 * `uploads_directory`: Directory to store file uploads. Defaults to `'file-uploads/'`.
 * `jar_path`: Path to the Konduit Serving uberjar. Defaults to the `KONDUIT_JAR_PATH` environment variable, or if unavailable, `~/.konduit/konduit-serving/konduit.jar`. 
 * `log_timings`: Whether to log timings for this config. Defaults to `False`.
 * `extra_start_args`: Java Virtual Machine \(JVM\) arguments. In this case, `-Xmx8g` specifies that the maximum memory allocation for the JVM is 8GB. 
-* `prediction_type`: Determines which ["output adapter"](https://github.com/KonduitAI/konduit-serving/tree/b247b211d5e2441e781ddc960bfed12dff446890/konduit-serving-api/src/main/java/ai/konduit/serving/output) is used to transform the output. Choose one of `CLASSIFICATION`, `YOLO`, `SSD`, `RCNN` or `RAW` \(default, no transformation\). 
+* `prediction_type`: Determines which ["output adapter"](https://github.com/KonduitAI/konduit-serving/tree/b247b211d5e2441e781ddc960bfed12dff446890/konduit-serving-api/src/main/java/ai/konduit/serving/output) is used to transform the output. Choose one of `'CLASSIFICATION'`, `YOLO'`, `'SSD'`, `'RCNN'` or `'RAW'` \(default, no transformation\). 
 
 Refer to the [Server](server/inference.md) documentation for other arguments.
 
@@ -69,9 +69,9 @@ Typically it is sufficient to specify the `port` and `host`as the remaining attr
 
 ### Steps
 
-#### Python steps
+#### Python steps 
 
-Python steps run code specified in the `python_code` \(a string\) or `python_code_path` \(a `.py` script\) argument. Python steps defined in the YAML configuration default to input name and output name `"default"`.
+Python steps run code specified in the `python_code` \(a string\) or `python_code_path` \(a `.py` script\) argument. Python steps defined in the YAML configuration default to input name and output name `"default"`.  
 
 Importantly, the `python_inputs` argument maps each input and output variable to the respective data type. Accepted data types are `INT`, `STR`, `FLOAT`, `BOOL`, `NDARRAY`.
 
@@ -88,19 +88,19 @@ steps:
       second: NDARRAY
 ```
 
-If no Python path is specified, NumPy will still be available in the environment where the Python step is run.
+If no Python path is specified, NumPy will still be available in the environment where the Python step is run. 
 
-To further customize Python steps, refer to the YAML configuration section of the Python pipeline steps page.
+To further customize Python steps, refer to the YAML configuration section of the Python pipeline steps page. 
 
 {% page-ref page="steps/python.md" %}
 
-A more comprehensive example is available on the following page:
+A more comprehensive example is available on the following page: 
 
 {% page-ref page="examples/python/onnx.md" %}
 
-#### Model steps
+#### Model steps 
 
-Use model steps when you want to use pre-packaged modules such as TensorFlow, DL4J and PMML for serving a given model file.
+Use model steps when you want to use pre-packaged modules such as TensorFlow, DL4J and PMML for inference. 
 
 ```yaml
 steps:
@@ -117,13 +117,13 @@ steps:
 
 The following parameters should be specified:
 
-* `type`: one of `TENSORFLOW`, `KERAS`, `COMPUTATION_GRAPH`, `MULTI_LAYER_NETWORK`, `PMML`, `SAMEDIFF`;
+* `type`: one of `"TENSORFLOW"`, `"KERAS"`, `"COMPUTATION_GRAPH"`, `"MULTI_LAYER_NETWORK"`, `"PMML"`, `"SAMEDIFF"`;
 * `model_loading_path`: location of your model file; 
 * `input_names`: list of the names of input nodes of your model file;
 * `output_names`: list of the names of output nodes of your model file;
-* `input_data_types`: map each of the input nodes to one of the following data types using the input names as keys: `INT`, `STR`, `FLOAT`, `BOOL`, `NDARRAY`. 
+* `input_data_types`: map each of the input nodes to one of the following data types using the input names as keys: `"INT"`, `"STR"`, `"FLOAT"`, `"BOOL"`, `"NDARRAY"`. 
 
-Refer to the model-specific example for details on configuring model steps.
+Refer to the model-specific example for details on configuring model steps. 
 
 {% page-ref page="examples/python/tensorflow-model-serving/" %}
 
@@ -133,7 +133,7 @@ Refer to the model-specific example for details on configuring model steps.
 
 ## Usage
 
-On the **server**, start a Konduit Serving instance by:
+On the **server**, start a Konduit Serving instance by: 
 
 1. creating a Server object using `server_from_file`, 
 2. starting the server using the `.start()` method. 
@@ -174,31 +174,31 @@ print(client.predict(input_arr))
 [35]
 ```
 
-Finally, stop the server with the `.stop()` method:
+Finally, stop the server with the `.stop()` method: 
 
 ```python
 server.stop()
 ```
 
-This can also be run in the **command line**. In the root folder of [konduit-serving-examples](https://github.com/KonduitAI/konduit-serving-examples), initialize the Konduit Serving instance with
+This can also be run in the **command line**. In the root folder of [konduit-serving-examples](https://github.com/KonduitAI/konduit-serving-examples), initialize the Konduit Serving instance with 
 
 ```bash
 konduit serve --config yaml/simple.yaml
 ```
 
-Send the NPY file to the server for inference with
+Send the NPY file to the server for inference with 
 
 ```bash
 konduit predict-numpy --config yaml/simple.yaml --numpy_data data/simple/input_arr.npy
 ```
 
-and finally, stop the server with
+and finally, stop the server with 
 
 ```bash
 konduit stop-server --config yaml/simple.yaml
 ```
 
-## Resources
+## Resources 
 
 Some resources on the YAML format:
 
