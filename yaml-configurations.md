@@ -117,11 +117,11 @@ steps:
 
 The following parameters should be specified:
 
-* `type`: one of `"TENSORFLOW"`, `"KERAS"`, `"COMPUTATION_GRAPH"`, `"MULTI_LAYER_NETWORK"`, `"PMML"`, `"SAMEDIFF"`;
+* `type`: one of `TENSORFLOW`, `KERAS`, `COMPUTATION_GRAPH`, `MULTI_LAYER_NETWORK`, `PMML`, `SAMEDIFF`;
 * `model_loading_path`: location of your model file; 
 * `input_names`: list of the names of input nodes of your model file;
 * `output_names`: list of the names of output nodes of your model file;
-* `input_data_types`: map each of the input nodes to one of the following data types using the input names as keys: `"INT"`, `"STR"`, `"FLOAT"`, `"BOOL"`, `"NDARRAY"`. 
+* `input_data_types`: map each of the input nodes to one of the following data types using the input names as keys: `INT`, `STR`, `FLOAT`, `BOOL`, `NDARRAY`. 
 
 Refer to the model-specific example for details on configuring model steps. 
 

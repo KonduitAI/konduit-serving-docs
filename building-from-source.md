@@ -171,7 +171,7 @@ In the root directory of the Konduit Serving project, run the `mvnw` script with
 ```
 
 * `maven.test.skip=true`
-* Enable the profiles `uberjar,tar,deb` \(ensure this is specified without spaces in between\). The`python` and `pmml` profiles are optional. 
+* Enable the profiles `uberjar,tar,deb` \(ensure this is specified without spaces in between\). The `python` and `pmml` profiles are optional. 
 * `chip`: `cpu` \(use `gpu` to enable CUDA support\)
 * `javacpp.platform`: `linux-x86_64`
 
@@ -191,7 +191,7 @@ Note that `dpkg` does not support dependencies. If you run into missing dependen
 sudo apt-get install -f
 ```
 
-to install dependencies. Alternately, use the `gdebi` package to install the local DEB package \(see this [StackExchange thread ](https://unix.stackexchange.com/questions/159094/how-to-install-a-deb-file-by-dpkg-i-or-by-apt)for details\), or simply [use `apt-get install` to install the local package ](https://askubuntu.com/a/795048)\(apt 1.1 and above\): 
+to install dependencies. Alternately, use the `gdebi` package to install the local DEB package \(see this [StackExchange thread ](https://unix.stackexchange.com/questions/159094/how-to-install-a-deb-file-by-dpkg-i-or-by-apt)for details\), or simply [use `apt-get install` to install the local package](https://askubuntu.com/a/795048) (apt 1.1 and above\): 
 
 ```text
 cd konduit-serving-deb/target

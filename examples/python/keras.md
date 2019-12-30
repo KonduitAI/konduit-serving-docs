@@ -153,7 +153,7 @@ server.start()
 
 ## Configure the client
 
-To configure the client, create a Client object with the port argument.
+To configure the client, create a Client object with the `port` argument.
 
 Note that you should create the Client object after the Server has started, so that Client can inherit the Server's attributes.
 

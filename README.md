@@ -10,21 +10,15 @@ description: >-
 
 Konduit Serving provides building blocks for developers to write their own production machine learning pipelines from pre-processing to model serving, exposable as a simple REST API.
 
-The core abstraction is an idea called a **pipeline step**. A pipeline step performs a task as part of using a machine learning model in a deployment scenario. These steps generally include:
+The core abstraction is an idea called a **pipeline step**. A pipeline step performs a task such as: 
 
-1. Pre-processing steps
-2. One or more machine learning models
-3. Post-processing steps: transforming the output in a way that can be understood by humans, such as labels in a classification example.
+1. pre-processing steps;
+2. running one or more machine learning models; and
+3. post-processing steps: transforming the output in a way that can be understood by humans, such as labels in a classification example,
 
-For instance, if you want to run arbitrary Python code, you can use a`PythonStep`.
+as part of using a machine learning model in a deployment scenario. 
 
-{% page-ref page="examples/python/onnx.md" %}
-
-Konduit Serving also contains functionality for other pre-processing tasks, such as DataVec transform processes and image transforms.
-
-{% page-ref page="examples/python/datavec.md" %}
-
-To perform inference on a \(mix of\) TensorFlow, Keras, Deeplearning4j \(DL4J\) or Predictive Model Markup Language \(PMML\) models, use `ModelStep`.
+For instance, a `ModelStep` performs inference on a \(mix of\) TensorFlow, Keras, Deeplearning4j \(DL4J\) or Predictive Model Markup Language \(PMML\) models.
 
 {% page-ref page="examples/python/tensorflow-model-serving/" %}
 
@@ -32,9 +26,19 @@ To perform inference on a \(mix of\) TensorFlow, Keras, Deeplearning4j \(DL4J\) 
 
 {% page-ref page="examples/python/keras.md" %}
 
+A custom pipeline step can be built using a `PythonStep`. This allows you to embed pre- or post-processing steps into your machine learning pipeline, or to serve models built in frameworks that do not have built-in`ModelStep`s such as scikit-learn and PyTorch.
+
+{% page-ref page="examples/python/onnx.md" %}
+
+Konduit Serving also contains functionality for other pre-processing tasks, such as DataVec transform processes and image transforms.
+
+{% page-ref page="examples/python/datavec.md" %}
+
+
+
 ## Usage
 
-One way to configure a Konduit Serving instance is by using [a YAML file](yaml-configurations.md). The following YAML file configures a Konduit Serving instance to run a short Python script as specified in the `python_code` argument:
+One way to configure a Konduit Serving instance is by using a [YAML file](yaml-configurations.md). The following YAML file configures a Konduit Serving instance to run a short Python script as specified in the `python_code` argument:
 
 ```yaml
 serving:
@@ -61,7 +65,7 @@ client:
 konduit serve --config hello-world.yaml
 ```
 
-This exposes a REST API for sending data to the server for inference. Inputs can be sent using the CLI, the Python SDK or any other application that supports sending HTTP POST requests such as [requests ](https://requests.readthedocs.io/en/master/)or [UiPath ](https://docs.uipath.com/activities/docs/http-client)\(for RPA-based workflows\). 
+This exposes a REST API for sending data to the server for inference. Inputs can be sent using the CLI, the Python SDK or any other application that supports sending HTTP POST requests such as [requests ](https://requests.readthedocs.io/en/master/)or [UiPath](https://docs.uipath.com/activities/docs/http-client) (for RPA-based workflows\). 
 
 Finally, stop the Konduit Serving instance: 
 
