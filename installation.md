@@ -32,7 +32,7 @@ A version of Konduit Serving with the command line interface \(CLI\) is not curr
 `pip install`.
 {% endhint %}
 
-If using the Anaconda distribution, you may choose to install `konduit`from the `konduitai`Anaconda channel. First add the `konduitai` channel: 
+If using the Anaconda distribution, you may choose to install `konduit` from the `konduitai` Anaconda channel. First add the `konduitai` channel: 
 
 ```text
 conda config --add channels konduitai
@@ -55,7 +55,7 @@ We recommend using Python 3.7+.
 
 
 {% hint style="warning" %}
-PyPI wheels and conda packages do not currently ship with Konduit Serving JARs. Refer to the [_Building from source_](building-from-source.md#manual-build) page for instructions on compiling a Konduit Serving JAR. 
+`konduit` PyPI wheels and conda packages do not currently ship with Konduit Serving JARs. Refer to the [_Building from source_](building-from-source.md#manual-build) page for instructions on compiling a Konduit Serving JAR. 
 {% endhint %}
 
 ## Set environment variables manually
