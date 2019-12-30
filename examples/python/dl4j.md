@@ -38,7 +38,7 @@ from konduit.load import server_from_file, client_from_file
 
 ## Saving models in Deeplearning4j
 
-The following is a short Java program that loads a simple CNN model from DL4J's model zoo, initializes weights, then saves the model to a new file, "SimpleCNN.zip".
+The following is a short Java program that loads a simple CNN model from DL4J's model zoo, initializes weights, then saves the model to a new file, `SimpleCNN.zip`.
 
 ```java
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
@@ -87,8 +87,8 @@ Before running this notebook, run the `build_jar.py` script or the `konduit init
 {% tab title="Python" %}
 Define the DL4J configuration as a `ModelConfig` object.
 
-* `tensor_data_types_config`: The ModelConfig object requires a dictionary `input_data_types`. Its keys should represent column names, and the values should represent data types as strings, e.g. `"INT32"`. See [here](https://github.com/KonduitAI/konduit-serving/blob/master/konduit-serving-api/src/main/java/ai/konduit/serving/model/TensorDataType.java) for a list of supported data types. 
-* `model_config_type`: This argument requires a `ModelConfigType` object. In the Java program above, we recognised that SimpleCNN is configured as a MultiLayerNetwork, in contrast with the ComputationGraph class, which is used for more complex networks. Specify `model_type` as `MULTI_LAYER_NETWORK`, and `model_loading_path` to point to the location of DL4J weights saved in the ZIP file format.
+* `tensor_data_types_config`: The `ModelConfig` object requires a dictionary `input_data_types`. Its keys should represent column names, and the values should represent data types as strings, e.g. `"INT32"`. See [here](https://github.com/KonduitAI/konduit-serving/blob/master/konduit-serving-api/src/main/java/ai/konduit/serving/model/TensorDataType.java) for a list of supported data types. 
+* `model_config_type`: This argument requires a `ModelConfigType` object. In the Java program above, we recognized that SimpleCNN is configured as a `MultiLayerNetwork`, in contrast with the `ComputationGraph` class, which is used for more complex networks. Specify `model_type` as `MULTI_LAYER_NETWORK`, and `model_loading_path` to point to the location of DL4J weights saved in the ZIP file format.
 
 ```python
 input_data_types = {"image_array": "FLOAT"}
@@ -109,10 +109,10 @@ dl4j_config = ModelConfig(
 
 For the `ModelStep` object, the following parameters are specified:
 
-* `model_config`: pass the ModelConfig object here 
+* `model_config`: pass the `ModelConfig` object here.
 * `parallel_inference_config`: specify the number of workers to run in parallel. Here, we specify `workers=1`.
-* `input_names`:  names for the input data  
-* `output_names`: names for the output data
+* `input_names`:  names for the input data.
+* `output_names`: names for the output data.
 
 ```python
 dl4j_step = ModelStep(
@@ -125,10 +125,10 @@ dl4j_step = ModelStep(
 {% endtab %}
 
 {% tab title="YAML" %}
-In the Java program above, we recognised that SimpleCNN is configured as a MultiLayerNetwork, in contrast with the ComputationGraph class, which is used for more complex networks. Hence, we create a `dl4j_mln_step` of type `MULTI_LAYER_NETWORK`.
+In the Java program above, we recognised that SimpleCNN is configured as a `MultiLayerNetwork`, in contrast with the `ComputationGraph` class, which is used for more complex networks. Hence, we create a `dl4j_mln_step` of type `MULTI_LAYER_NETWORK`.
 
-* `model_loading_path` denotes the location of the model file 
-* `input_names` and `output_names` denote the names of the input and output nodes, as lists
+* `model_loading_path` denotes the location of the model file.
+* `input_names` and `output_names` denote the names of the input and output nodes, as lists.
 * `input_data_types` maps the data types of the input nodes to the data type.  See [here](https://github.com/KonduitAI/konduit-serving/blob/master/konduit-serving-api/src/main/java/ai/konduit/serving/model/TensorDataType.java) for a list of supported data types. 
 * `parallel_inference_config`: specify the number of workers to run in parallel. Here, we specify `workers=1`.
 
@@ -152,8 +152,8 @@ steps:
 {% hint style="info" %}
 To find the names of input and output nodes in DL4J,
 
-* for `input_names`, print the first element of `net.getLayerNames()`.
-* for `output_names`, check the last layer when printing `net.summary()`. 
+* for `input_names`: print the first element of `net.getLayerNames()`.
+* for `output_names`: check the last layer when printing `net.summary()`. 
 {% endhint %}
 
 ## Configure the server
@@ -161,7 +161,7 @@ To find the names of input and output nodes in DL4J,
 Specify the following:
 
 * `http_port`: select a random port.
-* `input_data_format`, `output_data_format`: Specify input and output data formats as strings. 
+* `input_data_format`, `output_data_format`: specify input and output data formats as strings. 
 
 {% tabs %}
 {% tab title="Python" %}
@@ -196,14 +196,15 @@ serving:
 {% hint style="info" %}
 Accepted input and output data formats are as follows:
 
-* Input: JSON, ARROW, IMAGE, ND4J \(not yet implemented\) and NUMPY.
-* Output: NUMPY, JSON, ND4J \(not yet implemented\) and ARROW.
+* Input: `JSON`, `ARROW`, `IMAGE`, `ND4J` \(not yet implemented\) and `NUMPY`.
+* Output: `NUMPY`, `JSON`, `ND4J` \(not yet implemented\) and `ARROW`.
 {% endhint %}
 
 ## Start the server
 
 {% tabs %}
 {% tab title="Python" %}
+
 ```python
 server.start()
 ```
@@ -234,9 +235,9 @@ server.start()
 
 To configure the client, create a Client object with the following arguments:
 
-* `input_data_format`: data format passed to the server for inference
-* `output_data_format`: data format returned by the server endpoint 
-* `return_output_data_format`: data format to be returned to the client. Note that this argument can be used to convert the output returned from the server to the client into a different format, e.g. NUMPY to JSON.
+* `input_data_format`: data format passed to the server for inference.
+* `output_data_format`: data format returned by the server endpoint.
+* `return_output_data_format`: data format to be returned to the client. Note that this argument can be used to convert the output returned from the server to the client into a different format, e.g. `NUMPY` to `JSON`.
 
 {% tabs %}
 {% tab title="Python" %}
@@ -277,7 +278,7 @@ client = client_from_file(konduit_yaml_path)
 We generate a \(3, 224, 224\) array of random numbers between 0 and 255 as input to the model for prediction.
 
 {% hint style="warning" %}
-NDARRAY inputs to ModelSteps must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `numpy.expand_dims()` to add an additional dimension to your array. 
+`NDARRAY` inputs to `ModelStep`s must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `numpy.expand_dims()` to add an additional dimension to your array. 
 {% endhint %}
 
 Before requesting for a prediction, we normalize the image to be between 0 and 1:
