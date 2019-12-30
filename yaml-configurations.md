@@ -15,7 +15,7 @@ A Konduit Serving YAML configuration file has three top-level entities:
 2. `steps`
 3. `client`
 
-The following is a sample YAML file for serving a Python script located at `simple.py` which takes a NumPy array `first` as input and a NumPy array `second` as output:
+The following is a sample YAML file for serving a Python script located at `simple.py` which takes a NumPy array `first` as input and returns a NumPy array `second` as output:
 
 ```yaml
 serving:
@@ -39,30 +39,41 @@ client:
 
 ### Serving
 
-The server configuration takes the following arguments:
+The server configuration, `serving` takes the following arguments:
 
 * `http_port`: specify the port number 
-* `input_data_format` and `output_data_format`: specify one of the following: JSON, NUMPY, ARROW, IMAGE
-* `log_timings`: specify True to log timings 
-* `extra_start_args`: Java Virtual Machine \(JVM\) arguments. In this case, `-Xmx8g` specifies that the maximum memory allocation for the JVM is 8GB. 
+* `listen_host`: the host of the Konduit Serving instance. Defaults to `http://localhost`. 
+* `input_data_format` and `output_data_format`: specify one of the following: `JSON`, `NUMPY`, `ARROW`, `IMAGE`.
 
-Refer to the [Server](server/inference.md) documentation for details.
+Additional arguments include: 
+
+* `uploads_directory`: Directory to store file uploads. Defaults to `'file-uploads/'`.
+* `jar_path`: Path to the Konduit Serving uberjar. Defaults to the `KONDUIT_JAR_PATH` environment variable, or if unavailable, `~/.konduit/konduit-serving/konduit.jar`. 
+* `log_timings`: Whether to log timings for this config. Defaults to `False`.
+* `extra_start_args`: Java Virtual Machine \(JVM\) arguments. In this case, `-Xmx8g` specifies that the maximum memory allocation for the JVM is 8GB. 
+* `prediction_type`: Determines which ["output adapter"](https://github.com/KonduitAI/konduit-serving/tree/b247b211d5e2441e781ddc960bfed12dff446890/konduit-serving-api/src/main/java/ai/konduit/serving/output) is used to transform the output. Choose one of `'CLASSIFICATION'`, `YOLO'`, `'SSD'`, `'RCNN'` or `'RAW'` \(default, no transformation\). 
+
+Refer to the [Server](server/inference.md) documentation for other arguments.
 
 ### Client
 
-Refer to the [Client](client/python-client.md) documentation for details.
+The client configuration takes the following arguments:
 
-* `input_names`, `output_names`: names of the first and final nodes of the Konduit Serving pipeline configuration defined in the Server. These arguments are typically inherited from the Server when initialized. 
-* `input_data_format`, `output_data_format`, `return_output_data_format`: One of the following: JSON, NUMPY, ARROW, IMAGE. `input_data_format` and `output_data_format` refer to the format of the server's input and output, whereas `return_output_data_format` specifies the data format returned to the client. 
-* `port`: specify the same HTTP port as the Server. 
+* `port`: specify the same HTTP port as `serving`. 
+* `host`: defaults to `http://localhost`. Ignore this argument for local instances.
+
+Typically it is sufficient to specify the `port` and `host`as the remaining attributes are obtained from the Server. Refer to the [Client](client/python-client.md) documentation for details.
+
+* `input_names`, `output_names`: names of the first and final nodes of the Konduit Serving pipeline configuration defined in the Server. 
+* `input_data_format`, `output_data_format`: the format of the server's input and output. Specify one of the following: `JSON`, `NUMPY`, `ARROW`, `IMAGE`, `ND4J`. 
 
 ### Steps
 
 #### Python steps 
 
-Python steps run code specified in the `python_code` or `python_code_path` argument, whichever is specified. Python steps defined in the YAML configuration default to input name and output name `"default"`.  
+Python steps run code specified in the `python_code` \(a string\) or `python_code_path` \(a `.py` script\) argument. Python steps defined in the YAML configuration default to input name and output name `"default"`.  
 
-Importantly, the `python_inputs` argument maps each input and output variable to the respective data type. Accepted data types are`"INT"`, `"STR"`, `"FLOAT"`, `"BOOL"`, `"NDARRAY"`
+Importantly, the `python_inputs` argument maps each input and output variable to the respective data type. Accepted data types are `INT`, `STR`, `FLOAT`, `BOOL`, `NDARRAY`.
 
 ```yaml
 steps: 
@@ -79,7 +90,11 @@ steps:
 
 If no Python path is specified, NumPy will still be available in the environment where the Python step is run. 
 
-To further customize Python steps, refer to the [Python pipeline steps](steps/python.md#yaml-configuration) guide. A more comprehensive example is available on the following page: 
+To further customize Python steps, refer to the YAML configuration section of the Python pipeline steps page. 
+
+{% page-ref page="steps/python.md" %}
+
+A more comprehensive example is available on the following page: 
 
 {% page-ref page="examples/python/onnx.md" %}
 
