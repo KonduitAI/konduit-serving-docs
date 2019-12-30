@@ -18,7 +18,7 @@ import numpy as np
 
 ## Saving models in Keras HDF5 \(.h5\) format
 
-Models can be saved with the `.save()` method. Refer to the [TensorFlow documentation for Keras](https://www.tensorflow.org/guide/keras/save_and_serialize) for details.
+HDF5 model files can be saved with the `.save()` method. Refer to the [TensorFlow documentation for Keras](https://www.tensorflow.org/guide/keras/save_and_serialize) for details.
 
 {% hint style="info" %}
 Keras model loading functionality in Konduit Serving converts Keras models to Deeplearning4J models. As a result, Keras models containing operations not supported in Deeplearning4J cannot be served in Konduit Serving. See [issue 8348](https://github.com/eclipse/deeplearning4j/issues/8348).
@@ -42,14 +42,14 @@ Before running this notebook, run the `build_jar.py` script or the `konduit init
 {% tab title="Python" %}
 Define the Keras configuration as a `ModelConfig` object.
 
-* `model_config_type`: This argument requires a `ModelConfigType` object. In the Java program above, we recognised that SimpleCNN is configured as a MultiLayerNetwork, in contrast with the ComputationGraph class, which is used for more complex networks. Specify `model_type` as `KERAS`, and `model_loading_path` to point to the location of Keras weights saved in the HDF5 file format.
+* `model_config_type`: This argument requires a `ModelConfigType` object. Specify `model_type` as `KERAS`, and `model_loading_path` to point to the location of Keras weights saved in the HDF5 file format.
 
 For the `ModelStep` object, the following parameters are specified:
 
-* `model_config`: pass the ModelConfig object here 
-* `parallel_inference_config`: specify the number of workers to run in parallel. Here, we specify `workers = 1`.
-* `input_names`:  names for the input nodes  
-* `output_names`: names for the output nodes
+* `model_config`: pass the `ModelConfig` object here.
+* `parallel_inference_config`: specify the number of workers to run in parallel. Here, we specify `workers=1`.
+* `input_names`:  names for the input nodes.
+* `output_names`: names for the output nodes.
 
 ```python
 keras_config = ModelConfig(    
@@ -82,9 +82,9 @@ steps:
     - lstm_1
 ```
 
-* `type`: specify this as `KERAS`
-* `model_loading_path`: location of the model weights 
-* `input_names`, `output_names`: names for the input and output nodes, as lists  
+* `type`: specify this as `KERAS`.
+* `model_loading_path`: location of the model weights.
+* `input_names`, `output_names`: names for the input and output nodes, as lists.  
 {% endtab %}
 {% endtabs %}
 
