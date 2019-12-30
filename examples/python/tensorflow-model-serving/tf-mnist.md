@@ -180,7 +180,7 @@ Konduit Serving works by defining a series of **steps**. These include operation
 
 If deploying your model does not require pre- nor post-processing, only one step - a machine learning model - is required. This configuration is defined using a single `ModelStep`.
 
-Before running this notebook, run the `build_jar.py` script or the `konduit init` command. Refer to the [Building from source ](../../../building-from-source.md#manual-build)page for details.
+Before running this notebook, run the `build_jar.py` script or the `konduit init` command. Refer to the [Building from source](../../../building-from-source.md#manual-build) page for details.
 
 ## Configure the step
 
@@ -241,7 +241,7 @@ In the YAML configuration file, we define a single `tensorflow_step` with
 * `type`: TENSORFLOW
 * `model_loading_path` pointing to the location of the weights 
 * `input_names` and `output_names`: names of the input and output nodes. Define this as a list. 
-* `input_data_types`: maps each of the inputs to a corresponding data type. Values should represent data types as strings, e.g. `"INT32"`. See [here](https://github.com/KonduitAI/konduit-serving/blob/master/konduit-serving-api/src/main/java/ai/konduit/serving/model/TensorDataType.java) for a list of supported data types. 
+* `input_data_types`: maps each of the inputs to a corresponding data type. Values should represent data types as strings, e.g. `INT32`. See [here](https://github.com/KonduitAI/konduit-serving/blob/master/konduit-serving-api/src/main/java/ai/konduit/serving/model/TensorDataType.java) for a list of supported data types. 
 
 ```yaml
 steps:
@@ -388,7 +388,7 @@ client = client_from_file(konduit_yaml_path)
 ## Inference 
 
 {% hint style="warning" %}
-NDARRAY inputs to ModelSteps must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `np.expand_dims()` to add an additional dimension to your array. 
+NDARRAY inputs to ModelSteps must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `numpy.expand_dims()` to add an additional dimension to your array. 
 {% endhint %}
 
 We obtain test images from the test set defined by `keras.datasets`.
@@ -423,7 +423,9 @@ for img in x_test[0:3]:
 
 ### Batch prediction
 
-To predict in batches, the `data_input` dictionary has to be specified differently for client images in NDARRAY format. To input a batch of observations, ensure that your inputs are in the NCHW format: number of observations, channels \(optional if single channel\), height and width. An example is as follows:
+To predict in batches, the `data_input` dictionary has to be specified differently for client images in NDARRAY format. To input a batch of observations, ensure that your inputs are in the **NCHW** format: number of observations, channels \(optional if single channel\), height and width. 
+
+An example is as follows:
 
 ```python
 predicted = client.predict(
@@ -452,8 +454,6 @@ y_test[0:3]
 ```text
 array([7, 2, 1], dtype=uint8)
 ```
-
-
 
 The configuration is stored as a dictionary. Note that the configuration can be converted to a dictionary using the `as_dict()` method:
 

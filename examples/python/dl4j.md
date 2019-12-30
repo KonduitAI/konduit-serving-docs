@@ -79,7 +79,7 @@ Konduit Serving works by defining a series of **steps**. These include operation
 
 If deploying your model does not require pre- nor post-processing, only one step - a machine learning model - is required. This configuration is defined using a single `ModelStep`.
 
-Before running this notebook, run the `build_jar.py` script and copy the JAR \(`konduit.jar`\) to this folder. Refer to the [Python SDK README](https://github.com/KonduitAI/konduit-serving/blob/master/python/README.md) for details.
+Before running this notebook, run the `build_jar.py` script or the `konduit init` command. Refer to the [Building from source](../../building-from-source.md#manual-build) page for details.
 
 ## Configure the step
 
@@ -277,7 +277,7 @@ client = client_from_file(konduit_yaml_path)
 We generate a \(3, 224, 224\) array of random numbers between 0 and 255 as input to the model for prediction.
 
 {% hint style="warning" %}
-NDARRAY inputs to ModelSteps must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `np.expand_dims()` to add an additional dimension to your array. 
+NDARRAY inputs to ModelSteps must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `numpy.expand_dims()` to add an additional dimension to your array. 
 {% endhint %}
 
 Before requesting for a prediction, we normalize the image to be between 0 and 1:
