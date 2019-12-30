@@ -23,7 +23,7 @@ Client(
 
 ### Data formats
 
-Data formats define how data is transported between the Client and the Konduit Serving instance. In addition to `JSON`, Konduit Serving also supports `NUMPY`, `ARROW`, `RAW` and `IMAGE`data formats. Specify data formats as strings. 
+Data formats define how data is transported between the Client and the Konduit Serving instance. In addition to JSON, Konduit Serving also supports NUMPY, ARROW, RAW and IMAGE data formats. Specify data formats as strings. 
 
 * `input_data_format` defines the data format of inputs sent to the server via the `predict()` method.
 * `output_data_format`defines the data format returned by the API endpoint.
@@ -41,15 +41,14 @@ Both the `input_names` and `output_names` arguments accept a list of strings. In
 
 For `ModelStep`, input and output names should be configured when defining the model for training, or may need to be obtained by inspecting the model file. See the examples for details.  
 
-For `PythonStep`, input names are defined in the `step()` method of a `PythonStep` object.
+For `PythonStep`, input names are defined in the `step()` method to a `PythonStep` object.
 
 ### Other arguments 
 
 * `timeout`: Integer. Defaults to 60 \(seconds\). 
 * `host`: String. If the model is hosted locally, the host should be specified as `http://localhost` \(the default argument\) 
 * `port`: Integer. 
-
-The arguments `output_data_format`, `input_data_format` and `prediction_type` are obtained from the server when the Client object is initialized. Refer to the [Server](../server/inference.md) documentation for details. 
+* `prediction_type`: Defaults to `"RAW"`. One of `"CLASSIFICATION"`, `"YOLO"`, `"SSD"`, `"RCNN",` `"RAW"`, `"REGRESSION"`.
 
 ### `.predict()`method
 
