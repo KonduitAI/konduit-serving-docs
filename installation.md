@@ -10,7 +10,7 @@
 
 **Hardware requirements** Binaries are provided for Intel/x86 architectures. For ARM support, see the [_Building from source_](building-from-source.md#manual-build) page. 
 
-**GPU**: Hardware acceleration with CUDA version 10.1 is supported. 
+**GPU**: Hardware acceleration with CUDA version 10.1 (included in GPU build) is supported. 
 
 {% hint style="info" %}
 ### Known issues
