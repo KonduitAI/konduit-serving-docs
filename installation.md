@@ -12,12 +12,6 @@
 
 **GPU**: Hardware acceleration with CUDA version 10.1 (included in GPU build) is supported. 
 
-{% hint style="info" %}
-### Known issues
-
-* `konduit` GPU builds cannot compile \([\#115](https://github.com/KonduitAI/konduit-serving/issues/115), [\#122](https://github.com/KonduitAI/konduit-serving/pull/122)\)
-{% endhint %}
-
 ## Installation
 
 Install `konduit` from PyPI with
@@ -32,7 +26,7 @@ A version of Konduit Serving with the command line interface \(CLI\) is not curr
 `pip install`.
 {% endhint %}
 
-If using the Anaconda distribution, you may choose to install `konduit` from the `konduitai` Anaconda channel. First add the `konduitai` channel: 
+If using the Anaconda distribution, you may install `konduit` from the `konduitai` Anaconda channel. First add the `konduitai` channel: 
 
 ```text
 conda config --add channels konduitai
@@ -86,7 +80,7 @@ export KONDUIT_JAR_PATH="~/konduit-serving/konduit.jar"
    WARNING: Not able to assign machine() = AMD64 to a cpu value! Using cpu = 'i386' instead!
    ```
 
-   Fix: Ensure your JAVA environment variables point to a 64-bit version of Java if you're using a 64-bit version of Python. 
+   Fix: Ensure your JAVA environment variables point to a 64-bit version of Java if you're using a 64-bit version of Python, or a 32-bit version of Java if you're using a 32-bit version of Python (see [kivy/pyjnius#390](https://github.com/kivy/pyjnius/issues/390)). 
 
 2. When running `konduit` commands on Windows, the following error message is returned:
 
