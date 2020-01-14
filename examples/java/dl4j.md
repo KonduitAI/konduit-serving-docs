@@ -13,10 +13,7 @@ import os
 
 This page documents two ways to create Konduit Serving configurations with the Java SDK:
 
-1. Using Java to create a configuration, and 
-2. Writing the configuration as a YAML file, then serving it using the Java SDK. 
-
-These approaches are documented in separate tabs throughout this page. For example, the following code block shows the imports for each approach in separate tabs:
+* Using Java to create a configuration
 
 
 ```java
@@ -138,7 +135,6 @@ To find the names of input and output nodes in DL4J,
 
 * for `input_names`, print the first element of `net.getLayerNames()`.
 * for `output_names`, check the last layer when printing `net.summary()`. 
-{% endhint %}
 
 ## Configure the server
 
@@ -203,7 +199,6 @@ We generate a \(3, 224, 224\) array of random numbers between 0 and 255 as input
 
 {% hint style="warning" %}
 NDARRAY inputs to ModelSteps must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `np.expand_dims()` to add an additional dimension to your array. 
-{% endhint %}
 
 Before requesting for a prediction, we normalize the image to be between 0 and 1:
 
