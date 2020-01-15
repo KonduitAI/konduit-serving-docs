@@ -6,14 +6,13 @@ description: >-
 
 # MNIST
 
-This tutorial is split into three parts:
+This tutorial is split into two parts:
 
 1. Configuration 
 2. Running the server
 
 {% hint style="info" %}
 This tutorial is tested on TensorFlow 1.14, 1.15 and 2.00.
-{% endhint %}
 
 ```java
 package ai.konduit.serving.examples.inference;
@@ -63,7 +62,7 @@ Before running this notebook, run the `build_jar.py` script and copy the JAR \(`
 Define the TensorFlow configuration as a `TensorFlowConfig.builder` object.
 
 * `tensorDataTypesConfig`: The `TensorFlowConfig.builder()` object requires a dictionary `inputDataTypes`. Its keys should represent column names, and the values should represent data types as strings, e.g. `"INT32"`. See [here](https://github.com/KonduitAI/konduit-serving/blob/master/konduit-serving-api/src/main/java/ai/konduit/serving/model/TensorDataType.java) for a list of supported data types. 
-* `modelConfigType`: This argument requires a `ModelConfigType` object. Specify `modelType` as `TENSORFLOW`, and `modelLoadingPath` to point to the location of TensorFlow weights saved in the PB file format.
+* `modelConfigType`: This argument requires a `ModelConfigType.builder()` object. Specify `modelType` as `TENSORFLOW`, and `modelLoadingPath` to point to the location of TensorFlow weights saved in the PB file format.
 
 ```java
         ModelConfig mnistModelConfig = TensorFlowConfig.builder()
@@ -82,13 +81,13 @@ Define the TensorFlow configuration as a `TensorFlowConfig.builder` object.
   'inputDataTypes': {'input_layer': 'FLOAT'}},
  'modelConfigType': {'@type': 'ModelConfigType',
   'modelType': 'TENSORFLOW',
-  'modelLoadingPath': 'C:\\Users\\Skymind AI Berhad\\Documents\\konduit-serving-examples\\data\\mnist\\mnist_2.0.0.pb'}}
+  'modelLoadingPath': '\konduit-serving-examples\\data\\mnist\\mnist_2.0.0.pb'}}
 ```
 
 Now that we have a `TensorFlowConfig` defined, we can define a `ModelStep`. The following parameters are specified:
 
-* `modelConfig`: pass the TensorFlowConfig object here 
-* `parallelInferenceConfig`: specify the number of workers to run in parallel. Here, we specify `workers=1`.
+* `modelConfig`: pass the mnistModelConfig object here 
+* `parallelInferenceConfig`: specify the number of workers to run in parallel. Here, we specify `ParallelInferenceConfig.builder().workers(1)`.
 * `input_names`:  names for the input data  
 * `output_names`: names for the output data
 
@@ -115,7 +114,7 @@ output_names = ["output_layer/Softmax"]
 
 Specify the following:
 
-* `httpPort`: select a random port.
+* `httpPort`: Assign a random port to “httpPort.
 * `inputDataFormat`, `outputDataFormat`: Specify input and output data formats as strings. 
 
 ```java
@@ -142,6 +141,8 @@ Accepted input and output data formats are as follows:
 * Input: JSON, ARROW, IMAGE, ND4J \(not yet implemented\) and NUMPY.
 * Output: NUMPY, JSON, ND4J \(not yet implemented\) and ARROW.
 
+{% end hint style %}
+
 ## Start the server
 
 Start the server:
@@ -162,7 +163,7 @@ Server has started successfully.
 ## Configure the client
 
 To configure the client, create a Client object with the following arguments:
-
+* `httpPort`: Assign a random port to “httpPort.
 * `inputDataFormat`: data format passed to the server for inference
 * `outputDataFormat`: data format returned by the server endpoint 
 * `return_output_data_format`: data format to be returned to the client. Note that this argument can be used to convert the output returned from the server to the client into a different format, e.g. NUMPY to JSON.
@@ -178,6 +179,7 @@ ServingConfig servingConfig = ServingConfig.builder().httpPort(port).
 
 {% hint style="warning" %}
 NDARRAY inputs to ModelSteps must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `np.expand_dims()` to add an additional dimension to your array. 
+{% end hint style %}
 
 We obtain test images from the test set defined by `keras.datasets`.
 
