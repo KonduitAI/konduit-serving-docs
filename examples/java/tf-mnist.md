@@ -2,6 +2,11 @@
 description: >-
   This notebook illustrates a simple client-server interaction to perform
   inference on a TensorFlow model using the Java SDK for Konduit Serving.
+
+  Before running this notebook, run the build_jar.py script or the konduit init command. Refer to the Building from source page for details.
+
+* To run this java example, load the pom.xml for all dependencies to run the examples in konduit-serving-examples.
+
 ---
 
 # MNIST

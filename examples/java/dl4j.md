@@ -1,7 +1,8 @@
 ---
 description: >-
-  This page illustrates a simple client-server interaction to perform inference
-  on a DL4J image classification model using the Java SDK for Konduit Serving.
+  This page documents two ways to create Konduit Serving configurations with the Java SDK:  
+  * Using Java to create a configuration, and writing the configuration as a YAML file, then serving it using the Java SDK.
+
 ---
 
 # Deeplearning4j \(DL4J\)
@@ -49,38 +50,6 @@ import java.io.File;
 ```
 
 
-## Saving models in Deeplearning4j
-
-The following is a short Java program that loads a simple CNN model from DL4J's model zoo, initializes weights, then saves the model to a new file, "SimpleCNN.zip".
-
-```java
-import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
-import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
-import org.deeplearning4j.zoo.ZooModel;
-import org.deeplearning4j.zoo.model.SimpleCNN;
-
-import java.io.File;
-
-public class SaveSimpleCNN {
-    private static int nClasses = 5;
-    private static boolean saveUpdater = false;
-
-    public static void main(String[] args) throws Exception {
-        ZooModel zooModel = SimpleCNN.builder()
-            .numClasses(nClasses)
-            .inputShape(new int[]{3, 224, 224})
-            .build();
-        MultiLayerConfiguration conf = ((SimpleCNN) zooModel).conf();
-        MultiLayerNetwork net = new MultiLayerNetwork(conf);
-        net.init();
-        System.out.println(net.summary());
-        File locationToSave = new File("SimpleCNN.zip");
-        net.save(locationToSave, saveUpdater);
-    }
-}
-```
-
-A reference Java project using DL4J 1.0.0-beta6 is provided in this repository with a Maven `pom.xml` dependencies file. If using the IntelliJ IDEA IDE, open the `java` folder as a Maven project and run the `main` function of the `SaveSimpleCNN` class.
 
 ## Overview
 
@@ -160,21 +129,27 @@ Accepted input and output data formats are as follows:
 * Output: NUMPY, JSON, ND4J \(not yet implemented\) and ARROW.
 {% endhint %}
 
+
 ## Start the server
 
+Start server by calling KonduitServingMain.main with the configurations mentioned in the following code block. 
+
 ```java
-server.start()
+KonduitServingMain.main("--configPath", configFile.getAbsolutePath());" File configFile = new File("config.json");
+FileUtils.write(configFile, inferenceConfiguration.toJson(), Charset.defaultCharset());
+  KonduitServingMain.main("--configPath", configFile.getAbsolutePath());
 ```
 
 ```text
-Starting server...
+18:50:42.336 ai.konduit.serving.configprovider.KonduitServingMain
 
-Server has started successfully.
+INFO: Deployed verticle {}
 
-<subprocess.Popen at 0x2723b619ac8>
+18:50:42.336 [vert.x-worker-thread-1] DEBUG a.k.s.v.inference.InferenceVerticle - Server started on port 3000
+
 ```
 
-## Configure the client
+## Inference
 
 To configure the client, create a Client object with the following arguments:
 
@@ -240,7 +215,7 @@ ModelConfig(tensorDataTypesConfig=TensorDataTypesConfig(inputDataTypes={image_ar
     "modelConfig" : {
       "@type" : "ModelConfig",
       "modelConfigType" : {
-        "modelLoadingPath" : "C:\\Projects\\Konduit\\Konduit-Nidrvie-Examples\\konduit-serving-examples\\java\\target\\classes\\data\\multilayernetwork\\SimpleCNN.zip",
+        "modelLoadingPath" : "konduit-serving-examples\\java\\target\\classes\\data\\multilayernetwork\\SimpleCNN.zip",
         "modelType" : "MULTI_LAYER_NETWORK"
       },
       "tensorDataTypesConfig" : {
