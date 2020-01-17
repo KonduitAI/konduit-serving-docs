@@ -1,18 +1,11 @@
 ---
 description: >-
   This page documents two ways to create Konduit Serving configurations with the Java SDK:  
-  * Using Java to create a configuration, and writing the configuration as a YAML file, then serving it using the Java SDK.
 
 ---
 
 # Deeplearning4j \(DL4J\)
 
-```java
-import numpy as np 
-import os
-```
-
-This page documents two ways to create Konduit Serving configurations with the Java SDK:
 
 * Using Java to create a configuration
 
@@ -151,28 +144,8 @@ INFO: Deployed verticle {}
 
 ## Inference
 
-To configure the client, create a Client object with the following arguments:
-
-* `inputDataFormat`: data format passed to the server for inference
-* `outputDataFormat`: data format returned by the server endpoint 
-* `return_output_data_format`: data format to be returned to the client. Note that this argument can be used to convert the output returned from the server to the client into a different format, e.g. NUMPY to JSON.
-
-```java
-client = Client(
-    input_data_format='NUMPY',
-    output_data_format='NUMPY',
-    Output.DataFormat.ND4J="NUMPY",
-    host='http://localhost', 
-    port=port
-)
-```
-
-
-## Inference
-
 We generate a \(3, 224, 224\) array of random numbers between 0 and 255 as input to the model for prediction.
 
-{% hint style="warning" %}
 NDARRAY inputs to ModelSteps must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `np.expand_dims()` to add an additional dimension to your array. 
 
 Before requesting for a prediction, we normalize the image to be between 0 and 1:
