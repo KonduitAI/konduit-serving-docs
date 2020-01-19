@@ -63,9 +63,9 @@ Define the DL4J configuration as a `ModelConfig` object.
 * `modelConfigType`: This argument requires a `ModelConfigType` object. In the Java program above, we recognised that SimpleCNN is configured as a MultiLayerNetwork, in contrast with the ComputationGraph class, which is used for more complex networks. Specify `modelType` as `MULTI_LAYER_NETWORK`, and `modelLoadingPath` to point to the location of DL4J weights saved in the ZIP file format.
 
 ```java
-input_data_types = {"image_array": "FLOAT"}
-input_names = list(input_data_types.keys())
-output_names = ["output"]
+inputDataTypes = {"image_array": "FLOAT"}
+inputNames = list(input_data_types.keys())
+outputNames = ["output"]
 int port = Util.randInt(1000, 65535);
 
 ModelConfig dl4jModelConfig = ModelConfig.builder()
