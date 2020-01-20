@@ -8,8 +8,8 @@ description: >-
 
 ```java
 import ai.konduit.serving.model.ModelConfig;
+import ai.konduit.serving.config.ParallelInferenceConfig;
 import ai.konduit.serving.model.ModelConfigType;
-import ai.konduit.serving.InferenceConfiguration;
 import ai.konduit.serving.pipeline.step.ModelStep;
 import ai.konduit.serving.config.ServingConfig;
 ```
@@ -42,21 +42,23 @@ Define the Keras configuration as a `ModelConfig` object.
 For the `ModelStep` object, the following parameters are specified:
 
 * `modelConfig`: pass the ModelConfig object here 
-* `InferenceConfiguration`: specify the number of workers to run in parallel. Here, we specify `workers = 1`.
+* `parallelInferenceConfig`: specify the number of workers to run in parallel. Here, we specify `workers = 1`.
 * `inputName`, `outputName`: names for the input and output nodes, as lists 
 
 ```java
 String kerasmodelfilePath = new ClassPathResource("data/keras/embedding_lstm_tensorflow_2.h5").getFile().getAbsolutePath();
 
 ModelConfig kerasModelConfig = ModelConfig.builder()
-                .modelConfigType(ModelConfigType.builder().modelLoadingPath(kerasmodelfilePath.toString()).
-                        modelType(ModelConfig.ModelType.KERAS).build())
+                .modelConfigType(ModelConfigType.builder()
+                .modelLoadingPath(kerasmodelfilePath.toString())
+                .modelType(ModelConfig.ModelType.KERAS).build())
                 .build();
 
 ModelStep kerasmodelStep = ModelStep.builder()
                 .modelConfig(kerasModelConfig)
+                .parallelInferenceConfig(ParallelInferenceConfig.builder().workers(1).build())
                 .inputName("input")
-                .outputName("lstm_1")
+                .outputName("lstm_1")                
                 .build(); 
 ```
 
@@ -69,12 +71,13 @@ Input and output names can be obtained by visualizing the graph in [Netron](http
 
 In the `ServingConfig`, specify any port number that is not reserved.
 
-
 ```java
-ServingConfig servingConfig = ServingConfig.builder().httpPort(3000).
+int port = Util.randInt(1000, 65535);
+
+ServingConfig servingConfig = ServingConfig.builder().httpPort(port).
                 inputDataFormat(Input.DataFormat.ND4J).
-                outputDataFormat(Output.DataFormat.ND4J).
-                 build();
+                predictionType(Output.PredictionType.RAW).
+                build();
 ```
 
 The `ServingConfig` has to be passed to `Server` in addition to the steps as a Python list. In this case, there is a single step: `kerasmodelStep`. 
@@ -87,33 +90,25 @@ The `ServingConfig` has to be passed to `Server` in addition to the steps as a P
                 .build();
 ```
 
-## Start the server
-
-Start server by calling KonduitServingMain.main with the configurations mentioned in the following code block. 
+Set the KonduitServingMainArgs with the Server Configuration arguments.
 
 ```java
-KonduitServingMain.main("--configPath", configFile.getAbsolutePath());" File configFile = new File("config.json");
-  FileUtils.write(configFile, inferenceConfiguration.toJson(), Charset.defaultCharset());
-  KonduitServingMain.main("--configPath", configFile.getAbsolutePath());
+KonduitServingMainArgs args1 = KonduitServingMainArgs.builder()
+                .configStoreType("file").ha(false)
+                .multiThreaded(false).configPort(port)
+                .verticleClassName(InferenceVerticle.class.getName())
+                .configPath(configFile.getAbsolutePath())
+                .build();
 ```
-
-```text
-18:50:42.336 ai.konduit.serving.configprovider.KonduitServingMain
-
-INFO: Deployed verticle {}
-
-18:50:42.336 [vert.x-worker-thread-1] DEBUG a.k.s.v.inference.InferenceVerticle - Server started on port 3000
-
-```
+Start server by calling KonduitServingMain with the configurations mentioned in the KonduitServingMainArgs using Callback Function(as per the code mentioned in the **Inference** Section below)
 
 ## Inference  
 
+NDARRAY inputs to set ModelStep must be specified with a shape size.
+
 To configure the client, set the required URL to connect server and specify any port number that is not reserved (as used in server configuration).  
 
-Note that you should create the Client object after the Server has started, so that Client can inherit the Server's attributes. 
-
-NDARRAY inputs to set ModelStep must be specified with a shape size. 
-
+Note that you should create the Client object after the Server has started, so that Client can inherit the Server's attributes. A Callback Function onSuccess is implemented in order to start the Client only after the successful run of the KonduitServingMain Server.
 
 ```java
 INDArray arr = Nd4j.create(new float[]{1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f}, 1, 10);
@@ -124,10 +119,31 @@ INDArray arr = Nd4j.create(new float[]{1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
 
         BinarySerde.writeArrayToDisk(arr, file);
 
-        String response = Unirest.post("http://localhost:3000/raw/nd4j")
-                .field("input", file)
-                .asString().getBody();
+        KonduitServingMain.builder()
+                .onSuccess(() -> {
+                    try {
+                        String response = Unirest.post("http://localhost:" + port + "/raw/nd4j")
+                                .field("input", file)
+                                .asString().getBody();                        
+                    } catch (UnirestException e) {
+                        e.printStackTrace();
+                    }
+                })
+                .build()
+                .runMain(args1.toArgs());
 
+```
+
+## Confirm the Server Start
+
+After executing the above, in order to confirm the successful start of the Server, check for the below output text:
+
+```text
+18:50:42.336 ai.konduit.serving.configprovider.KonduitServingMain
+
+INFO: Deployed verticle {}
+
+18:50:42.336 [vert.x-worker-thread-1] DEBUG a.k.s.v.inference.InferenceVerticle - Server started on port 3000
 ```
 
 ## Confirm the output
@@ -150,6 +166,3 @@ INDArray arr = Nd4j.create(new float[]{1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
 }
 }
 ``` 
-
-
-
