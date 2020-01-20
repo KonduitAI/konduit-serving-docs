@@ -12,13 +12,13 @@
 ## Examples
 
 * [Python](examples/python/README.md)
-  * [TensorFlow](examples/python/tensorflow-model-serving/README.md)
+  * [TensorFlow \(1.x\)](examples/python/tensorflow-model-serving/README.md)
     * [MNIST](examples/python/tensorflow-model-serving/tf-mnist.md)
     * [BERT](examples/python/tensorflow-model-serving/tf-bert.md)
   * [Deeplearning4j \(DL4J\)](examples/python/dl4j.md)
   * [DataVec](examples/python/datavec.md)
   * [Open Neural Network Exchange \(ONNX\)](examples/python/onnx.md)
-  * [Keras](examples/python/keras.md)
+  * [Keras \(TensorFlow 2.0\)](examples/python/keras.md)
 * [Java](examples/java/README.md)
   * [Untitled](examples/java/untitled.md)
 

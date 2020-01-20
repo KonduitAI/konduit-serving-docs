@@ -185,19 +185,10 @@ server.start()
 
 ## Configure the client
 
-The `Client` should be configured to match the Konduit Serving instance.
-
-* `input_names` and `output_names` should match the columns in the DataVec schema 
-* Data formats should be defined as one of the following: `JSON`, `RAW`, `ARROW`, `IMAGE`, `NUMPY` 
-* As this example is run on a local computer, the server is located at host `'http://localhost'` and port `port`. Since `'http://localhost'` is the default argument, we can omit it: 
+Create a `Client`  object and specify the port number as an argument: 
 
 ```python
-client = Client(input_names=["first"],
-                output_names=["first"],
-                return_output_data_format='JSON',
-                input_data_format='JSON',
-                output_data_format='RAW',
-                port=port)
+client = Client(port=port)
 ```
 
 ```text
