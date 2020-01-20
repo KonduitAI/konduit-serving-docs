@@ -95,8 +95,8 @@ ModelStep dl4jModelStep = ModelStep.builder()
 {% hint style="info" %}
 To find the names of input and output nodes in DL4J,
 
-* for `input_names`, print the first element of `net.getLayerNames()`.
-* for `output_names`, check the last layer when printing `net.summary()`. 
+* for `inputNames`, print the first element of `net.getLayerNames()`.
+* for `outputNames`, check the last layer when printing `net.summary()`. 
 
 ## Configure the server
 
@@ -146,8 +146,6 @@ INFO: Deployed verticle {}
 
 We generate a \(3, 224, 224\) array of random numbers between 0 and 255 as input to the model for prediction.
 
-NDARRAY inputs to ModelSteps must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `np.expand_dims()` to add an additional dimension to your array. 
-
 Before requesting for a prediction, we normalize the image to be between 0 and 1:
 
 ```java
@@ -159,12 +157,12 @@ File file = new File("src/main/resources/data/test-dl4j.zip");
         BinarySerde.writeArrayToDisk(rand_image, file);
         System.out.println(rand_image);
 
-server.stop()
 ```
 
 ```text
 [[4.1741084e-02 3.2335979e-01 2.5368158e-02 3.9881383e-05 6.0949111e-01]]
 ```
+We can display the configuration to make sure the settings are correct. 
 
 ```text
 ModelConfig(tensorDataTypesConfig=TensorDataTypesConfig(inputDataTypes={image_array=FLOAT}, outputDataTypes={}), modelConfigType=ModelConfigType(modelType=MULTI_LAYER_NETWORK, modelLoadingPath=C:\Projects\Konduit\Konduit-Nidrvie-Examples\konduit-serving-examples\java\target\classes\data\multilayernetwork\SimpleCNN.zip))
