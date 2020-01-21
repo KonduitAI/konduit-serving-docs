@@ -1,6 +1,6 @@
 ---
 description: >-
-  This page documents two ways to create Konduit Serving configurations with the Java SDK:  
+  This page documents a way to create Konduit Serving configurations with the Java SDK:  
 
 ---
 
@@ -60,6 +60,7 @@ If deploying your model does not require pre- nor post-processing, only one step
 Define the DL4J configuration as a `ModelConfig` object.
 
 * `tensorDataTypesConfig`: The ModelConfig object requires a dictionary `inputDataTypes`. Its keys should represent column names, and the values should represent data types as strings, e.g. `"INT32"`. See [here](https://github.com/KonduitAI/konduit-serving/blob/master/konduit-serving-api/src/main/java/ai/konduit/serving/model/TensorDataType.java) for a list of supported data types. 
+
 * `modelConfigType`: This argument requires a `ModelConfigType` object. In the Java program above, we recognised that SimpleCNN is configured as a MultiLayerNetwork, in contrast with the ComputationGraph class, which is used for more complex networks. Specify `modelType` as `MULTI_LAYER_NETWORK`, and `modelLoadingPath` to point to the location of DL4J weights saved in the ZIP file format.
 
 ```java
@@ -81,8 +82,8 @@ For the `ModelStep` object, the following parameters are specified:
 
 * `modelConfig`: pass the ModelConfig object here 
 * `InferenceConfiguration`: specify the number of workers to run in parallel. Here, we specify `workers=1`.
-* `input_names`:  names for the input data  
-* `output_names`: names for the output data
+* `inputNames`:  names for the input data  
+* `outputNames`: names for the output data
 
 ```java
 ModelStep dl4jModelStep = ModelStep.builder()
@@ -98,6 +99,9 @@ To find the names of input and output nodes in DL4J,
 * for `inputNames`, print the first element of `net.getLayerNames()`.
 * for `outputNames`, check the last layer when printing `net.summary()`. 
 
+{% endhint %}
+
+
 ## Configure the server
 
 Specify the following:
@@ -110,7 +114,6 @@ The `ServingConfig` has to be passed to `Server` in addition to the steps as a J
 ```java
 ServingConfig servingConfig = ServingConfig.builder().httpPort(3000).
                 inputDataFormat(Input.DataFormat.ND4J).
-                // outputDataFormat(Output.DataFormat.ND4J).
                         build();
 ```
 
@@ -120,18 +123,13 @@ Accepted input and output data formats are as follows:
 
 * Input: JSON, ARROW, IMAGE, ND4J \(not yet implemented\) and NUMPY.
 * Output: NUMPY, JSON, ND4J \(not yet implemented\) and ARROW.
+
 {% endhint %}
 
 
 ## Start the server
 
-Start server by calling KonduitServingMain.main with the configurations mentioned in the following code block. 
-
-```java
-KonduitServingMain.main("--configPath", configFile.getAbsolutePath());" File configFile = new File("config.json");
-FileUtils.write(configFile, inferenceConfiguration.toJson(), Charset.defaultCharset());
-  KonduitServingMain.main("--configPath", configFile.getAbsolutePath());
-```
+After executing the above, in order to confirm the successful start of the Server, check for the below output text:
 
 ```text
 18:50:42.336 ai.konduit.serving.configprovider.KonduitServingMain
@@ -139,7 +137,6 @@ FileUtils.write(configFile, inferenceConfiguration.toJson(), Charset.defaultChar
 INFO: Deployed verticle {}
 
 18:50:42.336 [vert.x-worker-thread-1] DEBUG a.k.s.v.inference.InferenceVerticle - Server started on port 3000
-
 ```
 
 ## Inference
@@ -150,14 +147,14 @@ Before requesting for a prediction, we normalize the image to be between 0 and 1
 
 ```java
 INDArray rand_image = Util.randInt(new int[]{1, 3, 244, 244}, 255)
-```
 
-```java
 File file = new File("src/main/resources/data/test-dl4j.zip");
         BinarySerde.writeArrayToDisk(rand_image, file);
         System.out.println(rand_image);
 
 ```
+
+The output will look something like the code below: 
 
 ```text
 [[4.1741084e-02 3.2335979e-01 2.5368158e-02 3.9881383e-05 6.0949111e-01]]
