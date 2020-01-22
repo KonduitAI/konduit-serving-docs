@@ -17,9 +17,12 @@ import ai.konduit.serving.model.ModelConfigType;
 import ai.konduit.serving.pipeline.step.ModelStep;
 import ai.konduit.serving.verticles.inference.InferenceVerticle;
 import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import org.apache.commons.io.FileUtils;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.io.ClassPathResource;
+import org.nd4j.serde.binary.BinarySerde;
 ```
 
 ## Saving models in Keras HDF5 \(.h5\) format
@@ -41,7 +44,7 @@ Konduit Serving works by defining a series of **steps**. These include operation
 If deploying your model does not require pre- nor post-processing, only one step - a machine learning model - is required. This configuration is defined using a single `ModelStep`.
 
 {% hint style="info" %}
-A reference Java project is provided in the Example repository \( https://github.com/KonduitAI/konduit-serving-examples \) with a Maven pom.xml dependencies file. If using the IntelliJ IDEA IDE, open the java folder as a Maven project and run the main function of InferenceModelStepKeras the class.
+A reference Java project is provided in the Example repository \( https://github.com/KonduitAI/konduit-serving-examples \) with a Maven pom.xml dependencies file. If using the IntelliJ IDEA IDE, open the java folder as a Maven project and run the main function of the InferenceModelStepKeras class.
 {% endhint %}
 
 ## Configure the step
@@ -61,17 +64,17 @@ For the `ModelStep` object, the following parameters are specified:
 String kerasmodelfilePath = new ClassPathResource("data/keras/embedding_lstm_tensorflow_2.h5").getFile().getAbsolutePath();
 
 ModelConfig kerasModelConfig = ModelConfig.builder()
-                .modelConfigType(ModelConfigType.builder()
-                .modelLoadingPath(kerasmodelfilePath.toString())
-                .modelType(ModelConfig.ModelType.KERAS).build())
-                .build();
+    .modelConfigType(ModelConfigType.builder()
+    .modelLoadingPath(kerasmodelfilePath.toString())
+    .modelType(ModelConfig.ModelType.KERAS).build())
+    .build();
 
 ModelStep kerasmodelStep = ModelStep.builder()
-                .modelConfig(kerasModelConfig)                
-                .inputName("input")
-                .outputName("lstm_1")
-                .parallelInferenceConfig(ParallelInferenceConfig.builder().workers(1).build())               
-                .build();
+    .modelConfig(kerasModelConfig)                
+    .inputName("input")
+    .outputName("lstm_1")
+    .parallelInferenceConfig(ParallelInferenceConfig.builder().workers(1).build())               
+    .build();
 ```
 
 {% hint style="info" %}
@@ -87,28 +90,30 @@ In the `ServingConfig`, specify any port number that is not reserved.
 int port = Util.randInt(1000, 65535);
 
 ServingConfig servingConfig = ServingConfig.builder().httpPort(port).
-                build();
+      build();
 ```
 
 The `ServingConfig` has to be passed to `Server` in addition to the steps as a  list. In this case, there is a single step: `kerasmodelStep`.
 
 ```java
- //Inference Configuration
-        InferenceConfiguration inferenceConfiguration = InferenceConfiguration.builder()
-                .servingConfig(servingConfig)
-                .step(kerasmodelStep)
-                .build();
+InferenceConfiguration inferenceConfiguration = InferenceConfiguration.builder()
+    .servingConfig(servingConfig)
+    .step(kerasmodelStep)
+    .build();
 ```
 
-Set the KonduitServingMainArgs with the Server Configuration arguments.
+The `inferenceConfiguration` is stored as a JSON File. Set the KonduitServingMainArgs with the saved **config.json** file path as `configPath` and other necessary server configuration arguments.
 
 ```java
+File configFile = new File("config.json");
+FileUtils.write(configFile, inferenceConfiguration.toJson(), Charset.defaultCharset());
+
 KonduitServingMainArgs args1 = KonduitServingMainArgs.builder()
-                .configStoreType("file").ha(false)
-                .multiThreaded(false).configPort(port)
-                .verticleClassName(InferenceVerticle.class.getName())
-                .configPath(configFile.getAbsolutePath())
-                .build();
+    .configStoreType("file").ha(false)
+    .multiThreaded(false).configPort(port)
+    .verticleClassName(InferenceVerticle.class.getName())
+    .configPath(configFile.getAbsolutePath())
+    .build();
 ```
 Start server by calling KonduitServingMain with the configurations mentioned in the KonduitServingMainArgs using Callback Function(as per the code mentioned in the **Inference** Section below)
 
@@ -133,9 +138,12 @@ KonduitServingMain.builder()
             try {
               String response = Unirest.post(String.format("http://localhost:%s/raw/nd4j", port))
                       .field("input", file)
-                      .asString().getBody();                        
+                      .asString().getBody();
+              System.out.print(response);
+              System.exit(0);                        
             } catch (UnirestException e) {
                 e.printStackTrace();
+                System.exit(0);
             }
         })
         .build()
@@ -143,7 +151,7 @@ KonduitServingMain.builder()
 
 ```
 
-## Confirm the Server Start
+## Confirm the output
 
 After executing the above, in order to confirm the successful start of the Server, check for the below output text:
 
@@ -152,9 +160,11 @@ Jan 07, 2020 2:31:37 PM ai.konduit.serving.configprovider.KonduitServingMain
 INFO: Deployed verticle ai.konduit.serving.verticles.inference.InferenceVerticle
 ```
 
-## Confirm the output
+The Output of the program is as follows:
 
-        System.out.print(response);
+```java
+System.out.print(response)
+```
 
 ```text
 {
@@ -170,5 +180,50 @@ INFO: Deployed verticle ai.konduit.serving.verticles.inference.InferenceVerticle
 -2.1998871E-4, -3.9213814E-5, 2.2318505E-4, 5.1378313E-4, 7.9911196E-4, 0.0010602918, 0.0012885022, 0.0014812968, 0.00164004, 0.0029523545, 0.0050065047,
 0.006426977, 0.007400234, 0.008058914, 0.008497588, 0.008783782, 0.00896551, 0.009076695, 0.009141108 ]
 }
+}
+```
+The complete inference configuration in JSON format is as follows:
+
+```java
+System.out.println(inferenceConfiguration.toJson());
+```
+
+```text
+{
+  "memMapConfig" : null,
+  "servingConfig" : {
+    "httpPort" : 62969,
+    "listenHost" : "localhost",
+    "logTimings" : false,
+    "metricTypes" : [ "CLASS_LOADER", "JVM_MEMORY", "JVM_GC", "PROCESSOR", "JVM_THREAD", "LOGGING_METRICS", "NATIVE" ],
+    "outputDataFormat" : "JSON",
+    "uploadsDirectory" : "file-uploads/"
+  },
+  "steps" : [ {
+    "@type" : "ModelStep",
+    "inputColumnNames" : { },
+    "inputNames" : [ "input" ],
+    "inputSchemas" : { },
+    "modelConfig" : {
+      "@type" : "ModelConfig",
+      "modelConfigType" : {
+        "modelLoadingPath" : "C:\\konduit-serving-examples\\java\\target\\classes\\data\\keras\\embedding_lstm_tensorflow_2.h5",
+        "modelType" : "KERAS"
+      },
+      "tensorDataTypesConfig" : null
+    },
+    "normalizationConfig" : null,
+    "outputColumnNames" : { },
+    "outputNames" : [ "lstm_1" ],
+    "outputSchemas" : { },
+    "parallelInferenceConfig" : {
+      "batchLimit" : 32,
+      "inferenceMode" : "BATCHED",
+      "maxTrainEpochs" : 1,
+      "queueLimit" : 64,
+      "vertxConfigJson" : null,
+      "workers" : 1
+    }
+  } ]
 }
 ```

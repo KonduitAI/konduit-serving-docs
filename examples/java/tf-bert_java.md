@@ -34,16 +34,16 @@ Konduit Serving works by defining a series of **steps**. These include operation
 
 If deploying your model does not require pre- nor post-processing, only one step - a machine learning model - is required. This configuration is defined using a single `ModelStep`.
 
-Start by downloading the model weights to the `data` folder.The downloaded zip file can be unzipped using Util class\(`Util.unzipFile`\).
+Start by downloading the model weights to the `data` folder.The downloaded zip file can be unzipped using Util class\(`Util.unzipBertFile`\).
 
 ```java
 String bertmodelfilePath = new ClassPathResource("data/bert").getFile().getAbsolutePath();
 String bertFileName = "bert_mrpc_frozen.pb";
-bertmodelfilePath = bertmodelfilePath + "/" +bertFileName;
+File bertModelFile = new File(bertDataFolder, bertFileName);
 File bertFile = new File(bertmodelfilePath);
-if (!bertFile.exists()) {
-  File bertFileDir = Util.fileDownload("https://deeplearning4jblob.blob.core.windows.net/testresources/bert_mrpc_frozen_v1.zip");
-  Util.unzipFile(bertFileDir.toString(),bertFileName);
+if (!bertModelFile.exists()) {
+    File bertDownloadedZipFile = Util.downloadBertModel();
+    Util.unzipBertFile(bertDownloadedZipFile.toString(), bertFileName);
 }
 ```
 {% hint style="info" %}
@@ -63,12 +63,11 @@ input_data_types.put("IteratorGetNext:0", TensorDataType.INT32);
 input_data_types.put("IteratorGetNext:1", TensorDataType.INT32);
 input_data_types.put("IteratorGetNext:4", TensorDataType.INT32);
 
-//Model config and set model type as BERT
 ModelConfig bertModelConfig = TensorFlowConfig.builder()
     .tensorDataTypesConfig(TensorDataTypesConfig.builder().
             inputDataTypes(input_data_types).build())
     .modelConfigType(ModelConfigType.builder().
-            modelLoadingPath(bertmodelfilePath.toString()).
+            modelLoadingPath(bertModelFile.getAbsolutePath()).
             modelType(ModelConfig.ModelType.TENSORFLOW).build())
     .build();
 ```
@@ -81,12 +80,10 @@ Now that we have a `TensorFlowConfig` defined, we can define a `ModelStep`. The 
 * `outputNames`: names for the output data
 
 ```java
-//Set the input and output names for model step
 List<String> input_names = new ArrayList<String>(input_data_types.keySet());
 ArrayList<String> output_names = new ArrayList<>();
 output_names.add("loss/Softmax");
 
-//Set the configuration of model to step
 ModelStep bertModelStep = ModelStep.builder()
     .modelConfig(bertModelConfig)
     .inputNames(input_names)
@@ -118,9 +115,12 @@ InferenceConfiguration inferenceConfiguration = InferenceConfiguration.builder()
     .build();
 ```
 
-Set the KonduitServingMainArgs with the Server Configuration arguments.
+The `inferenceConfiguration` is stored as a JSON File. Set the KonduitServingMainArgs with the saved **config.json** file path as `configPath` and other necessary server configuration arguments.
 
 ```java
+File configFile = new File("config.json");
+FileUtils.write(configFile, inferenceConfiguration.toJson(), Charset.defaultCharset());
+
 KonduitServingMainArgs args1 = KonduitServingMainArgs.builder()
     .configStoreType("file").ha(false)
     .multiThreaded(false).configPort(port)
@@ -154,16 +154,16 @@ Accepted input and output data formats are as follows:
  KonduitServingMain.builder()
       .onSuccess(()->{
           try {
-              //Create new file to write binary input data.
-              //client config.
               String response = Unirest.post(String.format("http://localhost:%s/raw/numpy", port))
                       .field("IteratorGetNext:0", input0)
                       .field("IteratorGetNext:1", input1)
                       .field("IteratorGetNext:4", input4)
                       .asString().getBody();
               System.out.print(response);
+              System.exit(0);
           } catch (UnirestException e) {
               e.printStackTrace();
+              System.exit(0);
           }
       })
       .build()
@@ -195,7 +195,7 @@ System.out.print(response);
   }
 ```
 
-The configuration is stored as a JSON. Note that the configuration can be converted to a dictionary using the `toJson()` method:
+The complete inference configuration in JSON format is as follows:
 
 ```java
 System.out.println(inferenceConfiguration.toJson());
@@ -223,7 +223,7 @@ System.out.println(inferenceConfiguration.toJson());
       "@type" : "TensorFlowConfig",
       "configProtoPath" : null,
       "modelConfigType" : {
-        "modelLoadingPath" : "C:\\konduit-serving-examples\\java\\target\\classes\\data\\bert/bert_mrpc_frozen.pb",
+        "modelLoadingPath" : "C:\\konduit-serving-examples\\java\\target\\classes\\data\\bert\\bert_mrpc_frozen.pb",
         "modelType" : "TENSORFLOW"
       },
       "savedModelConfig" : null,

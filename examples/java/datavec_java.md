@@ -68,7 +68,7 @@ The `TransformProcess` can now be defined in the Konduit Serving configuration w
 * **configure the inputs and outputs**: the schema, column names and data types should be defined here.
 * **declare the `TransformProcess`** using the `.transformProcess()` method.
 
-Note that `Schema` data types are not defined in the same way as `JavaStep` data types. See the [source](https://github.com/KonduitAI/konduit-serving/blob/78851701004ebb3dbf079889d46b79a9db8fac60/konduit-serving-api/src/main/java/ai/konduit/serving/util/SchemaTypeUtils.java#L154-L195) for a complete list of supported Schema data types:
+Note that `Schema` data types are not defined in the same way as `PythonStep` data types. See the [source](https://github.com/KonduitAI/konduit-serving/blob/78851701004ebb3dbf079889d46b79a9db8fac60/konduit-serving-api/src/main/java/ai/konduit/serving/util/SchemaTypeUtils.java#L154-L195) for a complete list of supported Schema data types:
 
 * `NDArray`
 * `String`
@@ -100,7 +100,59 @@ ServingConfig servingConfig = ServingConfig.builder()
 InferenceConfiguration inferenceConfiguration = InferenceConfiguration.builder()
     .step(transformProcessStep).servingConfig(servingConfig).build();
 ```
-The complete configuration is as follows:
+
+The `inferenceConfiguration` is stored as a JSON File.
+
+```java
+File configFile = new File("config.json");
+FileUtils.write(configFile, inferenceConfiguration.toJson(), Charset.defaultCharset());
+```
+
+## Inference
+
+The `Client` should be configured to match the Konduit Serving instance. As this example is run on a local computer, the server is located at host `'http://localhost'` and port `port`.
+And Finally, we run the Konduit Serving instance with the saved **config.json** file path as `configPath` and other necessary server configuration arguments.. Recall that the `TransformProcessStep()` appends a string `two` to strings in the column `first`.
+
+ A Callback Function onSuccess is implemented in order to post the Client request and get the HttpResponse, only after the successful run of the KonduitServingMain Server.
+
+```java
+KonduitServingMain.builder()
+    .onSuccess(() -> {
+        try {
+            HttpResponse<JsonNode> response = Unirest.post(String.format("http://localhost:%s/raw/json", port))
+                    .header("Content-Type", "application/json")
+                    .body("{\"first\" :\"value\"}").asJson();
+
+            System.out.println(response.getBody().toString());
+            System.exit(0);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+    })
+    .build()
+    .runMain("--configPath", configFile.getAbsolutePath());
+```
+
+## Confirm the output
+
+After executing the above, in order to confirm the successful start of the Server, check for the below output text:
+
+```text
+Jan 15, 2020 1:36:01 PM ai.konduit.serving.configprovider.KonduitServingMain
+INFO: Deployed verticle ai.konduit.serving.verticles.inference.InferenceVerticle
+```
+
+The Output of the program is as follows:
+
+```java
+System.out.println(response.getBody().toString());
+```
+
+```text
+{"first":"valuetwo"}
+```
+The complete inference configuration in JSON format is as follows:
 
 ```java
 System.out.println(inferenceConfiguration.toJson());
@@ -154,50 +206,4 @@ SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorSta
     }
   } ]
 }
-```
-
-
-## Inference
-
-The `Client` should be configured to match the Konduit Serving instance. As this example is run on a local computer, the server is located at host `'http://localhost'` and port `port`.
-And Finally, we run the Konduit Serving instance. Recall that the `TransformProcessStep()` appends a string `two` to strings in the column `first`.
-
- A Callback Function onSuccess is implemented in order to post the Client request and get the HttpResponse, only after the successful run of the KonduitServingMain Server.
-
-```java
-KonduitServingMain.builder()
-    .onSuccess(() -> {
-        try {
-            HttpResponse<JsonNode> response = Unirest.post(String.format("http://localhost:%s/raw/json", port))
-                    .header("Content-Type", "application/json")
-                    .body("{\"first\" :\"value\"}").asJson();
-
-            System.out.println(response.getBody().toString());
-            System.exit(0);
-        } catch (UnirestException e) {
-            e.printStackTrace();
-            System.exit(0);
-        }
-    })
-    .build()
-    .runMain("--configPath", configFile.getAbsolutePath());
-```
-
-## Confirm the output
-
-After executing the above, in order to confirm the successful start of the Server, check for the below output text:
-
-```text
-Jan 15, 2020 1:36:01 PM ai.konduit.serving.configprovider.KonduitServingMain
-INFO: Deployed verticle ai.konduit.serving.verticles.inference.InferenceVerticle
-```
-
-The Output of the program is as follows:
-
-```java
-System.out.println(response.getBody().toString());
-```
-
-```text
-{"first":"valuetwo"}
 ```
