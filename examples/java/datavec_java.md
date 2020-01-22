@@ -1,5 +1,5 @@
 ---
-description: >-
+Description: >-
   Konduit Serving supports data transformations defined by the DataVec
   vectorization and ETL library.
 ---
@@ -113,7 +113,7 @@ FileUtils.write(configFile, inferenceConfiguration.toJson(), Charset.defaultChar
 The `Client` should be configured to match the Konduit Serving instance. As this example is run on a local computer, the server is located at host `'http://localhost'` and port `port`.
 And Finally, we run the Konduit Serving instance with the saved **config.json** file path as `configPath` and other necessary server configuration arguments.. Recall that the `TransformProcessStep()` appends a string `two` to strings in the column `first`.
 
- A Callback Function onSuccess is implemented in order to post the Client request and get the HttpResponse, only after the successful run of the KonduitServingMain Server.
+A Callback Function onSuccess is implemented in order to post the Client request and get the HttpResponse, only after the successful run of the KonduitServingMain Server.
 
 ```java
 KonduitServingMain.builder()
@@ -139,7 +139,7 @@ KonduitServingMain.builder()
 After executing the above, in order to confirm the successful start of the Server, check for the below output text:
 
 ```text
-Jan 15, 2020 1:36:01 PM ai.konduit.serving.configprovider.KonduitServingMain
+Jan 08, 2020 1:36:01 PM ai.konduit.serving.configprovider.KonduitServingMain
 INFO: Deployed verticle ai.konduit.serving.verticles.inference.InferenceVerticle
 ```
 

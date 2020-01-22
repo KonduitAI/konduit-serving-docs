@@ -1,5 +1,5 @@
 ---
-description: >-
+Description: >-
   This page illustrates a simple client-server interaction to perform
   inference on a TensorFlow model using the Java SDK for Konduit Serving.
 ---
@@ -54,7 +54,7 @@ A reference Java project is provided in the Example repository \( https://github
 
 Define the TensorFlow configuration as a `TensorFlowConfig` object.
 
-* `tensorDataTypesConfig`: The TensorFlowConfig object requires a dictionary `input_data_types`. Its keys should represent column names, and the values should represent data types as strings, e.g. `"INT32"`. See [here](https://github.com/KonduitAI/konduit-serving/blob/master/konduit-serving-api/src/main/java/ai/konduit/serving/model/TensorDataType.java) for a list of supported data types.
+* `tensorDataTypesConfig`: The TensorFlowConfig object requires a HashMap `input_data_types`. Its keys should represent column names, and the values should represent data types as strings, e.g. `"INT32"`. See [here](https://github.com/KonduitAI/konduit-serving/blob/master/konduit-serving-api/src/main/java/ai/konduit/serving/model/TensorDataType.java) for a list of supported data types.
 * `modelConfigType`: This argument requires a `ModelConfigType` object. Specify `modelType` as `TENSORFLOW`, and `modelLoadingPath` to point to the location of TensorFlow weights saved in the PB file format.
 
 ```java
@@ -96,7 +96,7 @@ ModelStep bertModelStep = ModelStep.builder()
 
 Specify the following:
 
-* `httpPort`: select a random port.
+* `httpPort`: specify any port number that is not reserved.
 
 
 
@@ -141,7 +141,7 @@ File input4 = new ClassPathResource("data/bert/input-4.npy").getFile();
 ```
 To configure the client, set the required URL to connect server and specify any port number that is not reserved (as used in server configuration).  
 
- A Callback Function onSuccess is implemented in order to post the Client request and get the HttpResponse, only after the successful run of the KonduitServingMain Server.
+A Callback Function onSuccess is implemented in order to post the Client request and get the HttpResponse, only after the successful run of the KonduitServingMain Server.
 
 {% hint style="info" %}
 Accepted input and output data formats are as follows:
@@ -175,7 +175,7 @@ Accepted input and output data formats are as follows:
 After executing the above, in order to confirm the successful start of the Server, check for the below output text:
 
 ```text
-Jan 15, 2020 6:02:49 PM ai.konduit.serving.configprovider.KonduitServingMain
+Jan 07, 2020 6:02:49 PM ai.konduit.serving.configprovider.KonduitServingMain
 INFO: Deployed verticle ai.konduit.serving.verticles.inference.InferenceVerticle
 ```
 

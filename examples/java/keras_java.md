@@ -1,5 +1,5 @@
 ---
-description: >-
+Description: >-
   This page illustrates a simple client-server interaction to perform inference
   on a Keras LSTM model using the Java SDK for Konduit Serving.
 ---
@@ -123,7 +123,7 @@ NDARRAY inputs to set ModelStep must be specified with a shape size.
 
 To configure the client, set the required URL to connect server and specify any port number that is not reserved (as used in server configuration).  
 
- A Callback Function onSuccess is implemented in order to post the Client request and get the HttpResponse, only after the successful run of the KonduitServingMain Server.
+A Callback Function onSuccess is implemented in order to post the Client request and get the HttpResponse, only after the successful run of the KonduitServingMain Server.
 
 ```java
 INDArray arr = Nd4j.create(new float[]{1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f}, 1, 10);
