@@ -1,6 +1,6 @@
 ---
 description: >-
-  This program illustrates a simple client-server interaction to perform
+  This page illustrates a simple client-server interaction to perform
   inference on a TensorFlow model using the Java SDK for Konduit Serving.
 ---
 
@@ -11,24 +11,33 @@ import ai.konduit.serving.InferenceConfiguration;
 import ai.konduit.serving.config.ParallelInferenceConfig;
 import ai.konduit.serving.config.ServingConfig;
 import ai.konduit.serving.configprovider.KonduitServingMain;
+import ai.konduit.serving.configprovider.KonduitServingMainArgs;
+import ai.konduit.serving.model.ModelConfig;
 import ai.konduit.serving.model.ModelConfigType;
 import ai.konduit.serving.model.TensorDataTypesConfig;
 import ai.konduit.serving.model.TensorFlowConfig;
 import ai.konduit.serving.pipeline.step.ModelStep;
+import ai.konduit.serving.verticles.inference.InferenceVerticle;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import org.apache.commons.io.FileUtils;
+import org.nd4j.linalg.io.ClassPathResource;
+import org.nd4j.tensorflow.conversion.TensorDataType;
 ```
 ## Overview
 
-Konduit Serving works by defining a series of **steps**. These include operations such as 
+Konduit Serving works by defining a series of **steps**. These include operations such as
 
-1. Pre- or post-processing steps 
-2. One or more machine learning models 
+1. Pre- or post-processing steps
+2. One or more machine learning models
 3. Transforming the output in a way that can be understood by humans
 
 If deploying your model does not require pre- nor post-processing, only one step - a machine learning model - is required. This configuration is defined using a single `ModelStep`.
 
-Start by downloading the model weights to the `data` folder.The downloaded zip file can be unzipped using Util class.
+Start by downloading the model weights to the `data` folder.The downloaded zip file can be unzipped using Util class\(`Util.unzipFile`\).
 
 ```java
+String bertmodelfilePath = new ClassPathResource("data/bert").getFile().getAbsolutePath();
 String bertFileName = "bert_mrpc_frozen.pb";
 bertmodelfilePath = bertmodelfilePath + "/" +bertFileName;
 File bertFile = new File(bertmodelfilePath);
@@ -37,13 +46,15 @@ if (!bertFile.exists()) {
   Util.unzipFile(bertFileDir.toString(),bertFileName);
 }
 ```
-A reference Java project is provided in this repository with a Maven pom.xml dependencies file. If using the IntelliJ IDEA IDE, open the java folder as a Maven project and run the main function of InferenceModelStep the class.
+{% hint style="info" %}
+A reference Java project is provided in the Example repository \( https://github.com/KonduitAI/konduit-serving-examples \) with a Maven pom.xml dependencies file. If using the IntelliJ IDEA IDE, open the java folder as a Maven project and run the main function of InferenceModelStepBERT the class.
+{% endhint %}
 
 ## Configure the step
 
 Define the TensorFlow configuration as a `TensorFlowConfig` object.
 
-* `tensorDataTypesConfig`: The TensorFlowConfig object requires a dictionary `input_data_types`. Its keys should represent column names, and the values should represent data types as strings, e.g. `"INT32"`. See [here](https://github.com/KonduitAI/konduit-serving/blob/master/konduit-serving-api/src/main/java/ai/konduit/serving/model/TensorDataType.java) for a list of supported data types. 
+* `tensorDataTypesConfig`: The TensorFlowConfig object requires a dictionary `input_data_types`. Its keys should represent column names, and the values should represent data types as strings, e.g. `"INT32"`. See [here](https://github.com/KonduitAI/konduit-serving/blob/master/konduit-serving-api/src/main/java/ai/konduit/serving/model/TensorDataType.java) for a list of supported data types.
 * `modelConfigType`: This argument requires a `ModelConfigType` object. Specify `modelType` as `TENSORFLOW`, and `modelLoadingPath` to point to the location of TensorFlow weights saved in the PB file format.
 
 ```java
@@ -64,7 +75,7 @@ ModelConfig bertModelConfig = TensorFlowConfig.builder()
 
 Now that we have a `TensorFlowConfig` defined, we can define a `ModelStep`. The following parameters are specified:
 
-* `modelConfig`: pass the TensorFlowConfig object here 
+* `modelConfig`: pass the TensorFlowConfig object here
 * `parallelInferenceConfig`: specify the number of workers to run in parallel. Here, we specify `workers=1`.
 * `inputNames`:  names for the input data  
 * `outputNames`: names for the output data
@@ -89,20 +100,13 @@ ModelStep bertModelStep = ModelStep.builder()
 Specify the following:
 
 * `httpPort`: select a random port.
-* `inputDataFormat`, `outputDataFormat`: Specify input and output data formats as strings. 
 
-{% hint style="info" %}
-Accepted input and output data formats are as follows:
 
-* Input: JSON, ARROW, IMAGE, ND4J \(not yet implemented\) and NUMPY.
-* Output: NUMPY, JSON, ND4J \(not yet implemented\) and ARROW.
-{% endhint %}
 
 ```java
 int port = Util.randInt(1000, 65535);
-ServingConfig servingConfig = ServingConfig.builder().httpPort(port).
-    inputDataFormat(Input.DataFormat.NUMPY).
-    build();
+ServingConfig servingConfig = ServingConfig.builder().httpPort(port)
+    .build();
 ```
 
 The `ServingConfig` has to be passed to `Server` in addition to the steps as a Python list. In this case, there is a single step: `bertModelStep`.
@@ -137,7 +141,14 @@ File input4 = new ClassPathResource("data/bert/input-4.npy").getFile();
 ```
 To configure the client, set the required URL to connect server and specify any port number that is not reserved (as used in server configuration).  
 
-Note that you should create the Client object after the Server has started, so that Client can inherit the Server's attributes. A Callback Function onSuccess is implemented in order to start the Client only after the successful run of the KonduitServingMain Server.
+ A Callback Function onSuccess is implemented in order to post the Client request and get the HttpResponse, only after the successful run of the KonduitServingMain Server.
+
+{% hint style="info" %}
+Accepted input and output data formats are as follows:
+
+* Input: JSON, ARROW, IMAGE, ND4J \(not yet implemented\) and NUMPY.
+* Output: NUMPY, JSON, ND4J \(not yet implemented\) and ARROW.
+{% endhint %}
 
 ```java
  KonduitServingMain.builder()
@@ -145,7 +156,7 @@ Note that you should create the Client object after the Server has started, so t
           try {
               //Create new file to write binary input data.
               //client config.
-              String response = Unirest.post("http://localhost:"+port+"/raw/numpy")
+              String response = Unirest.post(String.format("http://localhost:%s/raw/numpy", port))
                       .field("IteratorGetNext:0", input0)
                       .field("IteratorGetNext:1", input1)
                       .field("IteratorGetNext:4", input4)

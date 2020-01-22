@@ -7,19 +7,22 @@ description: >-
 # DataVec
 
 ```java
+import ai.konduit.serving.InferenceConfiguration;
+import ai.konduit.serving.config.ServingConfig;
 import ai.konduit.serving.configprovider.KonduitServingMain;
 import ai.konduit.serving.pipeline.step.TransformProcessStep;
-import org.datavec.api.transform.TransformProcess;
-import ai.konduit.serving.config.SchemaType;
-import ai.konduit.serving.config.ServingConfig;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.apache.commons.io.FileUtils;
-```
-DataVec transformations can be defined in TransformProcess class of DataVec, which can be which can be accessed through DataVec api from Java Language Obect extends:
-
-```text
 import org.datavec.api.transform.TransformProcess;
+import org.datavec.api.transform.schema.Schema;
 ```
 
+{% hint style="info" %}
+A reference Java project is provided in the Example repository \( https://github.com/KonduitAI/konduit-serving-examples \) with a Maven pom.xml dependencies file. If using the IntelliJ IDEA IDE, open the java folder as a Maven project and run the main function of InferenceModelStepDataVec the class.
+{% endhint %}
 
 ## Data transformations with DataVec
 
@@ -36,20 +39,23 @@ Both schema and transform process classes come with a helper Builder class which
 
 * Reduce the number of rows: `filter()`
 * General data transformations: `replaceStringTransform()`, `replaceMapTransform()`,
-* Type casting: `stringToTimeTransform()`, `transform()`, `categoricalToInteger()`, 
+* Type casting: `stringToTimeTransform()`, `transform()`, `categoricalToInteger()`,
 * Combining/reducing the values in each column: `reduce()`
-* String operations: `appendStringColumnTransform()`, `toLowerCase()`, `toUpperCase()`, `concat()`, `stringRemoveWhitespaceTransform()`, `replace_empty_string()`, 
-  `replaceStringTransform()`, `stringMapTransform()`
+* String operations: `appendStringColumnTransform()`, `toLowerCase()`, `toUpperCase()`, `stringRemoveWhitespaceTransform()`, `replaceStringTransform()`, `stringMapTransform()`
 * Column selection/renaming: `removeColumns()`, `removeAllColumnsExceptFor()`, `renameColumn()`
 * One-hot encoding: `categoricalToOneHot()`, `integerToOneHot()`
 
-In this short example, we append the string `two` to the end of values in the string column `first`.
+In this short example, we append the string `two` to the end of values in the string column `first`. As an initial step, define the input and output Schema with string column:
 
 ```java
- Schema inputDataSchema = new Schema.Builder()
-	.addColumnString("first")
-	.build();
-	
+Schema inputSchema = new Schema.Builder()
+    .addColumnString("first")
+    .build();
+
+Schema outputSchema = new Schema.Builder()
+    .addColumnString("first")
+    .build();
+
 TransformProcess transformProcess = new TransformProcess.Builder(inputSchema).
     appendStringColumnTransform("first", "two").build();
 ```
@@ -59,8 +65,8 @@ TransformProcess transformProcess = new TransformProcess.Builder(inputSchema).
 
 The `TransformProcess` can now be defined in the Konduit Serving configuration with a `TransformProcessStep`. Here, we
 
-* **configure the inputs and outputs**: the schema, column names and data types should be defined here. 
-* **declare the `TransformProcess`** using the `.transformProcess()` method. 
+* **configure the inputs and outputs**: the schema, column names and data types should be defined here.
+* **declare the `TransformProcess`** using the `.transformProcess()` method.
 
 Note that `Schema` data types are not defined in the same way as `JavaStep` data types. See the [source](https://github.com/KonduitAI/konduit-serving/blob/78851701004ebb3dbf079889d46b79a9db8fac60/konduit-serving-api/src/main/java/ai/konduit/serving/util/SchemaTypeUtils.java#L154-L195) for a complete list of supported Schema data types:
 
@@ -77,33 +83,22 @@ Note that `Schema` data types are not defined in the same way as `JavaStep` data
 You should define the Schema data types in `TransformProcessStep()` as strings.
 
 ```java
-String column_names[] = new String[5];
-column_names[0] = "first";
-
-SchemaType types[] = new SchemaType[5];
-types[0] = SchemaType.String;
-
-TransformProcessStep transformProcessStep = new TransformProcessStep()
-	.setInput(inputSchema.toString(), column_names, types)
-	.setOutput(inputSchema.toString(), column_names, types)
-	.transformProcess(transformProcess);
-	
-List tpS    tepList = new ArrayList();
-    tpStepList.add(transformProcessStep);
+TransformProcessStep transformProcessStep = new TransformProcessStep(transformProcess, outputSchema);
 ```
 
 ## Configure the server
 
-Configure the Server using `ServingConfig` to define the port using the `httpPort` argument and data formats using the `inputDataFormat` and `outputDataFormat` arguments.
+Configure the Server using `ServingConfig` to define the port using the `httpPort` argument.
 
 ```java
 int port = Util.randInt(1000, 65535);
 
-ServingConfig servingConfig = ServingConfig.builder().httpPort(port).	
-	build();
-	
+ServingConfig servingConfig = ServingConfig.builder()
+    .httpPort(port)
+    .build();
+
 InferenceConfiguration inferenceConfiguration = InferenceConfiguration.builder()
-	.step(tpStepList).servingConfig(servingConfig).build();
+    .step(transformProcessStep).servingConfig(servingConfig).build();
 ```
 The complete configuration is as follows:
 
@@ -112,54 +107,97 @@ System.out.println(inferenceConfiguration.toJson());
 ```
 
 ```text
-{'@type': 'InferenceConfiguration',
- 'steps': [{'@type': 'TransformProcessStep',
-   'inputSchemas': {'default': ['String']},
-   'outputSchemas': {'default': ['String']},
-   'inputNames': ['default'],
-   'outputNames': ['default'],
-   'inputColumnNames': {'default': ['first']},
-   'outputColumnNames': {'default': ['first']},
-   'transformProcesses': {'default': {'actionList': [{'transform': {'@class': 'org.datavec.api.transform.transform.string.AppendStringColumnTransform',
-        'columnName': 'first',
-        'toAppend': 'two'}}],
-     'initialSchema': {'@class': 'org.datavec.api.transform.schema.Schema',
-      'columns': [{'@class': 'org.datavec.api.transform.metadata.StringMetaData',
-        'name': 'first'}]}}}}],
- 'servingConfig': {'@type': 'ServingConfig',
-  'httpPort': 47964,
-  'inputDataFormat': 'JSON',
-  'outputDataFormat': 'JSON',
-  'logTimings': True}}
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+{
+  "memMapConfig" : null,
+  "servingConfig" : {
+    "httpPort" : 15614,
+    "listenHost" : "localhost",
+    "logTimings" : false,
+    "metricTypes" : [ "CLASS_LOADER", "JVM_MEMORY", "JVM_GC", "PROCESSOR", "JVM_THREAD", "LOGGING_METRICS", "NATIVE" ],
+    "outputDataFormat" : "JSON",
+    "uploadsDirectory" : "file-uploads/"
+  },
+  "steps" : [ {
+    "@type" : "TransformProcessStep",
+    "inputColumnNames" : {
+      "default" : [ "first" ]
+    },
+    "inputNames" : [ "default" ],
+    "inputSchemas" : {
+      "default" : [ "String" ]
+    },
+    "outputColumnNames" : {
+      "default" : [ "first" ]
+    },
+    "outputNames" : [ "default" ],
+    "outputSchemas" : {
+      "default" : [ "String" ]
+    },
+    "transformProcesses" : {
+      "default" : {
+        "actionList" : [ {
+          "transform" : {
+            "@class" : "org.datavec.api.transform.transform.string.AppendStringColumnTransform",
+            "columnName" : "first",
+            "toAppend" : "two"
+          }
+        } ],
+        "initialSchema" : {
+          "@class" : "org.datavec.api.transform.schema.Schema",
+          "columns" : [ {
+            "@class" : "org.datavec.api.transform.metadata.StringMetaData",
+            "name" : "first"
+          } ]
+        }
+      }
+    }
+  } ]
+}
 ```
 
-## Start the server 
-
-```java
-KonduitServingMain.main("--configPath", configFile.getAbsolutePath());
-```
-
-```text
-Starting server..
-
-Server has started successfully.
-```
 
 ## Inference
 
 The `Client` should be configured to match the Konduit Serving instance. As this example is run on a local computer, the server is located at host `'http://localhost'` and port `port`.
-And Finally, we run the Konduit Serving instance. Recall that the `TransformProcessStep()` appends a string `two` to strings in the column `first`:
+And Finally, we run the Konduit Serving instance. Recall that the `TransformProcessStep()` appends a string `two` to strings in the column `first`.
+
+ A Callback Function onSuccess is implemented in order to post the Client request and get the HttpResponse, only after the successful run of the KonduitServingMain Server.
 
 ```java
-HashMap<String, String> data_input = new HashMap<>();
-data_input.put("first", "value");
+KonduitServingMain.builder()
+    .onSuccess(() -> {
+        try {
+            HttpResponse<JsonNode> response = Unirest.post(String.format("http://localhost:%s/raw/json", port))
+                    .header("Content-Type", "application/json")
+                    .body("{\"first\" :\"value\"}").asJson();
 
-String response = Unirest.post("http://localhost:3000/raw/String")
-	.field("input", data_input)
-	.asString().getBody();
-
-System.out.print(response);
+            System.out.println(response.getBody().toString());
+            System.exit(0);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+    })
+    .build()
+    .runMain("--configPath", configFile.getAbsolutePath());
 ```
+
+## Confirm the output
+
+After executing the above, in order to confirm the successful start of the Server, check for the below output text:
+
 ```text
-{'first': 'valuetwo'}
+Jan 15, 2020 1:36:01 PM ai.konduit.serving.configprovider.KonduitServingMain
+INFO: Deployed verticle ai.konduit.serving.verticles.inference.InferenceVerticle
+```
+
+The Output of the program is as follows:
+
+```java
+System.out.println(response.getBody().toString());
+```
+
+```text
+{"first":"valuetwo"}
 ```
