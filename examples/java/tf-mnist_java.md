@@ -1,11 +1,9 @@
----
-description: >-
-  This notebook illustrates a simple client-server interaction to perform
+
+Description: This notebook illustrates a simple client-server interaction to perform
   inference on a TensorFlow model using the Java SDK for Konduit Serving.
 
 * To run this java example, load the pom.xml for all dependencies to run the examples in konduit-serving-examples.
 
----
 
 # MNIST
 
@@ -15,7 +13,9 @@ This tutorial is split into two parts:
 2. Running the server
 
 {% hint style="info" %}
+
 This tutorial is tested on TensorFlow 1.14, 1.15 and 2.00.
+
 {% endhint %}
 
 
@@ -100,7 +100,9 @@ Now that we have a `TensorFlowConfig` defined, we can define a `ModelStep`. The 
 ```
 
 {% hint style="info" %}
+
 Konduit Serving requires input and output names to be specified. In TensorFlow, you can find the names of your input and output nodes by printing `model.inputs[0].op.name` and `model.outputs[0].op.name` respectively. For more details, please refer to this [StackOverflow answer](https://stackoverflow.com/a/49154874/12260518).
+
 {% endhint %}
 
 
@@ -128,12 +130,13 @@ ServingConfig servingConfig = ServingConfig.builder().httpPort(port).
 By default, `Server()` looks for the Konduit Serving JAR `konduit.jar` in the directory the script is run in. To change this default, use the `jar_path` argument.
 
 {% hint style="info" %}
+
 Accepted input and output data formats are as follows:
 
 * Input: JSON, ARROW, IMAGE, ND4J \(not yet implemented\) and NUMPY.
 * Output: NUMPY, JSON, ND4J \(not yet implemented\) and ARROW.
 
-{% end hint style %}
+{% endhint %}
 
 ## Start the server
 Start server by calling KonduitServingMain with the configurations mentioned in the KonduitServingMainArgs using Callback Function(as per the code mentioned in the **Inference** Section below)
@@ -180,8 +183,10 @@ ServingConfig servingConfig = ServingConfig.builder().httpPort(port).
 ## Inference 
 
 {% hint style="warning" %}
+
 NDARRAY inputs to ModelSteps must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `np.expand_dims()` to add an additional dimension to your array. 
-{% end hint style %}
+
+{% endhint %}
 
 We obtain test images from the test set defined by `keras.datasets`.
 
@@ -218,19 +223,19 @@ for (String imagePathStr : inputString) {
                 .runMain(args1.toArgs());
 ```
 
-![png](output_28_0.png)
+![png](output_28_0)
 
 ```text
 {0: 0.0, 1: 0.0, 2: 0.001, 3: 0.001, 4: 0.0, 5: 0.0, 6: 0.0, 7: 0.998, 8: 0.0, 9: 0.0}
 ```
 
-![png](output_28_2.png)
+![png](output_28_2)
 
 ```text
 {0: 0.0, 1: 0.0, 2: 0.998, 3: 0.002, 4: 0.0, 5: 0.0, 6: 0.0, 7: 0.0, 8: 0.0, 9: 0.0}
 ```
 
-![png](output_28_4.png)
+![png](output_28_4)
 
 ```text
 {0: 0.0, 1: 0.986, 2: 0.005, 3: 0.0, 4: 0.0, 5: 0.0, 6: 0.0, 7: 0.005, 8: 0.003, 9: 0.0}
