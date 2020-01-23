@@ -1,5 +1,5 @@
 ---
-Description: >-
+description: >-
   This page documents two ways to create Konduit Serving configurations with the Java SDK:  
 
 ---

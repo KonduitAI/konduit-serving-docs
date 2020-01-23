@@ -1,5 +1,5 @@
 ---
-Description: >-
+description: >-
   This page illustrates a simple client-server interaction to perform inference
   on a Keras LSTM model using the Java SDK for Konduit Serving.
 ---

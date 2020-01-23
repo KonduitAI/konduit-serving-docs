@@ -1,5 +1,5 @@
 ---
-Description: >-
+description: >-
   Konduit Serving supports data transformations defined by the DataVec
   vectorization and ETL library.
 ---
