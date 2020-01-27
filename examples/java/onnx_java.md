@@ -149,6 +149,8 @@ The `Client` should be configured to match the Konduit Serving instance. As this
 A Callback Function onSuccess is implemented in order to post the Client request and get the HttpResponse, only after the successful run of the KonduitServingMain Server.
 
 ```java
+File imageOnnx = new ClassPathResource("data/facedetector/OnnxImageTest.jpg").getFile();
+
 KonduitServingMain.builder()
     .onSuccess(() -> {
         try {
@@ -265,7 +267,7 @@ System.out.println(inferenceConfiguration.toJson());
         "pythonOutputs" : {
           "boxes" : "NDARRAY"
         },
-        "pythonPath" : "C:\\Users\\AppData\\Local\\Programs\\Python\\Python37\\python37.zip;C:\\Users\\venkat-nidrive`AppData\\Local\\Programs\\Python\\Python37\\DLLs;C:\\Users\\AppData\\Local\\Programs\\Python\\Python37\\lib;C:\\Users\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\AppData\\Local\\Programs\\Python\\Python37\\lib\\site-packages;C:\\Users\\AppData\\Local\\Programs\\Python\\Python37\\lib\\site-packages\\pyyaml-5.2-py3.7-win-amd64.egg;c:\\projects\\konduit-serving\\python",
+        "pythonPath" : "C:\\Users\\AppData\\Local\\Programs\\Python\\Python37\\python37.zip;C:\\Users\\AppData\\Local\\Programs\\Python\\Python37\\DLLs;C:\\Users\\AppData\\Local\\Programs\\Python\\Python37\\lib;C:\\Users\\AppData\\Local\\Programs\\Python\\Python37;C:\\Users\\AppData\\Local\\Programs\\Python\\Python37\\lib\\site-packages;C:\\Users\\AppData\\Local\\Programs\\Python\\Python37\\lib\\site-packages\\pyyaml-5.2-py3.7-win-amd64.egg;c:\\projects\\konduit-serving\\python",
         "returnAllInputs" : false,
         "setupAndRun" : false
       }
