@@ -20,7 +20,10 @@
   * [Open Neural Network Exchange \(ONNX\)](examples/python/onnx.md)
   * [Keras \(TensorFlow 2.0\)](examples/python/keras.md)
 * [Java](examples/java/README.md)
-  * [Untitled](examples/java/untitled.md)
+  * [TensorFlow \(BERT\)](examples/java/tf-bert_java.md)
+  * [Deeplearning4j \(DL4J\)](examples/java/dl4j_java.md)
+  * [DataVec](examples/java/datavec_java.md)
+  * [Keras \(TensorFlow 2.0\)](examples/java/keras_java.md)
 
 ## Model monitoring
 
