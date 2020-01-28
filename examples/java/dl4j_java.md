@@ -1,6 +1,6 @@
 ---
 description: >-
-  This documents illustrates how to create Konduit Serving configurations with the Java SDK:  
+  This document illustrates how to create Konduit Serving configurations with the Java SDK:  
 
 ---
 
