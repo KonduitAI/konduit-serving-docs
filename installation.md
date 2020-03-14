@@ -89,3 +89,12 @@ export KONDUIT_JAR_PATH="~/konduit-serving/konduit.jar"
    ```
 
    Fix: On Windows, `pyjnius` requires an additional PATH variable to locate `jvm.dll`. Refer to the [pyjnius documentation](https://pyjnius.readthedocs.io/en/stable/installation.html#installation-for-windows) for details.
+   
+3. When running `pip install .` on Windows, the following error message is returned:
+
+   ```text
+   ERROR: Could not install packages due to an EnvironmentError: [WinError 5] Access is denied: '[file path]'
+   Consider using the `--user` option or check the permissions.
+   ```
+   
+   Fix: On Windows, run `pip install .` in an command line terminal with administrator privileges
