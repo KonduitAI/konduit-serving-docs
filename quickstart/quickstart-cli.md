@@ -158,7 +158,7 @@ This will start a konduit server with the given configuration in the background.
 
 #### 3. List the running servers
 
-To view the running servers, you can use the `list`  command:
+To view the running servers, you can use the `list` command:
 
 ```bash
 konduit list
@@ -209,7 +209,7 @@ which will show you the following logs for the running server \(truncated for br
 
 #### 5. Running predictions
 
-After a server is successfully started you can use the `predict`  command to run inferences on the server:
+After a server is successfully started you can use the `predict` command to run inferences on the server:
 
 ```bash
 konduit predict -it IMAGE image-server C:\Users\konduit\5_10x10.png
@@ -217,7 +217,7 @@ konduit predict -it IMAGE image-server C:\Users\konduit\5_10x10.png
 
 #### 6. Stop a server
 
-Finally for stopping a server you can use the `stop`  command:
+Finally for stopping a server you can use the `stop` command:
 
 ```bash
 konduit stop image-server
