@@ -85,34 +85,143 @@ The `--help` argument for the individual commands gives you a quick summary and 
 
 ## **Example Workflow**
 
-The CLI provides a handy`predict` command that returns predictions from a model server. To use the `predict` command, 
+Following is an example workflow of how to use the `konduit` CLI for serving an [ImageLoadingStep](../steps/image-loading-pipeline-steps.md).
 
-1. the input name must be `default`, and 
-2. a [**NumPy array**](https://docs.scipy.org/doc/numpy/reference/arrays.html) stored in the [NPY format](https://numpy.org/devdocs/reference/generated/numpy.lib.format.html) is supplied as input. 
+#### 1. Create a configuration
 
-To initialize the server, run the following command in the root folder of [konduit-serving-examples](https://github.com/KonduitAI/konduit-serving-examples/):
+Before running any server, you'll have to configure a json configuration for the serving pipeline. The `config` command is a very handy tool to create a baseline configuration that you can edit later based on your requirements. In this workflow, you'll see how to create a basic configuration for reading image file and return the loaded image in `JSON` format with the `predict` command. To create an image configuration you can run the `config` command as follows:
 
-```bash
-konduit serve --config hello-world.yaml
+```text
+konduit config -t image
 ```
 
-Once the server has started, run `predict-numpy` to obtain the predicted output given the location of the NumPy array saved as a [NumPy `.npy` file](https://docs.scipy.org/doc/numpy/reference/generated/numpy.lib.format.html):
+You'll see the following output from it \(might differ based on your local environment\):
 
-```bash
-konduit predict-numpy --config hello-world.yaml --numpy_data data/bert/input-0.npy
+```text
+{
+  "servingConfig" : {
+    "createLoggingEndpoints" : false,
+    "httpPort" : 0,
+    "listenHost" : "localhost",
+    "logTimings" : false,
+    "metricTypes" : [ "CLASS_LOADER", "JVM_MEMORY", "JVM_GC", "PROCESSOR", "JVM_THREAD", "LOGGING_METRICS", "NATIVE" ],
+    "metricsConfigurations" : [ ],
+    "outputDataFormat" : "JSON",
+    "uploadsDirectory" : "C:\\Users\\konduit\\AppData\\Local\\Temp"
+  },
+  "steps" : [ {
+    "@type" : "ImageLoadingStep",
+    "dimensionsConfigs" : { },
+    "imageProcessingInitialLayout" : "NCHW",
+    "imageProcessingRequiredLayout" : "NCHW",
+    "imageTransformProcesses" : { },
+    "inputColumnNames" : { },
+    "inputNames" : [ "default" ],
+    "inputSchemas" : { },
+    "originalImageHeight" : 0,
+    "originalImageWidth" : 0,
+    "outputColumnNames" : { },
+    "outputNames" : [ "default" ],
+    "outputSchemas" : { },
+    "updateOrderingBeforeTransform" : false
+  } ]
+}
 ```
 
-Finally, to stop the server, run the `stop-server` command:
+{% hint style="warning" %}
+Note
+
+A port equal to `0` means that a random port will be selected for the server when it's run.
+{% endhint %}
+
+To save the configuration in a file, you can run: 
 
 ```bash
-konduit stop-server --config hello-world.yaml
+konduit config -t image -o image-config.json
 ```
 
-## Next steps
+You'll see the following output from it: 
 
-Check out the YAML configurations page to write configurations for use with the CLI. 
+```text
+Config file created successfully at C:\Users\konduit\image-config.json
+```
 
-{% page-ref page="../yaml-configurations.md" %}
+#### 2. Start a server
+
+For starting the server, you can use the `serve` command:
+
+```bash
+konduit serve -b -id image-server -c image-config.json
+```
+
+This will start a konduit server with the given configuration in the background.
+
+#### 3. List the running servers
+
+To view the running servers, you can use the `list`  command:
+
+```bash
+konduit list
+```
+
+You can an output like the following:
+
+```text
+Listing konduit servers...
+
+ #   | ID                             | TYPE       | URL                  | PID     | STATUS
+ 1   | image-server                   | inference  | localhost:58663      | 23756   | started
+
+```
+
+{% hint style="warning" %}
+Note
+
+You might see a different port based on your running environment.
+{% endhint %}
+
+#### 4. View the logs
+
+You can view the logs of the running server with the `logs` command:
+
+```bash
+konduit logs image-server
+```
+
+which will show you the following logs for the running server \(truncated for brevity\):
+
+```text
+16:36:09.491 [main] INFO  ai.konduit.serving.util.LogUtils - Logging file at: C:\Users\shams\.konduit-serving\command_logs\image-server.log
+16:36:09.631 [main] INFO  a.k.s.l.KonduitServingLauncher - Setup micro meter options.
+16:36:10.154 [main] INFO  a.k.s.l.command.KonduitRunCommand - Starting konduit server with an id of 'image-server'
+16:36:10.397 [vert.x-eventloop-thread-0] INFO  a.k.s.routers.PipelineRouteDefiner - Using metrics registry io.micrometer.prometheus.PrometheusMeterRegistry for inference
+16:36:10.760 [vert.x-eventloop-thread-0] DEBUG o.h.common.AbstractCentralProcessor - Oracle MXBean detected.
+16:36:10.811 [vert.x-eventloop-thread-0] DEBUG o.d.windows.PerfCounterWildcardQuery - Localized Processor to Processor
+16:36:10.852 [vert.x-eventloop-thread-0] DEBUG o.h.p.w.WindowsCentralProcessor - Initialized Processor
+16:36:11.896 [vert.x-eventloop-thread-0] DEBUG o.s.o.windows.WindowsOSVersionInfoEx - Initialized OSVersionInfoEx  .
+ .
+ .
+ .
+16:36:15.164 [vert.x-eventloop-thread-0] INFO  a.k.s.v.inference.InferenceVerticle - Inference server is listening on host: 'localhost'
+16:36:15.164 [vert.x-eventloop-thread-0] INFO  a.k.s.v.inference.InferenceVerticle - Inference server started on port 58663 with 1 pipeline steps
+16:36:15.164 [vert.x-eventloop-thread-1] INFO  i.v.c.i.l.c.VertxIsolatedDeployer - Succeeded in deploying verticle
+```
+
+#### 5. Running predictions
+
+After a server is successfully started you can use the `predict`  command to run inferences on the server:
+
+```bash
+konduit predict -it IMAGE image-server C:\Users\konduit\5_10x10.png
+```
+
+#### 6. Stop a server
+
+Finally for stopping a server you can use the `stop`  command:
+
+```bash
+konduit stop image-server
+```
 
 
 
