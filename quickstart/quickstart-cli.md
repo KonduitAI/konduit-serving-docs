@@ -212,7 +212,22 @@ which will show you the following logs for the running server \(truncated for br
 After a server is successfully started you can use the `predict` command to run inferences on the server:
 
 ```bash
-konduit predict -it IMAGE image-server C:\Users\konduit\5_10x10.png
+konduit predict -it IMAGE image-server C:\Users\konduit\mnist-5_10x10.png
+```
+
+The output json will look similar to \(truncated for brevity\):
+
+```text
+{
+  "default" : {
+    "batchId" : "7d0db4c3-2cb4-4da4-b750-6e6435cadcab",
+    "ndArray" : {
+      "dataType" : "FLOAT",
+      "shape" : [ 1, 3, 10, 10 ],
+      "data" : [ 0.0, 28.0, 61.0, 25.0, , ..., 55.0, 0.0, 0.0, 0.0, 0.0, 11.0 ]
+    }
+  }
+}
 ```
 
 #### 6. Stop a server
@@ -223,5 +238,14 @@ Finally for stopping a server you can use the `stop` command:
 konduit stop image-server
 ```
 
+which will output:
 
+```text
+Stopping konduit server 'image-server'
+Application 'image-server' terminated with status 0
+```
+
+## What's next? 
+
+You can look at the description for each of the `konduit` CLI commands and try out different combination of configuration.
 
