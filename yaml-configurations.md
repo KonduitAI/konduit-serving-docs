@@ -49,7 +49,6 @@ Additional arguments include:
 * `jar_path`: Path to the Konduit Serving uberjar. Defaults to the `KONDUIT_JAR_PATH` environment variable, or if unavailable, `~/.konduit/konduit-serving/konduit.jar`. 
 * `log_timings`: Whether to log timings for this config. Defaults to `False`.
 * `extra_start_args`: Java Virtual Machine \(JVM\) arguments. In this case, `-Xmx8g` specifies that the maximum memory allocation for the JVM is 8GB. 
-* `prediction_type`: Determines which ["output adapter"](https://github.com/KonduitAI/konduit-serving/tree/b247b211d5e2441e781ddc960bfed12dff446890/konduit-serving-api/src/main/java/ai/konduit/serving/output) is used to transform the output. Choose one of `CLASSIFICATION`, `YOLO`, `SSD`, `RCNN` or `RAW` \(default, no transformation\). 
 
 Refer to the [Server](server/inference.md) documentation for other arguments.
 
