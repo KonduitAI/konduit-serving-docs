@@ -45,3 +45,32 @@ client.predict(data_input)
 
 The `.predict()` method takes a single argument `data_input` which is typically a dictionary. A NumPy array can be directly passed to the `.predict()` method if the input name is `default`.
 
+## Next steps 
+
+To build configurations using the YAML format, check out the YAML configurations page: 
+
+{% page-ref page="../yaml-configurations.md" %}
+
+YAML configurations are sufficient for most use cases. In particular, if your use case: 
+
+* does not involve DataVec transformations, 
+* for Python steps: has one transformation script at each pipeline step,
+
+then you should use a YAML configuration. 
+
+For more complex configurations, you should use the Python SDK. To build configurations with Python steps, start with the Python pipeline steps page:
+
+{% page-ref page="../steps/python.md" %}
+
+To build configurations in Python with TensorFlow, DL4J and Keras models using DL4J and JavaCPP Presets, refer to the example for the respective framework:
+
+{% page-ref page="../examples/python/tensorflow-model-serving/" %}
+
+{% page-ref page="../examples/python/keras.md" %}
+
+To build ETL processes into your serving pipeline, refer to the DataVec example: 
+
+{% page-ref page="../examples/python/datavec.md" %}
+
+
+

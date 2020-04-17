@@ -12,9 +12,7 @@ This tutorial is split into two parts:
 2. Running the server
 
 {% hint style="info" %}
-
 This tutorial is tested on TensorFlow 2.0.0.
-
 {% endhint %}
 
 ```java
@@ -60,14 +58,16 @@ String tensorflow_version = "2.0.0";
 String mnistmodelfilePath = new ClassPathResource("data/mnist/mnist_" + tensorflow_version + ".pb").getFile().getAbsolutePath();
 ```
 
-{% hint style="info" %} A reference Java project is provided in the Example repository ( <https://github.com/KonduitAI/konduit-serving-examples> ) with a Maven pom.xml dependencies file. If using the IntelliJ IDEA IDE, open the java folder as a Maven project and run the main function of the InferenceModelStepMNIST class. {% endhint %}
+{% hint style="info" %}
+A reference Java project is provided in the Example repository \( [https://github.com/KonduitAI/konduit-serving-examples](https://github.com/KonduitAI/konduit-serving-examples) \) with a Maven pom.xml dependencies file. If using the IntelliJ IDEA IDE, open the java folder as a Maven project and run the main function of the InferenceModelStepMNIST class.
+{% endhint %}
 
 ## Configure the step
 
 ### Define the TensorFlow configuration as a `TensorFlowConfig` object
 
-- `tensorDataTypesConfig`: The `TensorFlowConfig` object requires a HashMap `input_data_types`. Its keys should represent column names, and the values should represent data types as strings, e.g. `"INT32"`,`"FLOAT"`,etc,. See [here](https://github.com/KonduitAI/konduit-serving/blob/master/konduit-serving-api/src/main/java/ai/konduit/serving/model/TensorDataType.java) for a list of supported data types.
-- `modelConfigType`: This argument requires a `ModelConfigType` object. Specify `modelType` as `TENSORFLOW`, and `modelLoadingPath` to point to the location of TensorFlow weights saved in the PB file format.
+* `tensorDataTypesConfig`: The `TensorFlowConfig` object requires a HashMap `input_data_types`. Its keys should represent column names, and the values should represent data types as strings, e.g. `"INT32"`,`"FLOAT"`,etc,. See [here](https://github.com/KonduitAI/konduit-serving/blob/master/konduit-serving-api/src/main/java/ai/konduit/serving/model/TensorDataType.java) for a list of supported data types.
+* `modelConfigType`: This argument requires a `ModelConfigType` object. Specify `modelType` as `TENSORFLOW`, and `modelLoadingPath` to point to the location of TensorFlow weights saved in the PB file format.
 
 ```java
 HashMap<String, TensorDataType> input_data_types = new HashMap();
@@ -85,10 +85,10 @@ ModelConfig mnistModelConfig = TensorFlowConfig.builder()
 
 Now that we have a `TensorFlowConfig` defined, we can define a `ModelStep`. The following parameters are specified:
 
-- `modelConfig`: pass the mnistModelConfig object here
-- `parallelInferenceConfig`: specify the number of workers to run in parallel. Here, we specify `workers=1`.
-- `inputNames`: names for the input data
-- `outputNames`: names for the output data
+* `modelConfig`: pass the mnistModelConfig object here
+* `parallelInferenceConfig`: specify the number of workers to run in parallel. Here, we specify `workers=1`.
+* `inputNames`: names for the input data
+* `outputNames`: names for the output data
 
 ```java
 List<String> input_names = new ArrayList<String>(input_data_types.keySet());
@@ -107,7 +107,7 @@ ModelStep mnistModelStep = ModelStep.builder()
 
 Specify the following:
 
-- `httpPort`: Specify any port number that is not reserved.
+* `httpPort`: Specify any port number that is not reserved.
 
 ```java
 int port = Util.randInt(1000, 65535);
@@ -141,11 +141,11 @@ KonduitServingMainArgs args1 = KonduitServingMainArgs.builder()
     .build();
 ```
 
-Start server by calling KonduitServingMain with the configurations mentioned in the KonduitServingMainArgs using Callback Function(as per the code mentioned in the **Inference** Section below)
+Start server by calling KonduitServingMain with the configurations mentioned in the KonduitServingMainArgs using Callback Function\(as per the code mentioned in the **Inference** Section below\)
 
 ## Inference
 
-The image file(s) has to be converted into NDARRAY using `ImageLoadingStep` and passed as an input for inference.
+The image file\(s\) has to be converted into NDARRAY using `ImageLoadingStep` and passed as an input for inference.
 
 ```java
 ImageTransformProcess imageTransformProcess = new ImageTransformProcess.Builder()
@@ -173,14 +173,16 @@ for (String imagePathStr : inputString) {
 }
 ```
 
-To configure the client, set the required URL to connect server and specify any port number that is not reserved (as used in server configuration).
+To configure the client, set the required URL to connect server and specify any port number that is not reserved \(as used in server configuration\).
 
 A Callback Function onSuccess is implemented in order to post the Client request and get the HttpResponse, only after the successful run of the KonduitServingMain Server.
 
-{% hint style="info" %} Accepted input and output data formats are as follows:
+{% hint style="info" %}
 
-- Input: JSON, ARROW, IMAGE, ND4J and NUMPY.
-- Output: NUMPY, JSON, ND4J and ARROW. {% endhint %}
+Accepted input and output data formats are as follows:
+
+* Input: JSON, ARROW, IMAGE, ND4J and NUMPY.
+* Output: NUMPY, JSON, ND4J and ARROW. {% endhint %}
 
 Note that we consider only one test image in this example.
 
@@ -291,3 +293,4 @@ System.out.println(inferenceConfiguration.toJson());
   } ]
 }
 ```
+

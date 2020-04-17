@@ -6,8 +6,6 @@ description: >-
 
 # BERT
 
-
-
 ```python
 import numpy as np
 import os
@@ -39,7 +37,7 @@ from konduit.load import server_from_file, client_from_file
 
 ## Overview
 
-Konduit Serving works by defining a series of **steps**. These include operations such as 
+Konduit Serving works by defining a series of **steps**. These include operations such as
 
 1. Pre- or post-processing steps 
 2. One or more machine learning models 
@@ -108,7 +106,7 @@ tf_step = ModelStep(
 {% endtab %}
 
 {% tab title="YAML" %}
-In the YAML file, we define `steps` with a single `tensorflow_step`. 
+In the YAML file, we define `steps` with a single `tensorflow_step`.
 
 ```yaml
 steps:
@@ -233,7 +231,7 @@ client = Client(port=port)
 {% endtab %}
 
 {% tab title="YAML" %}
-Add the following to your YAML configuration file: 
+Add the following to your YAML configuration file:
 
 ```yaml
 client:
@@ -252,7 +250,7 @@ client = client_from_file(konduit_yaml_path)
 ## Inference
 
 {% hint style="warning" %}
-NDARRAY inputs to ModelSteps must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `numpy.expand_dims()` to add an additional dimension to your array. 
+NDARRAY inputs to ModelSteps must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `numpy.expand_dims()` to add an additional dimension to your array.
 {% endhint %}
 
 Load some sample data from NumPy files. Note that these are NumPy arrays, each with shape \(4, 128\):

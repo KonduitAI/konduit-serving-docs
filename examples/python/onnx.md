@@ -35,7 +35,7 @@ These approaches are documented in separate tabs throughout this page. For examp
 from konduit import PythonConfig, ServingConfig, InferenceConfiguration, \
 PythonStep
 from konduit.server import Server
-from konduit.client import Client 
+from konduit.client import Client
 ```
 {% endtab %}
 
@@ -183,21 +183,21 @@ steps:
       ort_inputs = {ort_session.get_inputs()[0].name: to_numpy(img_y)}
       ort_outs = ort_session.run(None, ort_inputs)
       _, boxes = ort_outs
-      
+
     python_inputs:
       image: NDARRAY
     python_outputs:
       boxes: NDARRAY
 ```
 
-We define a single `python_step` of type PYTHON. 
+We define a single `python_step` of type PYTHON.
 
 * `python_path` specifies the location of Python modules. 
 * `python_code` specifies the Python code to be run. Here, we use a YAML literal block scalar.
 * `python_inputs` and `python_outputs`specifies the data type of the objects in the Python script to be used as input\(s\) and output\(s\) respectively.
 
 {% hint style="info" %}
-Models loaded from a YAML configuration do not currently support input and output names for Python steps. To construct configurations with custom input and output names, use the Python SDK. 
+Models loaded from a YAML configuration do not currently support input and output names for Python steps. To construct configurations with custom input and output names, use the Python SDK.
 {% endhint %}
 
 {% hint style="info" %}
@@ -236,7 +236,6 @@ serving:
   output_data_format: NUMPY
   log_timings: True
   extra_start_args: -Xmx8g
-
 ```
 {% endtab %}
 {% endtabs %}
@@ -267,7 +266,7 @@ server.start()
 
 ## Configure the client
 
-Make sure to configure the client after starting the server, so that the Client object can inherit the Server's attributes. 
+Make sure to configure the client after starting the server, so that the Client object can inherit the Server's attributes.
 
 Since the image is passed to the Server as a NumPy array, specify the input and output data format as `NUMPY`.
 
@@ -284,7 +283,7 @@ client = Client(
 {% endtab %}
 
 {% tab title="YAML" %}
-Add the following to your YAML configuration file: 
+Add the following to your YAML configuration file:
 
 ```yaml
 client:
@@ -294,7 +293,7 @@ client:
     port: 1337
 ```
 
-Use `client_from_file` to create a `Client` object: 
+Use `client_from_file` to create a `Client` object:
 
 ```python
 konduit_yaml_path = "../yaml/pytorch.yaml"
@@ -328,8 +327,6 @@ print(output)
   [ 0.65046376  0.48442802  1.141786    1.2248938 ]
   [ 0.5633501   0.37209463  1.2047783   1.2747201 ]]]
 ```
-
-
 
 Finally, we stop the server:
 

@@ -1,14 +1,14 @@
 ---
 description: >-
-  This document illustrates how to create Konduit Serving configurations with the Java SDK:  
-
+  This document illustrates how to create Konduit Serving configurations with
+  the Java SDK:
 ---
 
 # Deeplearning4j \(DL4J\)
 
+## Deeplearning4j \(DL4J\)
 
 * Using Java to create a configuration
-
 
 ```java
 import ai.konduit.serving.InferenceConfiguration;
@@ -29,10 +29,9 @@ import org.nd4j.serde.binary.BinarySerde;
 import org.nd4j.tensorflow.conversion.TensorDataType;
 ```
 
+### Overview
 
-## Overview
-
-Konduit Serving works by defining a series of **steps**. These include operations such as 
+Konduit Serving works by defining a series of **steps**. These include operations such as
 
 1. Pre- or post-processing steps 
 2. One or more machine learning models 
@@ -48,10 +47,10 @@ String dl4jmodelfilePath = new ClassPathResource("data/multilayernetwork/SimpleC
 ```
 
 {% hint style="info" %}
-A reference Java project is provided in the Example repository \( https://github.com/KonduitAI/konduit-serving-examples \) with a Maven pom.xml dependencies file. If using the IntelliJ IDEA IDE, open the java folder as a Maven project and run the main function of the InferenceModelStepDL4J class.
+A reference Java project is provided in the Example repository \( [https://github.com/KonduitAI/konduit-serving-examples](https://github.com/KonduitAI/konduit-serving-examples) \) with a Maven pom.xml dependencies file. If using the IntelliJ IDEA IDE, open the java folder as a Maven project and run the main function of the InferenceModelStepDL4J class.
 {% endhint %}
 
-## Configure the step
+### Configure the step
 
 Define the DL4J configuration as a `ModelConfig` object.
 
@@ -89,7 +88,7 @@ ModelStep dl4jModelStep = ModelStep.builder()
     .build();
 ```
 
-## Configure the server
+### Configure the server
 
 Specify the following:
 
@@ -132,10 +131,10 @@ KonduitServingMainArgs args1 = KonduitServingMainArgs.builder()
     .configPath(configFile.getAbsolutePath())
     .build();
 ```
-Start server by calling KonduitServingMain with the configurations mentioned in the KonduitServingMainArgs using Callback Function(as per the code mentioned in the **Inference** Section below)
 
+Start server by calling KonduitServingMain with the configurations mentioned in the KonduitServingMainArgs using Callback Function\(as per the code mentioned in the **Inference** Section below\)
 
-## Inference
+### Inference
 
 We generate a \(3, 224, 224\) array of random numbers between 0 and 255 as input to the model for prediction.
 
@@ -151,10 +150,9 @@ File file = new File("src/main/resources/data/test-dl4j.zip");
 if(!file.exists()) file.createNewFile();
 
 BinarySerde.writeArrayToDisk(rand_image, file);
-
 ```
 
-To configure the client, set the required URL to connect server and specify any port number that is not reserved (as used in server configuration).  
+To configure the client, set the required URL to connect server and specify any port number that is not reserved \(as used in server configuration\).
 
 A Callback Function onSuccess is implemented in order to post the Client request and get the HttpResponse, only after the successful run of the KonduitServingMain Server.
 
@@ -182,7 +180,7 @@ KonduitServingMain.builder()
     .runMain(args1.toArgs());
 ```
 
-# Confirm the Output
+## Confirm the Output
 
 After executing the above, in order to confirm the successful start of the Server, check for the below output text:
 
@@ -196,6 +194,7 @@ The Output of the program is as follows:
 ```java
 System.out.print(response);
 ```
+
 ```text
 {
   "output" : {
@@ -214,6 +213,7 @@ The complete inference configuration in JSON format is as follows:
 ```java
 System.out.println(inferenceConfiguration.toJson());
 ```
+
 ```text
 {
   "memMapConfig" : null,
@@ -258,3 +258,4 @@ System.out.println(inferenceConfiguration.toJson());
   } ]
 }
 ```
+

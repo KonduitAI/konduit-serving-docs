@@ -4,7 +4,7 @@ description: >-
   on a Keras LSTM model using the Java SDK for Konduit Serving.
 ---
 
-# Keras
+# Keras \(TensorFlow 2.0\)
 
 ```java
 import ai.konduit.serving.InferenceConfiguration;
@@ -44,7 +44,7 @@ Konduit Serving works by defining a series of **steps**. These include operation
 If deploying your model does not require pre- nor post-processing, only one step - a machine learning model - is required. This configuration is defined using a single `ModelStep`.
 
 {% hint style="info" %}
-A reference Java project is provided in the Example repository \( https://github.com/KonduitAI/konduit-serving-examples \) with a Maven pom.xml dependencies file. If using the IntelliJ IDEA IDE, open the java folder as a Maven project and run the main function of the InferenceModelStepKeras class.
+A reference Java project is provided in the Example repository \( [https://github.com/KonduitAI/konduit-serving-examples](https://github.com/KonduitAI/konduit-serving-examples) \) with a Maven pom.xml dependencies file. If using the IntelliJ IDEA IDE, open the java folder as a Maven project and run the main function of the InferenceModelStepKeras class.
 {% endhint %}
 
 ## Configure the step
@@ -52,7 +52,6 @@ A reference Java project is provided in the Example repository \( https://github
 Define the Keras configuration as a `ModelConfig` object.
 
 * `modelConfigType`: This argument requires a `ModelConfigType` object. Specify `modelType` as `ModelConfig.ModelType.KERAS`, and `modelLoadingPath` to point to the location of Keras weights saved in the HDF5 file format.
-
 
 For the `ModelStep` object, the following parameters are specified:
 
@@ -81,7 +80,6 @@ ModelStep kerasmodelStep = ModelStep.builder()
 Input and output names can be obtained by visualizing the graph in [Netron](https://github.com/lutzroeder/netron).
 {% endhint %}
 
-
 ## Configure the server
 
 In the `ServingConfig`, specify any port number that is not reserved.
@@ -93,7 +91,7 @@ ServingConfig servingConfig = ServingConfig.builder().httpPort(port).
       build();
 ```
 
-The `ServingConfig` has to be passed to `Server` in addition to the steps as a  list. In this case, there is a single step: `kerasmodelStep`.
+The `ServingConfig` has to be passed to `Server` in addition to the steps as a list. In this case, there is a single step: `kerasmodelStep`.
 
 ```java
 InferenceConfiguration inferenceConfiguration = InferenceConfiguration.builder()
@@ -115,13 +113,14 @@ KonduitServingMainArgs args1 = KonduitServingMainArgs.builder()
     .configPath(configFile.getAbsolutePath())
     .build();
 ```
-Start server by calling KonduitServingMain with the configurations mentioned in the KonduitServingMainArgs using Callback Function(as per the code mentioned in the **Inference** Section below)
 
-## Inference  
+Start server by calling KonduitServingMain with the configurations mentioned in the KonduitServingMainArgs using Callback Function\(as per the code mentioned in the **Inference** Section below\)
+
+## Inference
 
 NDARRAY inputs to set ModelStep must be specified with a shape size.
 
-To configure the client, set the required URL to connect server and specify any port number that is not reserved (as used in server configuration).  
+To configure the client, set the required URL to connect server and specify any port number that is not reserved \(as used in server configuration\).
 
 A Callback Function onSuccess is implemented in order to post the Client request and get the HttpResponse, only after the successful run of the KonduitServingMain Server.
 
@@ -148,7 +147,6 @@ KonduitServingMain.builder()
         })
         .build()
         .runMain(args1.toArgs());
-
 ```
 
 ## Confirm the output
@@ -182,6 +180,7 @@ System.out.print(response)
 }
 }
 ```
+
 The complete inference configuration in JSON format is as follows:
 
 ```java
@@ -227,3 +226,4 @@ System.out.println(inferenceConfiguration.toJson());
   } ]
 }
 ```
+

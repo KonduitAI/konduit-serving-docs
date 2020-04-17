@@ -1,7 +1,7 @@
 ---
 description: >-
-  This page illustrates a simple client-server interaction to perform
-  inference on a TensorFlow model using the Java SDK for Konduit Serving.
+  This page illustrates a simple client-server interaction to perform inference
+  on a TensorFlow model using the Java SDK for Konduit Serving.
 ---
 
 # BERT
@@ -24,6 +24,7 @@ import org.apache.commons.io.FileUtils;
 import org.nd4j.linalg.io.ClassPathResource;
 import org.nd4j.tensorflow.conversion.TensorDataType;
 ```
+
 ## Overview
 
 Konduit Serving works by defining a series of **steps**. These include operations such as
@@ -46,8 +47,9 @@ if (!bertModelFile.exists()) {
     Util.unzipBertFile(bertDownloadedZipFile.toString(), bertFileName);
 }
 ```
+
 {% hint style="info" %}
-A reference Java project is provided in the Example repository \( https://github.com/KonduitAI/konduit-serving-examples \) with a Maven pom.xml dependencies file. If using the IntelliJ IDEA IDE, open the java folder as a Maven project and run the main function of InferenceModelStepBERT the class.
+A reference Java project is provided in the Example repository \( [https://github.com/KonduitAI/konduit-serving-examples](https://github.com/KonduitAI/konduit-serving-examples) \) with a Maven pom.xml dependencies file. If using the IntelliJ IDEA IDE, open the java folder as a Maven project and run the main function of InferenceModelStepBERT the class.
 {% endhint %}
 
 ## Configure the step
@@ -98,8 +100,6 @@ Specify the following:
 
 * `httpPort`: specify any port number that is not reserved.
 
-
-
 ```java
 int port = Util.randInt(1000, 65535);
 ServingConfig servingConfig = ServingConfig.builder().httpPort(port)
@@ -128,7 +128,8 @@ KonduitServingMainArgs args1 = KonduitServingMainArgs.builder()
     .configPath(configFile.getAbsolutePath())
     .build();
 ```
-Start server by calling KonduitServingMain with the configurations mentioned in the KonduitServingMainArgs using Callback Function(as per the code mentioned in the **Inference** Section below)
+
+Start server by calling KonduitServingMain with the configurations mentioned in the KonduitServingMainArgs using Callback Function\(as per the code mentioned in the **Inference** Section below\)
 
 ## Inference
 
@@ -139,7 +140,8 @@ File input0 = new ClassPathResource("data/bert/input-0.npy").getFile();
 File input1 = new ClassPathResource("data/bert/input-1.npy").getFile();
 File input4 = new ClassPathResource("data/bert/input-4.npy").getFile();
 ```
-To configure the client, set the required URL to connect server and specify any port number that is not reserved (as used in server configuration).  
+
+To configure the client, set the required URL to connect server and specify any port number that is not reserved \(as used in server configuration\).
 
 A Callback Function onSuccess is implemented in order to post the Client request and get the HttpResponse, only after the successful run of the KonduitServingMain Server.
 
@@ -251,3 +253,4 @@ System.out.println(inferenceConfiguration.toJson());
   } ]
 }
 ```
+

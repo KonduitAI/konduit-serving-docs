@@ -172,7 +172,7 @@ INFO:tensorflow:Converted 10 variables to const ops.
 
 ## Overview
 
-Konduit Serving works by defining a series of **steps**. These include operations such as 
+Konduit Serving works by defining a series of **steps**. These include operations such as
 
 1. Pre- or post-processing steps 
 2. One or more machine learning models 
@@ -302,7 +302,7 @@ By default, `Server()` looks for the Konduit Serving JAR `konduit.jar` in the di
 {% endtab %}
 
 {% tab title="YAML" %}
-The following parameters should be specified to `serving`: 
+The following parameters should be specified to `serving`:
 
 * `http_port`: specify an integer as port number 
 * `input_data_format`, `output_data_format`: Input and output data formats
@@ -365,18 +365,18 @@ To configure the client, create a Client object by specifying the port number:
 client = Client(port=port)
 ```
 
-The `Client`'s attributes will be obtained from the Server. 
+The `Client`'s attributes will be obtained from the Server.
 {% endtab %}
 
 {% tab title="YAML" %}
-Add the following to your YAML configuration file: 
+Add the following to your YAML configuration file:
 
 ```yaml
 client:
     port: 1337
 ```
 
-In Python, use the `client_from_file` function to load the client configuration: 
+In Python, use the `client_from_file` function to load the client configuration:
 
 ```python
 konduit_yaml_path = "../yaml/tensorflow-mnist.yaml"
@@ -385,10 +385,10 @@ client = client_from_file(konduit_yaml_path)
 {% endtab %}
 {% endtabs %}
 
-## Inference 
+## Inference
 
 {% hint style="warning" %}
-NDARRAY inputs to ModelSteps must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `numpy.expand_dims()` to add an additional dimension to your array. 
+NDARRAY inputs to ModelSteps must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `numpy.expand_dims()` to add an additional dimension to your array.
 {% endhint %}
 
 We obtain test images from the test set defined by `keras.datasets`.
@@ -423,7 +423,7 @@ for img in x_test[0:3]:
 
 ### Batch prediction
 
-To predict in batches, the `data_input` dictionary has to be specified differently for client images in NDARRAY format. To input a batch of observations, ensure that your inputs are in the **NCHW** format: number of observations, channels \(optional if single channel\), height and width. 
+To predict in batches, the `data_input` dictionary has to be specified differently for client images in NDARRAY format. To input a batch of observations, ensure that your inputs are in the **NCHW** format: number of observations, channels \(optional if single channel\), height and width.
 
 An example is as follows:
 
@@ -480,6 +480,4 @@ server.config.as_dict()
   'outputDataFormat': 'NUMPY',
   'logTimings': True}}
 ```
-
-
 

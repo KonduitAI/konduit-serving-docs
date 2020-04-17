@@ -10,19 +10,17 @@ description: >-
 
 Konduit Serving provides building blocks for developers to write their own production machine learning pipelines from pre-processing to model serving, exposable as a simple REST API.
 
-The core abstraction is an idea called a **pipeline step**. A pipeline step performs a task such as: 
+The core abstraction is an idea called a **pipeline step**. A pipeline step performs a task such as:
 
 1. pre-processing steps;
 2. running one or more machine learning models; and
 3. post-processing steps: transforming the output in a way that can be understood by humans, such as labels in a classification example,
 
-as part of using a machine learning model in a deployment scenario. 
+as part of using a machine learning model in a deployment scenario.
 
 For instance, a `ModelStep` performs inference on a \(mix of\) TensorFlow, Keras, Deeplearning4j \(DL4J\) or Predictive Model Markup Language \(PMML\) models.
 
 {% page-ref page="examples/python/tensorflow-model-serving/" %}
-
-{% page-ref page="examples/python/dl4j.md" %}
 
 {% page-ref page="examples/python/keras.md" %}
 
@@ -33,8 +31,6 @@ A custom pipeline step can be built using a `PythonStep`. This allows you to emb
 Konduit Serving also contains functionality for other pre-processing tasks, such as DataVec transform processes and image transforms.
 
 {% page-ref page="examples/python/datavec.md" %}
-
-
 
 ## Usage
 
@@ -65,9 +61,9 @@ client:
 konduit serve --config hello-world.yaml
 ```
 
-This exposes a REST API for sending data to the server for inference. Inputs can be sent using the CLI, the Python SDK or any other application that supports sending HTTP POST requests such as [requests ](https://requests.readthedocs.io/en/master/)or [UiPath](https://docs.uipath.com/activities/docs/http-client) (for RPA-based workflows\). 
+This exposes a REST API for sending data to the server for inference. Inputs can be sent using the CLI, the Python SDK or any other application that supports sending HTTP POST requests such as [requests ](https://requests.readthedocs.io/en/master/)or [UiPath](https://docs.uipath.com/activities/docs/http-client) \(for RPA-based workflows\).
 
-Finally, stop the Konduit Serving instance: 
+Finally, stop the Konduit Serving instance:
 
 ```bash
 konduit stop-server --config hello-world.yaml

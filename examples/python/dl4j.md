@@ -71,7 +71,7 @@ A reference Java project using DL4J 1.0.0-beta6 is provided in this repository w
 
 ## Overview
 
-Konduit Serving works by defining a series of **steps**. These include operations such as 
+Konduit Serving works by defining a series of **steps**. These include operations such as
 
 1. Pre- or post-processing steps 
 2. One or more machine learning models 
@@ -204,7 +204,6 @@ Accepted input and output data formats are as follows:
 
 {% tabs %}
 {% tab title="Python" %}
-
 ```python
 server.start()
 ```
@@ -253,7 +252,7 @@ client = Client(
 {% endtab %}
 
 {% tab title="YAML" %}
-Add the following to your YAML configuration file: 
+Add the following to your YAML configuration file:
 
 ```yaml
 client:
@@ -264,7 +263,7 @@ client:
     port: 1337
 ```
 
-Use `client_from_file` to create a `Client` object: 
+Use `client_from_file` to create a `Client` object:
 
 ```python
 konduit_yaml_path = "../yaml/deeplearning4j.yaml"
@@ -278,7 +277,7 @@ client = client_from_file(konduit_yaml_path)
 We generate a \(3, 224, 224\) array of random numbers between 0 and 255 as input to the model for prediction.
 
 {% hint style="warning" %}
-`NDARRAY` inputs to `ModelStep`s must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `numpy.expand_dims()` to add an additional dimension to your array. 
+`NDARRAY` inputs to `ModelStep`s must be specified with a preceding `batchSize` dimension. For batches with a single observation, this can be done by using `numpy.expand_dims()` to add an additional dimension to your array.
 {% endhint %}
 
 Before requesting for a prediction, we normalize the image to be between 0 and 1:

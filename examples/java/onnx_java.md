@@ -5,9 +5,9 @@ description: >-
   machine learning models.
 ---
 
-# Open Neural Network Exchange (ONNX)
+# Open Neural Network Exchange \(ONNX\)
 
-The Open Neural Network Exchange (ONNX) format is supported by a number of deep learning frameworks, including PyTorch, CNTK, MXNet, etc,.
+The Open Neural Network Exchange \(ONNX\) format is supported by a number of deep learning frameworks, including PyTorch, CNTK, MXNet, etc,.
 
 ```java
 import ai.konduit.serving.InferenceConfiguration;
@@ -23,7 +23,9 @@ import org.datavec.python.PythonVariables;
 import org.nd4j.linalg.io.ClassPathResource;
 ```
 
-{% hint style="info" %} A reference Java project is provided in the Example repository ( <https://github.com/KonduitAI/konduit-serving-examples> ) with a Maven pom.xml dependencies file. If using the IntelliJ IDEA IDE, open the java folder as a Maven project and run the main function of InferenceModelStepONNX class. {% endhint %}
+{% hint style="info" %}
+A reference Java project is provided in the Example repository \( [https://github.com/KonduitAI/konduit-serving-examples](https://github.com/KonduitAI/konduit-serving-examples) \) with a Maven pom.xml dependencies file. If using the IntelliJ IDEA IDE, open the java folder as a Maven project and run the main function of InferenceModelStepONNX class.
+{% endhint %}
 
 For the purposes of this example, we use ONNX model files from [Ultra-Light-Fast-Generic-Face-Detector-1MB](https://github.com/Linzaer/Ultra-Light-Fast-Generic-Face-Detector-1MB) by Linzaer, a lightweight facedetection model designed for edge computing devices.
 
@@ -33,11 +35,11 @@ Now that we have an optimized ONNX file, we can serve our model.
 
 The following is the python script `onnxFacedetect.py` :
 
-- transforms a [PIL](https://python-pillow.org/) image into a 240 x 320 image,
-- casts it into a PyTorch Tensor,
-- adds an extra dimension with [`unsqueeze`](https://pytorch.org/docs/stable/torch.html#torch.unsqueeze),
-- casts the Tensor into a NumPy array, then
-- returns the model's output with ONNX Runtime.
+* transforms a [PIL](https://python-pillow.org/) image into a 240 x 320 image,
+* casts it into a PyTorch Tensor,
+* adds an extra dimension with [`unsqueeze`](https://pytorch.org/docs/stable/torch.html#torch.unsqueeze),
+* casts the Tensor into a NumPy array, then
+* returns the model's output with ONNX Runtime.
 
 ```python
 import os
@@ -71,9 +73,9 @@ _, boxes = ort_outs
 
 ### Defining a `PythonConfig`
 
-- Here we use the `pythonCodePath` argument instead of `pythonCode`, in order to specify the location of the Python script.
-- Define the inputs and outputs name and type of the value as defined by the name() method of a PythonVariables.Type, here we use NDARRAY. See <https://serving.oss.konduit.ai/python> for supported data types.
-- To run this example please install (PIL 6.21,numpy,matplotlib 3.1.2,onnxruntime 1.1.0, torchvision 0.4.2)and set the python path as `pythonPath(pythonPath)` in the `python_config` to refer the required Python libraries.
+* Here we use the `pythonCodePath` argument instead of `pythonCode`, in order to specify the location of the Python script.
+* Define the inputs and outputs name and type of the value as defined by the name\(\) method of a PythonVariables.Type, here we use NDARRAY. See [https://serving.oss.konduit.ai/python](https://serving.oss.konduit.ai/python) for supported data types.
+* To run this example please install \(PIL 6.21,numpy,matplotlib 3.1.2,onnxruntime 1.1.0, torchvision 0.4.2\)and set the python path as `pythonPath(pythonPath)` in the `python_config` to refer the required Python libraries.
 
 ```java
  String pythonCodePath = new ClassPathResource("scripts/onnxFacedetect.py").getFile().getAbsolutePath();
@@ -93,7 +95,7 @@ PythonConfig python_config = PythonConfig.builder()
 
 ### Define a pipeline step with the `PythonStep` class
 
-In the `.step()` method, define the input configuration (`python_config`).
+In the `.step()` method, define the input configuration \(`python_config`\).
 
 ```java
 PythonStep onnx_step = new PythonStep().step(python_config);
@@ -139,10 +141,12 @@ FileUtils.write(configFile, inferenceConfiguration.toJson(), Charset.defaultChar
 
 Load a sample image and send the image as NDARRAY to the server for prediction.
 
-{% hint style="info" %} Accepted input and output data formats are as follows:
+{% hint style="info" %}
 
-- Input: JSON, ARROW, IMAGE, ND4J and NUMPY.
-- Output: NUMPY, JSON, ND4J and ARROW. {% endhint %}
+Accepted input and output data formats are as follows:
+
+* Input: JSON, ARROW, IMAGE, ND4J and NUMPY.
+* Output: NUMPY, JSON, ND4J and ARROW. {% endhint %}
 
 The `Client` should be configured to match the Konduit Serving instance. As this example is run on a local computer, the server is located at host `'http://localhost'` and port `port`. And Finally, we run the Konduit Serving instance with the saved **config.json** file path as `configPath` and other necessary server configuration arguments.
 
@@ -275,3 +279,4 @@ System.out.println(inferenceConfiguration.toJson());
   } ]
 }
 ```
+
