@@ -4,7 +4,7 @@ description: A brief overview of konduit-serving command line interface.
 
 # Command line interface \(CLI\)
 
-[konduit-serving](https://github.com/KonduitAI/konduit-serving) comes with a handy CLI that you can use to manage your serving instances. Konduit CLI comes with the [konduit](https://pypi.org/project/konduit/) pip package. After installing the pip package and [initializing the CLI](pip-package.md), you can use the `konduit` command line tool by typing the following on the terminal:
+[konduit-serving](https://github.com/KonduitAI/konduit-serving) comes with a handy CLI that you can use to manage your serving instances. Konduit CLI comes with the [konduit](https://pypi.org/project/konduit/) pip package. After installing the pip package and [initializing the CLI](pip-package.md#initializing-the-cli), you can use the `konduit` command line tool by typing the following on the terminal:
 
 ```text
 konduit --help
