@@ -57,5 +57,5 @@ Commit hash: 3f9ac52f
 
 ## What's next? 
 
-Try out how to work with the `konduit` CLI with an example workflow [here](quickstart-cli.md)
+Try out how to work with the `konduit` CLI with an example workflow [here](quickstart-cli.md).
 
