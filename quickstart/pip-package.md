@@ -8,6 +8,8 @@ pip install konduit
 
 After installing the pip package, you can initialize the `konduit` CLI in the following way
 
+## Initializing the CLI
+
 ### For git users
 
 If you use git you can build the binaries by running
