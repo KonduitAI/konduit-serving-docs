@@ -3,7 +3,7 @@
 To install the `konduit` pip package, you can run:
 
 ```bash
-pip install konduit
+pip install --upgrade --force-reinstall konduit
 ```
 
 After installing the pip package, you can initialize the `konduit` CLI in the following way
