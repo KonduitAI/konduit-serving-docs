@@ -3,7 +3,13 @@
 To install the `konduit` pip package, you can run:
 
 ```bash
-pip install --upgrade --force-reinstall konduit
+pip install konduit
+```
+
+To update the konduit package make sure to add the `--force-reinstall` command as it will make sure that the CLI commands \(`konduit-init` and `konduit`\) are updated correctly. If you have already installed `konduit` pip package for the first time, you can add the `--no-deps` flag to update the `konduit` package without reinstalling all the dependencies:
+
+```text
+pip install --upgrade --force-reinstall --no-deps konduit
 ```
 
 After installing the pip package, you can initialize the `konduit` CLI in the following way
