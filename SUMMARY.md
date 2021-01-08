@@ -1,6 +1,7 @@
 # Table of contents
 
 * [Introduction](README.md)
+* [Components](components.md)
 * [Quickstart](quickstart/README.md)
   * [Pip package](quickstart/pip-package.md)
   * [Command line interface \(CLI\)](quickstart/quickstart-cli.md)
