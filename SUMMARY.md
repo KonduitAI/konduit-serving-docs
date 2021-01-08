@@ -2,13 +2,13 @@
 
 * [Introduction](README.md)
 * [Components](components.md)
-* [Installation](installation.md)
 * [Quickstart](quickstart/README.md)
   * [Pip package](quickstart/pip-package.md)
   * [Command line interface \(CLI\)](quickstart/quickstart-cli.md)
   * [Python SDK](quickstart/quickstart-python.md)
 * [Building from source](building-from-source.md)
-* [YAML configurations](yaml-configurations.md)
+* [Installing Binaries](installation.md)
+* [JSON/YAML configurations](yaml-configurations.md)
 * [GitHub](https://github.com/KonduitAI/konduit-serving)
 
 ## Examples

@@ -1,8 +1,12 @@
+---
+description: Quickstart guide to start using Konduit-Serving
+---
+
 # Quickstart
 
 Konduit Serving is a framework-agnostic model serving solution focused on deploying machine learning pipelines to production. The Python SDK allows data scientists to quickly test machine learning deployment scenarios, bridging the gap between data science teams and DevOps.
 
-Before running these commands, set up Konduit Serving according to the installation instructions on the [Installation](../installation.md) or [Building From Source](../building-from-source.md) page:
+Before running these commands, set up Konduit Serving according to the installation instructions on the [Building From Source](../building-from-source.md) and [Installation](../installation.md) page:
 
 ## Configuration Files
 

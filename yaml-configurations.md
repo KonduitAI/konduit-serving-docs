@@ -5,7 +5,7 @@ description: >-
   and the konduit.load module.
 ---
 
-# YAML configurations
+# JSON/YAML configurations
 
 ## YAML components
 

@@ -1,90 +1,68 @@
-# Installation
+---
+description: Instructions for installing and setting up built binaries
+---
 
-[![PyPI](https://img.shields.io/pypi/v/konduit?style=for-the-badge)](https://pypi.org/project/konduit/0.1.2/)[![Conda \(channel only\)](https://img.shields.io/conda/vn/konduitai/konduit?color=%233EB049&style=for-the-badge)](https://anaconda.org/konduitai/konduit)
+# Installing Binaries
 
 ## System requirements
 
-**Operating systems** Konduit Serving is supported on Linux, macOS and Windows.
+### **OPERATING SYSTEMS**
 
-**Dependencies** Ensure that you have JDK 8.0 installed. To use the Python SDK, install Python 3.7 and above.
+Konduit Serving is supported on 
 
-**Hardware requirements** Binaries are provided for Intel/x86 architectures. For ARM support, see the [_Building from source_](building-from-source.md#manual-build) page.
+* Linux
+* MacOS
+* Windows
 
-**GPU**: Hardware acceleration with CUDA version 10.1 \(included in GPU build\) is supported.
+### **DEPENDENCIES**
 
-## Installation
+* Ensure that you have JDK 8.0 installed
+* Install Python 3.7.x to be used with the Python Step
 
-Install `konduit` from PyPI with
+### **HARDWARE REQUIREMENTS**
 
-```bash
-pip install konduit
-```
+Binaries are provided for
 
-{% hint style="warning" %}
-A version of Konduit Serving with the command line interface \(CLI\) is not currently available on PyPI. To obtain the CLI, clone the [konduit-serving](https://github.com/KonduitAI/konduit-serving) repository, and in the `python` folder run
+* Intel/x86 architectures
+* ARM
 
-`pip install`.
-{% endhint %}
+### **GPU SUPPORT** 
 
-If using the Anaconda distribution, you may install `konduit` from the `konduitai` Anaconda channel. First add the `konduitai` channel:
+Hardware acceleration with 
+
+* CUDA version 11.0
+
+## INSTALLATION INSTRUCTIONS
+
+Installation for each type of distribution is as follows: 
+
+### TAR/ZIP
+
+After extracting, just put the `bin` folder into the `PATH` environment variable.
+
+### DEB
 
 ```text
-conda config --add channels konduitai
+dpkg -i konduit-serving-deb/target/**/*.deb
 ```
 
-then install `konduit` with:
+### RPM
 
 ```text
-conda install -c konduitai konduit
+rpm -i konduit-serving-rpm/target/**/*.rpm
 ```
 
-You may need to install Cython before installing `konduit` using
+### EXE
 
-```text
-pip install cython
-```
+Just put the folder containing the `konduit.exe` file into the `PATH` environment variable.
 
-We recommend using Python 3.7+.
+## CONFIGURATIONS
 
-{% hint style="warning" %}
-`konduit` PyPI wheels and conda packages do not currently ship with Konduit Serving JARs. Refer to the [_Building from source_](building-from-source.md#manual-build) page for instructions on compiling a Konduit Serving JAR.
-{% endhint %}
+### LINUX/MACOS
 
-## Set environment variables manually
+The configuration file is present inside the `conf/konduit-serving-env.sh` file for the `TAR/ZIP` distro. For Konduit-Serving distro installed from the `DEB` and `RPM` packages, the configuration file is present inside the location `/opt/konduit/conf/konduit-serving-env.sh`. Just uncomment the variables you want to set and specify the value you like.
 
-In the absence of the `KONDUIT_JAR_PATH` environment variable, the Python SDK looks for the Konduit Serving JAR file in `~/.konduit/konduit-serving`. To overwrite this default, you can set a default location for the Konduit Serving JAR using environment variables.
+### WINDOWS
 
-{% tabs %}
-{% tab title="Windows" %}
-Use [setx.exe](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx):
-
-```bash
-setx KONDUIT_JAR_PATH "C:\Users\User\konduit-serving\konduit.jar"
-```
-{% endtab %}
-
-{% tab title="Linux, macOS" %}
-```bash
-export KONDUIT_JAR_PATH="~/konduit-serving/konduit.jar"
-```
-{% endtab %}
-{% endtabs %}
-
-## Common installation issues
-
-1. Installing `pyjnius` returns
-
-   ```text
-   WARNING: Not able to assign machine() = AMD64 to a cpu value! Using cpu = 'i386' instead!
-   ```
-
-   Fix: Ensure your JAVA environment variables point to a 64-bit version of Java if you're using a 64-bit version of Python, or a 32-bit version of Java if you're using a 32-bit version of Python \(see [kivy/pyjnius\#390](https://github.com/kivy/pyjnius/issues/390)\).
-
-2. When running `konduit` commands on Windows, the following error message is returned:
-
-   ```text
-   ImportError: DLL load failed: The specified module could not be found.
-   ```
-
-   Fix: On Windows, `pyjnius` requires an additional PATH variable to locate `jvm.dll`. Refer to the [pyjnius documentation](https://pyjnius.readthedocs.io/en/stable/installation.html#installation-for-windows) for details.
+The configuration file for the `TAR/ZIP` distro is present inside the `conf/konduit-serving-env.cmd` file. Just uncomment the variables you want to set and specify the value you like.
 
