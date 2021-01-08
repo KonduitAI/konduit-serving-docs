@@ -36,7 +36,7 @@ You can create CPU/GPU builds for available platforms by executing their respect
 
 ## Example
 
-An example of creating Ubuntu \(deb\) build is as follows:
+An example of creating **Ubuntu \(deb\)** build is as follows:
 
 ```text
 $ ./build.sh CPU linux deb
