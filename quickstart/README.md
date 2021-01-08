@@ -2,9 +2,9 @@
 
 Konduit Serving is a framework-agnostic model serving solution focused on deploying machine learning pipelines to production. The Python SDK allows data scientists to quickly test machine learning deployment scenarios, bridging the gap between data science teams and DevOps.
 
-Before running these commands, set up Konduit Serving according to the installation instructions on the Installation page:
+Before running these commands, set up Konduit Serving according to the installation instructions on the [Installation](../installation.md) or [Building From Source](../building-from-source.md) page:
 
-{% page-ref page="../installation.md" %}
+## Configuration Files
 
 Konduit Serving configuration files consist of `serving`, `steps` and `client` components. Save the configuration below as a text file named `hello-world.yaml` in your current directory:
 
