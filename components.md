@@ -239,14 +239,15 @@ The following pipeline step types can be used to configure a pipeline configurat
 | **09** | **EXTRACT\_BOUNDING\_BOX** | **A pipeline step that extracts sub-images from an input image, based on the locations of input bounding boxes.**  |
 | **10** | **CAMERA\_FRAME\_CAPTURE** | **A pipeline step that specifies an input that's taken from a camera feed.** |
 | **11** | **VIDEO\_FRAME\_CAPTURE** | **A pipeline step that configures how to extract a single frame from a video each time inference is called. The video path is hardcoded, mainly used for testing/demo purposes.** |
-| **12** | **IMAGE\_TO\_NDARRAY, LOGGING** | **A PipelineStep for converting images to n-dimensional arrays.**  |
-| **13** | **SSD\_TO\_BOUNDING\_BOX** | **A pipeline step that configures extraction of bounding boxes from an SSD model output.** |
-| **14** | **SAMEDIFF** | **A model pipeline step that serves a SameDiff model.** |
-| **15** | **SHOW\_IMAGE** | **A pipeline step that configures how to show/render an image from a previous step in an application frame. Usually only used for testing and debugging locally, not when serving from HTTP/GRPC etc endpoints.** |
-| **16** | **TENSORFLOW** | **A model pipeline step that serves a TensorFlow model using Tensorflow Java API. This is packaged into Konduit-Serving through JavaCPP.** |
-| **17** | **ND4JTENSORFLOW** | **A pipeline step that configures a TensorFlow model that is to be executed based on an ND4J graph runner. This has performance benefits over native TensorFlow Java distribution.** |
-| **18** | **PYTHON** | **This pipeline step can take an arbitrary python script and serve that through Konduit-Serving.** |
-| **19** | **ONNX** | **A model pipeline step that serves a ONNX model.** |
+| **12** | **IMAGE\_TO\_NDARRAY** | **A PipelineStep for converting images to n-dimensional arrays.**  |
+| **13** | **LOGGING** | **A step that logs the key and value pairs coming from the previous steps.** |
+| **14** | **SSD\_TO\_BOUNDING\_BOX** | **A pipeline step that configures extraction of bounding boxes from an SSD model output.** |
+| **15** | **SAMEDIFF** | **A model pipeline step that serves a SameDiff model.** |
+| **16** | **SHOW\_IMAGE** | **A pipeline step that configures how to show/render an image from a previous step in an application frame. Usually only used for testing and debugging locally, not when serving from HTTP/GRPC etc endpoints.** |
+| **17** | **TENSORFLOW** | **A model pipeline step that serves a TensorFlow model using Tensorflow Java API. This is packaged into Konduit-Serving through JavaCPP.** |
+| **18** | **ND4JTENSORFLOW** | **A pipeline step that configures a TensorFlow model that is to be executed based on an ND4J graph runner. This has performance benefits over native TensorFlow Java distribution.** |
+| **19** | **PYTHON** | **This pipeline step can take an arbitrary python script and serve that through Konduit-Serving.** |
+| **20** | **ONNX** | **A model pipeline step that serves a ONNX model.** |
 
 ### **Inference Configuration**
 
