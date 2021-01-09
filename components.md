@@ -18,7 +18,7 @@ This page will go through each one of them and explain what they are used for.
 
 ### **CLI Interface**
 
-Konduit-Serving comes with a CLI interface \(with a konduit alias\) that's responsible for taking care of most aspects of the application. The help command will describe most of what we are able to do with konduit-serving. Executing konduit --help command will show us the following output:
+Konduit-Serving comes with a CLI interface \(with a `konduit` alias\) that's responsible for taking care of most aspects of the application. The help command will describe most of what we are able to do with Konduit-Serving. Executing `konduit --help` command will show us the following output:
 
 ```bash
 $ konduit --help
@@ -86,6 +86,7 @@ As can be seen, the --help command for an individual help command describes its 
 * list
 * logs
 * predict
+* metrics
 * profile
 * pythonpaths
 * serve
