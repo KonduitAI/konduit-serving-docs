@@ -2,10 +2,7 @@
 
 * [Introduction](README.md)
 * [Components](components.md)
-* [Quickstart](quickstart/README.md)
-  * [Pip package](quickstart/pip-package.md)
-  * [Command line interface \(CLI\)](quickstart/quickstart-cli.md)
-  * [Python SDK](quickstart/quickstart-python.md)
+* [Quickstart](quickstart.md)
 * [Building from source](building-from-source.md)
 * [Installing Binaries](installation.md)
 * [JSON/YAML configurations](yaml-configurations.md)

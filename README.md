@@ -97,5 +97,5 @@ Through custom Python or Java code
 
 Konduit-serving source code can be found [here](https://github.com/KonduitAI/konduit-serving). There’s also a few demos and use cases on the repo link [here](https://github.com/KonduitAI/nec-sra-workshop). The examples are based on a Docker image implementation for both CPU and GPU backends which is a great source to start learning more about Konduit-Serving.
 
-To get started with Konduit-Serving, check out the [Quickstart](quickstart/) page.
+To get started with Konduit-Serving, check out the [Quickstart](quickstart.md) page.
 
