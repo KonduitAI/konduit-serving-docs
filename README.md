@@ -12,8 +12,8 @@ Konduit-Serving provides building blocks for developers to write their own produ
 
 The core abstraction is an idea called a **pipeline step**. A pipeline step performs a task such as:
 
-1. Pre-processing steps;
-2. Running one or more machine learning models; and
+1. Pre-processing steps
+2. Running one or more machine learning models
 3. Post-processing steps: transforming the output in a way that can be understood by humans, such as labels in a classification example,
 
 as part of using a machine learning model in a deployment scenario.
