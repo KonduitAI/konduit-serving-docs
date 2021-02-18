@@ -30,10 +30,9 @@ Konduit-Serving utilizes many popular and performant libraries. Out of them the 
 
 Vert. x is an open source, reactive and polyglot software development toolkit and has great support for Java language. For Konduit-Serving, Vert.x is used for building and managing CLI, Web-servers and implementing data transmission backends through multiple protocols like [gRPC](https://en.wikipedia.org/wiki/GRPC), [MQTT](https://en.wikipedia.org/wiki/MQTT) and [HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol). It also implements a [Kafka](https://kafka.apache.org/) client setup and can link with a Kafka backend server. 
 
-Vert.x also allows us to scale our Konduit-Serving deployments very efficiently on multiple nodes. Although this feature hasn’t been tested thoroughly, Konduit-Serving has the ability to do it. The following stack shows how the different components in the stack work together.  
+Vert.x also allows us to scale our Konduit-Serving deployments very efficiently on multiple nodes. Although this feature hasn’t been tested thoroughly, Konduit-Serving has the ability to do it. The following stack shows how the different components in the stack work together.
 
-
-![](https://docs.google.com/drawings/u/2/d/sWyHSpGIxUFD7erZvfIL7nw/image?w=477&h=327&rev=196&ac=1&parent=1pghi_Njn8fb-rcy9nOwCivozE5-CUEkbvq0vyDYCibc)
+![](https://docs.google.com/drawings/u/2/d/sWyHSpGIxUFD7erZvfIL7nw/image?w=477&h=327&rev=199&ac=1&parent=1pghi_Njn8fb-rcy9nOwCivozE5-CUEkbvq0vyDYCibc)
 
 ### **DL4J Support**
 
