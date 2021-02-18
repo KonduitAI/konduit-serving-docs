@@ -36,19 +36,23 @@ Vert.x also allows us to scale our Konduit-Serving deployments very efficiently 
 
 ### **DL4J Support**
 
-In prior phases,  we have focused on benchmarks running tensorflow models on aurora.
+Konduit-Serving runs dl4j through an interface agnostic architecture. This means Konduit-Serving is not aware of which  backend it’s running. When compiling Konduit-Serving, you can use the command line to build a specific spin of Konduit-Serving optimized for a particular use case.
 
-We have also added support for running dl4j on aurora from java. This means running aurora math workloads from java via compiled libnd4j c++ that uses NCC. We’ve managed to get dl4j compiled on Aurora running via javacpp. An up to date link can be found [here](https://github.com/KonduitAI/deeplearning4j/wiki/Current-Build-Status-On-Aurora).
+### Aurora Vector Engine Support
 
-A build of konduit-serving that runs applications on aurora is pending, but possible based on the current work that’s been done.
+In prior phases, we have focused on benchmarks, running tensorflow models on aurora [vector engines](https://www.nec.com/en/global/solutions/hpc/sx/vector_engine.html).
 
-Konduit-serving runs dl4j through an interface agnostic architecture. This means konduit-serving is not aware of which  backend it’s running. When compiling konduit-serving, you can use the command line to build a specific spin of konduit-serving optimized for a particular use case.
+We have also added support for running DL4J on Aurora from Java. This means running Aurora math workloads from java via compiled libnd4j c++ that uses NCC. We’ve managed to get DL4J compiled on Aurora running via JavaCpp. An up to date link can be found [here](https://github.com/KonduitAI/deeplearning4j/wiki/Current-Build-Status-On-Aurora).
 
-In our case, when running konduit-serving in production  a particular spin can be used for certain operating systems and hardware allowing for testing on 1 platform, but deployment on another.
+A build of Konduit-Serving that runs applications on aurora is pending, but possible based on the current work that’s been done.
 
-The principal way a user would use aurora on konduit-serving and dl4j is the samediff framework. Aurora is accessible in a transparent way just by setting up a jar file containing the backend for aurora. GPUs are accessible in a similar way.
 
-The SameDiff pipeline step is the component to use in order to make aurora accessible to konduit-serving. 
+
+In our case, when running Konduit-Serving in production  a particular spin can be used for certain operating systems and hardware allowing for testing on 1 platform, but deployment on another.
+
+The principal way a user would use aurora on Konduit-Serving and dl4j is the samediff framework. Aurora is accessible in a transparent way just by setting up a jar file containing the backend for aurora. GPUs are accessible in a similar way.
+
+The SameDiff pipeline step is the component to use in order to make aurora accessible to Konduit-Serving. 
 
 SameDiffStep configuration looks like this from java:
 
