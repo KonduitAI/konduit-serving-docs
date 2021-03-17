@@ -35,9 +35,5 @@ The pages in this section show you how to start and interact with a Konduit Serv
 
 For quick experimentation, check out the quickstart for the command line interface \(CLI\):
 
-{% page-ref page="quickstart-cli.md" %}
-
 To access additional options, you will want to configure Konduit Serving instances with the Python SDK. Start with the Python quickstart:
-
-{% page-ref page="quickstart-python.md" %}
 
