@@ -95,7 +95,7 @@ As can be seen, the --help command for an individual help command describes its 
 
 ### **Jar File Package**
 
-Each konduit-serving distribution whether it is for Windows, Linux or MacOS comes contained in a JAR file. So, you'll need a Java Virtual Machine present in the system where you're using Konduit-Serving as a Model Pipeline Server. The CLI itself is linked with the jar file and utilizes a java runtime internally to interact with the Konduit-Serving package. If you look at the konduit serving distribution, you'll see the following folder architecture in the root folder:  
+Each Konduit-Serving distribution whether it is for Windows, Linux or MacOS comes contained in a JAR file. So, you'll need a Java Virtual Machine present in the system where you're using Konduit-Serving as a Model Pipeline Server. The CLI itself is linked with the jar file and utilizes a java runtime internally to interact with the Konduit-Serving package. If you look at the konduit serving distribution, you'll see the following folder architecture in the root folder:  
 
 
 ![](https://docs.google.com/drawings/u/2/d/sU9Kk3p6mTwO5DcFFatUAnA/image?w=397&h=320&rev=189&ac=1&parent=1pghi_Njn8fb-rcy9nOwCivozE5-CUEkbvq0vyDYCibc)

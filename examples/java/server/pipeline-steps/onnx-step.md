@@ -1,14 +1,14 @@
 ---
-description: Example of applying DL4J Step
+description: Example of applying ONNX Step
 ---
 
-# DL4J Step
+# ONNX Step
 
-This example splits  into two parts which are configuring the inference configuration and running the server. 
+This page provides a Java example of deploying a built-in model Python with Open Neural Network Exchange \(ONNX\) platform. The ONNX format is supported by other deep learning frameworks such Tensorflow, Pytorch, etc. In this example, the ONNX model is used to deploy the Iris model in the server.
 
 ```java
 import ai.konduit.serving.examples.utils.Train;
-import ai.konduit.serving.models.deeplearning4j.step.DL4JStep;
+import ai.konduit.serving.models.onnx.step.ONNXStep;
 import ai.konduit.serving.pipeline.impl.pipeline.SequencePipeline;
 import ai.konduit.serving.vertx.api.DeployKonduitServing;
 import ai.konduit.serving.vertx.config.InferenceConfiguration;
@@ -19,12 +19,9 @@ import io.vertx.core.DeploymentOptions;
 import io.vertx.core.VertxOptions;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.io.IOException;
 import java.util.Arrays;
 ```
-
-{% hint style="info" %}
-A reference Java project is provided in the Example repository from [https://github.com/KonduitAI/konduit-serving-examples](https://github.com/KonduitAI/konduit-serving-examples) with a Maven pom.xml dependencies file. If using the IntelliJ IDEA IDE, open the java folder as a Maven project and run the main function of Example\_1\_Dl4jStep class.
-{% endhint %}
 
 ### Configure the step
 
@@ -32,7 +29,7 @@ Let's start from the main function by getting the trained model.
 
 ```java
 //get the file of trained model
-Train.ModelTrainResult modelTrainResult = Train.dl4jIrisModel();
+Train.ModelTrainResult modelTrainResult = Train.onnxIrisModel();
 ```
 
 Create an inference configuration by default.
@@ -42,7 +39,7 @@ Create an inference configuration by default.
 InferenceConfiguration inferenceConfiguration = new InferenceConfiguration();
 ```
 
-We'll need to include `DL4JStep` into the pipeline and bind with the inference configuration. Specify the following:
+We'll need to include `ONNXStep` into the pipeline and specify the following:
 
 * `modelUri` : the model file path
 * `inputNames` : names for model's input layer
@@ -51,7 +48,7 @@ We'll need to include `DL4JStep` into the pipeline and bind with the inference c
 ```java
 //include pipeline step into the Inference Configuration
 inferenceConfiguration.pipeline(SequencePipeline.builder()
-        .add(new DL4JStep() //add DL4JStep into pipeline
+        .add(new ONNXStep() //add ONNXStep into pipeline
                 .modelUri(modelTrainResult.modelPath())
                 .inputNames(modelTrainResult.inputNames())
                 .outputNames(modelTrainResult.outputNames())
@@ -61,7 +58,7 @@ inferenceConfiguration.pipeline(SequencePipeline.builder()
 
 ### Deploy the server
 
-Let's deploy the model in the server by calling `DeployKonduitServing` with the configuration made before. The handler, a callback function, is implemented to capture a successful or failed server deployment state.
+Let's deploy the model in the server by calling  `DeployKonduitServing` with the configuration made before. A callback function is used to respond only after a successful or failed server deployment inside the handler block.
 
 ```java
 //deploy the model in server
@@ -81,7 +78,7 @@ DeployKonduitServing.deploy(new VertxOptions(), new DeploymentOptions(),
                     String result = Unirest.post(String.format("http://localhost:%s/predict", runnningPort))
                             .header("Content-Type", "application/json")
                             .header("Accept", "application/json")
-                            .body(new JSONObject().put("layer0",
+                            .body(new JSONObject().put("input",
                                     new JSONArray().put(Arrays.asList(1.0, 1.0, 1.0, 1.0)))
                             )
                             .asString().getBody();
@@ -91,7 +88,6 @@ DeployKonduitServing.deploy(new VertxOptions(), new DeploymentOptions(),
                     System.exit(0);
                 } catch (UnirestException e) {
                     e.printStackTrace();
-
                     System.exit(1);
                 }
             } else { // If the server failed to run
@@ -104,9 +100,9 @@ DeployKonduitServing.deploy(new VertxOptions(), new DeploymentOptions(),
 Note that we consider only one test input array in this example for inference to show the model's deployment in Konduit-Serving. After execution, the successful server deployment gives below output text.
 
 ```aspnet
-The server is running on port 39615 with deployment id of 2fe69a2d-1276-4a1d-b5af-50191640019f
+The server is running on port 44301 with deployment id of 775bfbd3-2d18-435b-86c6-e9fbe7303cad
 Result from server : {
-  "layer2" : [ [ 5.287693E-4, 0.02540398, 0.9740673 ] ]
+  "output" : [ [ 0.035723433, 0.27029678, 0.69397974 ] ]
 }
 
 Process finished with exit code 0
@@ -145,11 +141,11 @@ mqtt_configuration: {}
 custom_endpoints: []
 pipeline:
   steps:
-  - '@type': "DEEPLEARNING4J"
-    modelUri: "/tmp/model6027458615639981189zip"
+  - '@type': "ONNX"
+    modelUri: "/home/zulfadzli/KS2/konduit-serving-examples/java/target/classes/models/onnx/iris/iris.onnx"
     inputNames:
-    - "layer0"
+    - "input"
     outputNames:
-    - "layer2"
+    - "output"
 ```
 

@@ -1,6 +1,6 @@
 ---
 description: >-
-  Konduit Serving is a framework focused on deploying machine learning pipelines
+  Konduit-Serving is a framework focused on deploying machine learning pipelines
   to production.
 ---
 
