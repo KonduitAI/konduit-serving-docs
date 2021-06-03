@@ -29,18 +29,18 @@ $ konduit config  [-m] [-o <output-file>] -p <config> [-pr <value>]  [-y]
       <td style="text-align:left">
         <p>A comma-separated list of sequence/graph pipeline steps to create boilerplate
           configuration from.</p>
-        <p>For sequences, allowed values are: [crop_grid, crop_fixed_grid, dl4j,
-          keras, draw_bounding_box, draw_fixed_grid, draw_grid, draw_segmentation,
-          extract_bounding_box, camera_frame_capture, video_frame_capture, image_to_ndarray,
-          logging, ssd_to_bounding_box, samediff, show_image, tensorflow, nd4jtensorflow,
-          python, onnx, classifier_output].</p>
+        <p></p>
+        <p>For sequences, allowed values are: [<code>crop_grid</code>, <code>crop_fixed_grid</code>, <code>dl4j</code>, <code>keras</code>, <code>draw_bounding_box</code>, <code>draw_fixed_grid</code>, <code>draw_grid</code>, <code>draw_segmentation</code>, <code>extract_bounding_box</code>, <code>camera_frame_capture</code>, <code>video_frame_capture</code>, <code>image_to_ndarray</code>, <code>logging</code>, <code>ssd_to_bounding_box</code>, <code>samediff</code>, <code>show_image</code>, <code>tensorflow</code>, <code>nd4jtensorflow</code>, <code>python</code>, <code>onnx</code>, <code>classifier_output</code>].</p>
+        <p></p>
         <p>For graphs, the list item should be in the format &apos;&lt;output&gt;=&lt;type&gt;(&lt;inputs&gt;)&apos;
           or &apos;[outputs]=switch(&lt;inputs&gt;)&apos; for switches. The pre-defined
           root input is named, &apos;input&apos;. Examples are:</p>
-        <p>Pipeline step: &apos;a=tensorflow(input),b=dl4j(input)&apos; Merge Step:
-          &apos;c=merge(a,b)&apos; Switch Step (int): &apos;[d1,d2,d3]=switch(int,select,input)&apos;
-          Switch Step (string): &apos;[d1,d2,d3]=switch(string,select,x:1,y:2,z:3,input)
-          &apos;Any Step: &apos;e=any(d1,d2,d3)&apos;.</p>
+        <p>Pipeline step: &apos;a=tensorflow(input),b=dl4j(input)&apos;</p>
+        <p>Merge Step: &apos;c=merge(a,b)&apos;</p>
+        <p>Switch Step (int): &apos;[d1,d2,d3]=switch(int,select,input)&apos;</p>
+        <p>Switch Step (string): &apos;[d1,d2,d3]=switch(string,select,x:1,y:2,z:3,input)
+          &apos;</p>
+        <p>Any Step: &apos;e=any(d1,d2,d3)&apos;.</p>
       </td>
     </tr>
     <tr>
